@@ -14,13 +14,14 @@ external calls. All data lives in one place: the `<script id="state" type="appli
 block near the bottom. **That block is normally the only thing you edit.**
 
 ```
-{ schema, runDate, runNumber, runLabel, runNote, priorityAreas, priorityLabel, criteria, listings[] }
+{ schema, runDate, runNumber, runLabel, runNote, priorityAreas, priorityLabel,
+  rubric[], criteria, listings[] }
 ```
 
 Each listing: `id`, `name`, `region` (nn|es|lk), `water`, `type` (waterfront|access|home),
 `price`, `priceWas` (ORIGINAL list price), `acres`, `score`, `drive` ("1h20"), `hoa`,
 `firstSeen`, `firstSeenRun`, `status` (active|pending|sold|removed), `highlights[]`,
-`flags[]`, `signals`, `url`.
+`amenities[]` (optional), `flags[]`, `signals`, `url`.
 
 ## Invariants — each of these is a bug that was already fixed once
 
@@ -41,6 +42,10 @@ without reading this list first.
 - **No value may contain the literal `</script>`.** It terminates the state block and
   breaks the page. Everything else (`&`, `<`, quotes) is safe.
 - **Listing ids must be unique and stable.** The clickable tiles jump by id.
+- **The scoring rubric is data too.** The footer paragraph renders from `rubric[]`
+  (`{label, detail, pts}`). Reweighting means editing that array, never the HTML, and the
+  points must still total 100. Scores on the board must reflect the current rubric — when
+  the weights change, every listing gets re-scored, not just the new ones.
 
 ## Priority areas
 
@@ -55,6 +60,28 @@ frontage vs. resort amenity pond (Crystal Lake is a pond); Kings Creek frontage 
 and MLW depth; lot elevation vs. BFE. Cape Charles sits ~3 ft with most developed land at
 5–10 ft, and Northampton County requires a sealed flood elevation certificate, with V-zone
 plans sealed by a Virginia-licensed architect or engineer.
+
+## Amenities — there are two buyers
+
+Ted optimises for land value, buildability and real boating water. His wife rates the
+lifestyle of an amenity community (Bay Creek being the reference) very highly: pool and
+clubhouse, golf, beach and trails. Both count, and a lot strong on only one axis is
+weaker than its number suggests.
+
+As of run 5 amenities are worth **20 of 100**, funded mainly by dropping hold-and-build
+fit from 15 to 10. That category penalised HOA and club dues, so an amenity-rich
+community was charged twice — once for the cost, with no credit for what it buys.
+
+Rank amenity quality: pool/clubhouse first, then golf, then beach and trails, then
+everything else. **A marina, boat ramp or deeded slip is not an amenity here** — water
+access quality already scores those, and counting them in both places inflates every
+community with a dock.
+
+`amenities[]` holds short plain-text items and drives a line on the card, a count badge,
+a filter chip and a sort. Populate it only from what a listing or the community's own
+materials state. Omit the field entirely for an unresearched community — that is
+different from having no amenities, and a keyword sweep is not good enough: it tags
+`nn-haven-beach-*` off a road name and `nn-buzzard-point` off a nearby *public* beach.
 
 ## Network access
 
