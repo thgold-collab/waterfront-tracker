@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waterfront Deal Tracker — within 3 hrs of Glen Allen, VA</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1: #fcfcfb; --page: #f9f9f7;
+    --ink-1: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+    --seq-450: #2a78d6; --seq-250: #86b6ef; --seq-600: #184f95;
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b;
+    --delta-good: #006300;
+    --chip-bg: #f0efec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1: #1a1a19; --page: #0d0d0d;
+      --ink-1: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --baseline: #383835;
+      --border: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+      --delta-good: #0ca30c;
+      --chip-bg: #262624;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19; --page: #0d0d0d;
+    --ink-1: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --baseline: #383835;
+    --border: rgba(255,255,255,0.10);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+    --delta-good: #0ca30c;
+    --chip-bg: #262624;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--page); color: var(--ink-1);
+    padding: 24px 20px 60px; line-height: 1.45;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header h1 { font-size: 22px; font-weight: 700; }
+  header .sub { color: var(--ink-2); font-size: 13.5px; margin-top: 4px; }
+  .criteria { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .criteria span {
+    background: var(--chip-bg); border: 1px solid var(--border);
+    border-radius: 999px; padding: 3px 11px; font-size: 12px; color: var(--ink-2);
+  }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 20px 0; }
+  .tile {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .tile .v { font-size: 24px; font-weight: 700; }
+  .tile .l { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+  .tile .d { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 18px 0 14px; }
+  .controls .grp { display: flex; gap: 6px; flex-wrap: wrap; }
+  .controls button {
+    font: inherit; font-size: 12.5px; cursor: pointer;
+    background: var(--surface-1); color: var(--ink-2);
+    border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px;
+  }
+  .controls button.on { color: var(--ink-1); font-weight: 600; border-color: var(--baseline); background: var(--chip-bg); }
+  .controls .spacer { flex: 1; }
+  .controls select {
+    font: inherit; font-size: 12.5px; background: var(--surface-1);
+    color: var(--ink-1); border: 1px solid var(--border); border-radius: 8px; padding: 5px 8px;
+  }
+  .list { display: flex; flex-direction: column; gap: 10px; }
+  .card {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+    display: grid; grid-template-columns: 64px 1fr; gap: 14px;
+  }
+  .scorebox { text-align: center; }
+  .scorebox .n { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .scorebox .meter {
+    height: 4px; border-radius: 4px; background: var(--grid); margin-top: 6px; overflow: hidden;
+  }
+  .scorebox .meter i { display: block; height: 100%; border-radius: 4px; background: var(--seq-450); }
+  .scorebox .t { font-size: 10.5px; color: var(--muted); margin-top: 5px; }
+  .card h3 { font-size: 15px; font-weight: 650; }
+  .card h3 a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--baseline); }
+  .card h3 a:hover { border-bottom-color: var(--ink-1); }
+  .toprow { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+  .regiondot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 2px; }
+  .r-es { background: var(--s2); } .r-nn { background: var(--s1); } .r-lk { background: var(--s3); }
+  .price { font-weight: 700; font-size: 15px; }
+  .was { color: var(--muted); text-decoration: line-through; font-size: 12.5px; font-weight: 400; }
+  .cut { color: var(--delta-good); font-size: 12.5px; font-weight: 600; }
+  .meta { color: var(--ink-2); font-size: 12.5px; margin-top: 3px; }
+  .meta b { color: var(--ink-1); font-weight: 600; }
+  .notes { font-size: 12.5px; color: var(--ink-2); margin-top: 6px; }
+  .flag { font-size: 12px; margin-top: 6px; color: var(--ink-2); }
+  .flag .ic { color: var(--serious); font-weight: 700; margin-right: 4px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 999px;
+    background: var(--chip-bg); border: 1px solid var(--border); color: var(--ink-2);
+  }
+  .badge.hot { border-color: var(--serious); color: var(--ink-1); }
+  .badge.new { border-color: var(--seq-450); color: var(--ink-1); }
+  .sechead { margin: 26px 0 10px; font-size: 13px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.04em; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--ink-2); margin-top: 8px; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  footer { margin-top: 34px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--grid); padding-top: 14px; }
+  footer p { margin-bottom: 6px; }
+  .themebtn {
+    float: right; font: inherit; font-size: 12px; cursor: pointer;
+    background: none; border: 1px solid var(--border); border-radius: 8px;
+    color: var(--ink-2); padding: 4px 10px;
+  }
+  @media (max-width: 560px) { .card { grid-template-columns: 1fr; } .scorebox { text-align: left; display: flex; align-items: center; gap: 10px; } .scorebox .meter { flex: 1; margin-top: 0; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <button class="themebtn" onclick="toggleTheme()">Light / dark</button>
+    <h1>Waterfront Deal Tracker</h1>
+    <div class="sub">Land &amp; home value scan within ~3 hrs of Glen Allen, VA &middot; Run 1 + diligence workup on top 5 &middot; <b id="rundate"></b></div>
+    <div class="criteria">
+      <span>Budget: under $200k</span>
+      <span>Land-first; homes only at land-value pricing</span>
+      <span>Build horizon: 2&ndash;4 yrs</span>
+      <span>Regions: Eastern Shore &middot; Northern Neck / Mid-Peninsula &middot; Lakes</span>
+    </div>
+    <div class="legend">
+      <span><i class="regiondot r-nn"></i>Northern Neck / Middle Peninsula</span>
+      <span><i class="regiondot r-es"></i>Eastern Shore / Bay</span>
+      <span><i class="regiondot r-lk"></i>Lakes (Anna &middot; Gaston &middot; Kerr)</span>
+    </div>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="controls">
+    <div class="grp" id="regionFilters">
+      <button data-r="all" class="on">All regions</button>
+      <button data-r="nn">Northern Neck / Mid-Pen</button>
+      <button data-r="es">Eastern Shore</button>
+      <button data-r="lk">Lakes</button>
+    </div>
+    <div class="grp" id="typeFilters">
+      <button data-t="all" class="on">All types</button>
+      <button data-t="waterfront">True waterfront</button>
+      <button data-t="access">Water access</button>
+      <button data-t="home">Homes</button>
+    </div>
+    <div class="spacer"></div>
+    <select id="sortSel">
+      <option value="score">Sort: score</option>
+      <option value="price">Sort: price (low first)</option>
+      <option value="ppa">Sort: $/acre (low first)</option>
+      <option value="drive">Sort: drive time</option>
+    </select>
+  </div>
+
+  <div class="sechead" id="listHead">Scored watchlist</div>
+  <div class="list" id="list"></div>
+
+  <footer>
+    <p><b>Scoring rubric (0&ndash;100):</b> price vs. area comps (30) &middot; buildability &mdash; perc/septic, flood, utilities (25) &middot; water access quality &mdash; frontage, depth, dock rights (20) &middot; hold-and-build fit &mdash; HOA/covenants/taxes for a 2&ndash;4 yr hold (15) &middot; deal signals &mdash; DOM, cuts, motivated seller (10).</p>
+    <p><b>Read the flags.</b> A high score is a shortlist signal, not diligence: every lot here still needs a current perc test, flood-zone map pull, and title/covenant review before an offer. Prices and availability change; links go to the live listing.</p>
+    <p>Data gathered from LandSearch, LandWatch, Homes.com, Howard Hanna, Trulia, and regional brokerage sites. Next scheduled run: Fridays ~7am ET.</p>
+  </footer>
+</div>
+
+<script id="state" type="application/json">
+{"schema":1,"runDate":"2026-08-01","runNumber":1,"criteria":{"maxPrice":200000,"origin":"Glen Allen, VA","maxDriveHours":3,"regions":["Eastern Shore/Bay","Northern Neck/Middle Peninsula","Lakes: Anna, Gaston, Kerr"],"landFirst":true,"buildHorizonYears":"2-4"},"listings":[
+{"id":"nn-ottoman-ferry","name":"Lot 188B Ottoman Ferry Rd, Lancaster","region":"nn","water":"Lowery Creek → Corrotoman → Rappahannock","type":"waterfront","price":179500,"priceWas":null,"acres":2.05,"score":76,"drive":"1h20","hoa":"None","firstSeen":"2026-08-01","status":"active","highlights":["2.05 elevated ac (34 ft), 270 ft frontage, no HOA, fiber live","New survey + septic + pier drawings claimed — see diligence"],"flags":["DILIGENCE 8/1: flip — seller paid $133k 7/2024; true DOM ~15 mo","Septic permit likely expired (18-mo VA rule); pier drawings ≠ VMRC permit","MLS classifies water as shallow-draft (3-5 ft)"],"signals":"Offer band: open $140-145k, walk >$165k","url":"https://www.landsearch.com/properties/ottoman-ferry-rd-lancaster-va-22503/5236882"},
+{"id":"nn-tranquility","name":"Lot 33 Tranquility Rd, Reedville","region":"nn","water":"Rock Hole Creek → Potomac/Bay","type":"waterfront","price":144500,"priceWas":149500,"acres":2.3,"score":82,"drive":"1h45","hoa":"$100/yr","firstSeen":"2026-08-01","status":"active","highlights":["DILIGENCE 8/1: best risk-adjusted of the top 5 — claims held up","Conventional 4-BR septic permit (expires ~18 mo from issue — get date)","~4 ft MLW on Rock Hole Creek (Little Wicomico); docks w/ lifts exist","Homesite ~10 ft elevation; fiber complete in area"],"flags":["Well needed","Bay Pointe covenants not published — demand POA packet","Visit on SW-wind summer day (Omega Protein plant 2-3 mi SW)"],"signals":"Offer band: open $125-128k, target $132-138k","url":"https://www.landsearch.com/properties/tranquility-rd-reedville-va-22560/5077453"},
+{"id":"es-baldpate","name":"18 Baldpate Ln, Schooner Bay, Onancock","region":"es","water":"Bulkheaded canal → Chesapeake Bay","type":"waterfront","price":82000,"priceWas":88000,"acres":0.49,"score":68,"drive":"2h40","hoa":"Optional $50/yr (recorded covenants bind anyway)","firstSeen":"2026-08-01","status":"active","highlights":["100 ft bulkheaded canal frontage; Onancock 10 min","Cheapest lot in community by $33k"],"flags":["DILIGENCE 8/1: cheap for reasons — bulkhead likely 1980s original, replacement $40-60k","Exit channel (Chesconessex Creek) last dredged 1967, no funded dredge — shallow-draft only","Possible Coastal A zone → pile construction; June relist was a DOM reset (true DOM 13 mo)"],"signals":"Offer band: open $55-62k, ceiling $70-72k","url":"https://www.landsearch.com/properties/18-baldpate-ln-onancock-va-23417/4593310"},
+{"id":"nn-heron-point","name":"Lot 69 Heron Point Ln, Coves at Wilton Creek, Hartfield","region":"nn","water":"Piankatank River — hurricane hole","type":"waterfront","price":184500,"priceWas":null,"acres":0.47,"score":79,"drive":"1h05","hoa":"$800/yr (up 33% since 2023)","firstSeen":"2026-08-01","status":"active","highlights":["DILIGENCE 8/1: rarest product on board — 6.5 ft MLW, sail-capable, hurricane hole CONFIRMED, no bridge to open water","Community water AND sewer — no perc risk","Dock structure likely exists (2023 listing: 'dock in place')"],"flags":["Sold $150k Jan 2024 after 6 yrs unsold at $250k — now +23%","Dock rights via EXCLUSIVE EASEMENT per MLS — read the instrument","Frontage is Wilton Creek (140 ft), not open Piankatank"],"signals":"Offer band: open $155-160k, settle $170-175k","url":"https://www.landsearch.com/properties/heron-point-ln-hartfield-va-23071/5426725"},
+{"id":"nn-paradise-point","name":"3938 Paradise Point Rd, Hayes (home + dock)","region":"nn","water":"Waterfront, Gloucester — dock conveys","type":"home","price":125000,"priceWas":null,"acres":0.77,"score":70,"drive":"1h00","hoa":"None listed","firstSeen":"2026-08-01","status":"active","highlights":["Closest to home (~1h10); teardown-and-elevate is the only viable thesis","Gloucester CRS Class 5 = 25% NFIP discount"],"flags":["DILIGENCE 8/1: grade ~4 ft vs BFE ~6-7 ft — new build on piles at BFE+3 (+$20-40k); renovation blocked by 50% rule","Water is Cedar Bush Creek — kayak depth, not boating water","Septic is a BINARY risk on RPA-constrained 0.77 ac; $125k is full retail for this creek — land worth $80-110k"],"signals":"Offer band: open $92-97k cash, cap $105-110k","url":"https://www.landsearch.com/properties/3938-paradise-point-rd-hayes-va-23072/5378706"},
+{"id":"lk-siouan","name":"Lot 12F Occoneechi Trl, Siouan Shores, Ebony (Lake Gaston)","region":"lk","water":"Lake Gaston — deeded boat slip A-7","type":"access","price":69000,"priceWas":null,"acres":6.21,"score":81,"drive":"1h15","hoa":"Verify (community has one)","firstSeen":"2026-08-01","status":"active","highlights":["6.2 acres + DEEDED slip at $11k/ac — best $/value found","Aqua community water hookup available; fiber","Paved street"],"flags":["Perc needed on the 6 ac","Verify slip distance & covenants"],"signals":"18 DOM — fresh","url":"https://www.landsearch.com/properties/ebony-va-23845/5410965"},
+{"id":"es-harbour-ln","name":"Lot 8 Harbour Ln, Bay Harbor, Cape Charles","region":"es","water":"Private cove, bayside","type":"waterfront","price":84999,"priceWas":110000,"acres":2.07,"score":80,"drive":"2h10","hoa":"None listed","firstSeen":"2026-08-01","status":"active","highlights":["2.07 ac direct cove frontage at $41k/ac","2002 perc certification transferable; electric at road","OWNER FINANCING offered"],"flags":["Perc is from 2002 — re-verify","Elevation 11 ft"],"signals":"$25k in cuts, relisted — motivated","url":"https://www.landsearch.com/properties/harbour-ln-cape-charles-va-23310/4897857"},
+{"id":"nn-millenbeck","name":"Millenbeck Prong Rd, White House Creek Estates, Lancaster","region":"nn","water":"Navigable creek → Corrotoman → Rappahannock","type":"waterfront","price":134950,"priceWas":null,"acres":1.77,"score":80,"drive":"1h20","hoa":"$300/yr","firstSeen":"2026-08-01","status":"active","highlights":["200+ ft shoreline; community boat ramp","2023 soil study available; bonus 0.43-ac lot as septic reserve","Community well — no drilling; fiber at road"],"flags":["Septic likely alternative-system — confirm from soil study"],"signals":"39 DOM","url":"https://www.landsearch.com/properties/millenbeck-prong-rd-lancaster-va-22503/5365504"},
+{"id":"lk-waterside","name":"29 Waterside Dr, Windward Shores, Henrico NC (Lake Gaston)","region":"lk","water":"Jimmie's Creek — deeded slip in shared boathouse","type":"waterfront","price":149000,"priceWas":195000,"acres":1.08,"score":79,"drive":"1h25","hoa":"Verify","firstSeen":"2026-08-01","status":"active","highlights":["24% off after 3 cuts; OWNER FINANCING offered","Driveway cut + rock laid, partial clearing done","Deeded slip directly in front of lot"],"flags":["Creek-front, not open water","NC side — out-of-state closing"],"signals":"~10 mo DOM, 3 cuts — motivated","url":"https://www.landsearch.com/properties/29-waterside-dr-henrico-nc-27842/4833494"},
+{"id":"nn-captains-way","name":"Lot 9 Captains Way, Inland Harbour, Reedville","region":"nn","water":"Warehouse Creek → Great Wicomico — deep water","type":"waterfront","price":125000,"priceWas":null,"acres":1.48,"score":78,"drive":"1h45","hoa":"$160/yr","firstSeen":"2026-08-01","status":"active","highlights":["Deep-water access; elevated, cleared, level","Community water available"],"flags":["Perc/septic not stated — verify"],"signals":"38 DOM","url":"https://www.landsearch.com/properties/captains-way-reedville-va-22539/5366172"},
+{"id":"lk-woodlandhurst","name":"Lot 19 Woodlandhurst Rd, Littleton NC (Lake Gaston)","region":"lk","water":"Private cove, easy main-lake access, no culverts","type":"waterfront","price":199000,"priceWas":null,"acres":0.8,"score":78,"drive":"1h30","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["TRUE dockable Gaston waterfront under $200k — market floor (typical: $250-400k)","Boathouse allowed via standard Dominion permit"],"flags":["Deed restrictions noted — review","NC side"],"signals":"~5 mo DOM","url":"https://www.landsearch.com/properties/woodlandhurst-rd-littleton-nc-27850/5087044"},
+{"id":"es-black-mallard","name":"1 Black Mallard Way, Schooner Bay, Onancock","region":"es","water":"Bulkheaded canal, ~7.5 ft MLW → Bay","type":"waterfront","price":115000,"priceWas":null,"acres":0.57,"score":78,"drive":"2h40","hoa":"Optional $50/yr","firstSeen":"2026-08-01","status":"active","highlights":["Deep water for the Shore (~7.5 ft MLW)","Electric installed, construction-ready","Near county boat ramp"],"flags":["Low elevation area — flood check"],"signals":"~2 mo DOM","url":"https://www.landsearch.com/properties/1-black-mallard-way-onancock-va-23417/5287830"},
+{"id":"nn-rocktown","name":"89A Rocktown Rd, Reedville","region":"nn","water":"Creek (Great Wicomico system) — NEW pier built","type":"waterfront","price":194500,"priceWas":null,"acres":4.42,"score":77,"drive":"1h45","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["New pier already built","4.42 ac at $44k/ac, A-1 — mini-farm potential","Taxes $634/yr"],"flags":["Perc/flood not disclosed — verify"],"signals":"~6 wk DOM","url":"https://www.landsearch.com/properties/89a-rocktown-rd-reedville-va-22539/5341371"},
+{"id":"lk-shady-grove","name":"Lot 6 Lake Gaston Dr, Shady Grove, Gasburg (Lake Gaston)","region":"lk","water":"~270 ft frontage, Pea Hill Creek arm","type":"waterfront","price":149000,"priceWas":null,"acres":4.18,"score":77,"drive":"1h15","hoa":"NONE","firstSeen":"2026-08-01","status":"active","highlights":["Rare no-HOA waterfront acreage under $150k","270 ft of frontage; fiber; paved state road"],"flags":["Creek-arm depth/navigability to main lake — verify","Well + septic needed"],"signals":"~5 mo DOM","url":"https://www.landsearch.com/properties/lake-gaston-dr-gasburg-va-23857/5088071"},
+{"id":"es-wise-point","name":"21302 Wise Point Ln, Chesconessex, Onancock","region":"es","water":"Boat slip + community dock, Chesconessex Creek (3 ft MLW)","type":"access","price":189999,"priceWas":null,"acres":22.4,"score":77,"drive":"2h45","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["22.4 ac at $8.5k/ac — cheapest dirt with water rights found","4-BR septic INSTALLED on Lot 1","Private boat slip + community dock w/ 2 lifts"],"flags":["Lot 8 (12.75 ac) under conservancy restriction — likely not buildable","3 ft MLW — shallow-draft boats"],"signals":"~5 mo DOM","url":"https://www.landsearch.com/properties/21302-wise-point-ln-onancock-va-23417/5078559"},
+{"id":"nn-beales-wharf","name":"36-127 Beales Wharf Rd, Montross","region":"nn","water":"Nomini Creek → Potomac, wide views","type":"waterfront","price":160000,"priceWas":239000,"acres":1.47,"score":76,"drive":"1h30","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["-33% from original ask; fell out of contract — motivated","Artesian well on site; pilings from historic long pier remain","History of deep-draft boats docking (verify depth)"],"flags":["Elevation 13 ft — flood-zone check","Old outbuildings need cleanup"],"signals":"~15 mo DOM, -$79k","url":"https://www.landsearch.com/properties/36-127-beales-wharf-rd-montross-va-22520/4413970"},
+{"id":"nn-eagles-nest","name":"Lot 7 Eagles Nest Ln, Heathsville","region":"nn","water":"Creek waterfront (Great Wicomico area)","type":"waterfront","price":99000,"priceWas":109900,"acres":1.7,"score":76,"drive":"1h35","hoa":"$275/yr","firstSeen":"2026-08-01","status":"active","highlights":["Septic approval letter on file; well available","Level lot; sub-$100k creek-front"],"flags":["Unnamed creek — verify navigability/depth"],"signals":"~4 mo DOM, 9.9% cut","url":"https://www.landsearch.com/properties/eagles-nest-ln-heathsville-va-22473/5130738"},
+{"id":"es-peaceful-ponds","name":"Lot 8 Peaceful Ponds, Jamesville","region":"es","water":"Chesapeake Bay overlook, bulkheaded + beach stairs","type":"waterfront","price":37500,"priceWas":null,"acres":null,"score":75,"drive":"2h20","hoa":"Community pool/beach — verify fee","firstSeen":"2026-08-01","status":"active","highlights":["Cheapest real bay-front found: $37.5k, bulkheaded","Well installed; taxes $274/yr","Private beach access (stairs to be replaced by owner)"],"flags":["Small lot, acreage unstated","Bank erosion / bulkhead condition is THE diligence item"],"signals":"Active, MLS 10598841","url":"https://www.howardhanna.com/property/lot-8-peaceful-ponds-jamesville-va-23398-422_10598841"},
+{"id":"nn-cavalier","name":"Lot 6 Cavalier Trl, Rose Hill South, Warsaw","region":"nn","water":"Deep-water Totuskey Creek → Rappahannock","type":"waterfront","price":199000,"priceWas":null,"acres":1.35,"score":74,"drive":"1h10","hoa":"Verify","firstSeen":"2026-08-01","status":"active","highlights":["Only sub-$200k waterfront in Richmond Co. (county avg $419k)","Navigable deep water"],"flags":["Brand new listing (1 DOM) — perc/flood data not yet posted"],"signals":"1 DOM — brand new","url":"https://www.landsearch.com/properties/cavalier-trl-warsaw-va-22572/5452811"},
+{"id":"lk-eds-rd","name":"6109 Eds Rd, Morgan II, Mineral (Lake Anna — public side)","region":"lk","water":"Deep-water boat slip included","type":"access","price":105000,"priceWas":null,"acres":0.93,"score":74,"drive":"0h50","hoa":"$630/yr","firstSeen":"2026-08-01","status":"active","highlights":["Slip-included lot at the bottom of the Anna access-lot market","Closest region to home (~50 min)","Lake Anna Island Realty listing"],"flags":["Perc not stated — verify","Wooded — clearing cost"],"signals":"19 DOM — fresh","url":"https://www.landsearch.com/properties/6109-eds-rd-mineral-va-23117/5405883"},
+{"id":"lk-heron-dr","name":"Lot 3 Heron Dr, Westview, Buffalo Junction (Kerr Lake)","region":"lk","water":"Open water; buoy reserves PRIVATE dock location","type":"waterfront","price":179000,"priceWas":null,"acres":3.38,"score":74,"drive":"1h40","hoa":"$460/yr","firstSeen":"2026-08-01","status":"active","highlights":["One of the limited Kerr areas where a private dock IS permitted","Dock permit incl. vegetation-modification rights","Sandy beach, 3.4 ac"],"flags":["Kerr shoreline is Corps-owned — confirm permit specifics in writing","Perc not stated"],"signals":"9 DOM — fresh","url":"https://www.landsearch.com/properties/heron-dr-buffalo-junction-va-24529/5434388"},
+{"id":"nn-oyster-cove","name":"Oyster Cove Landing, Hartfield","region":"nn","water":"Wilton Creek (→ Piankatank), shared dock access","type":"waterfront","price":95000,"priceWas":null,"acres":0.93,"score":74,"drive":"1h05","hoa":"$800/yr","firstSeen":"2026-08-01","status":"active","highlights":["Community water AND sewer — sidesteps perc risk entirely","Cleared path to pier; recently mulched","Pool/clubhouse/boat launch"],"flags":["Shared dock, not private","$800/yr HOA carry"],"signals":"~5.5 mo DOM","url":"https://www.landsearch.com/properties/oyster-cove-lndg-hartfield-va-23071/5042959"},
+{"id":"lk-sir-peyton","name":"Lot 5 Sir Peyton Dr, Prestwould II, Clarksville (Kerr Lake)","region":"lk","water":"Slip in community dock on main channel","type":"access","price":90000,"priceWas":null,"acres":2.39,"score":73,"drive":"1h30","hoa":"$250/yr","firstSeen":"2026-08-01","status":"active","highlights":["Cleared + prior perc APPROVED for 3-BR","Main-channel community slip","2.4 ac at $38k/ac"],"flags":["No private frontage (Corps shoreline)"],"signals":"44 DOM","url":"https://www.landsearch.com/properties/sir-peyton-dr-clarksville-va-23927/5347127"},
+{"id":"es-waters-edge","name":"Lot 12 Waters Edge Dr, Marina Village East, BAY CREEK","region":"es","water":"Kings Creek frontage + pond","type":"waterfront","price":199900,"priceWas":null,"acres":0.67,"score":72,"drive":"2h10","hoa":"$2,196/yr","firstSeen":"2026-08-01","status":"active","highlights":["Cheapest true-waterfront Bay Creek lot found","Bay Creek core water lots start ~$499k — this is ~40% of that","Public water available"],"flags":["Why so cheap? Verify Kings Creek frontage character (marsh edge?)","$2.2k/yr HOA + optional club fees during 2-4 yr hold"],"signals":"~35 DOM","url":"https://www.landsearch.com/properties/waters-edge-dr-cape-charles-va-23310/5369620"},
+{"id":"nn-glebe-landing","name":"Glebe Landing Rd, Rappahannock River Run, Center Cross","region":"nn","water":"Rappahannock south bank; beach, ramp, pier","type":"access","price":98000,"priceWas":null,"acres":5.51,"score":71,"drive":"0h55","hoa":"$325/yr","firstSeen":"2026-08-01","status":"active","highlights":["Soils/septic/well docs DONE — gravity conventional 3-BR design","5.5 ac at $17.8k/ac; taxes $354","Boat slip purchasable separately; closest sub-region to Glen Allen"],"flags":["Confirm whether parcel itself touches the river vs community waterfront"],"signals":"~5.5 mo DOM","url":"https://www.landsearch.com/properties/glebe-landing-rd-center-cross-va-22437/5045780"},
+{"id":"lk-lawsons","name":"13 Lawsons Dr, Bluestone area, Clarksville (Kerr Lake)","region":"lk","water":"Claimed private dock permit","type":"waterfront","price":129900,"priceWas":null,"acres":1.09,"score":71,"drive":"1h30","hoa":"Verify","firstSeen":"2026-08-01","status":"active","highlights":["Dock-permit claim at $130k — if it holds, well under the Kerr benchmark","Sibling: 14 Lawsons $110k w/ dock slip + pond"],"flags":["VERIFY dock permit with Army Corps before valuing as waterfront"],"signals":"List-page data — pull MLS detail","url":"https://www.homes.com/property/13-lawsons-dr-clarksville-va/fsj34h5st6wtg/"},
+{"id":"es-mink-farm","name":"Lot 8 Mink Farm Rd, Onancock","region":"es","water":"Tidal creek waterfront","type":"waterfront","price":99500,"priceWas":124900,"acres":6.3,"score":70,"drive":"2h40","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["6.3 ac at $15.8k/ac after 20% cut","~1 yr on market — negotiate further"],"flags":["Water body unnamed — verify frontage character & depth","No perc data"],"signals":"20.3% cut Jan 2026 — motivated","url":"https://www.landsearch.com/properties/mink-farm-rd-onancock-va-23417/4707044"},
+{"id":"lk-seclusion","name":"Lot 40 Seclusion Shores Dr, Mineral (Lake Anna — PRIVATE side)","region":"lk","water":"Lake access: ramp, beach, slip leasing","type":"access","price":105000,"priceWas":110000,"acres":1.26,"score":70,"drive":"0h50","hoa":"$275/yr (cheap for Anna)","firstSeen":"2026-08-01","status":"active","highlights":["Cheapest private-side (warm side) access lot found","Cleared, ready to build","50 min from home"],"flags":["Slip is LEASED not deeded — check waitlist","Perc not stated"],"signals":"~3 mo DOM, $5k cut","url":"https://www.landsearch.com/properties/seclusion-shores-dr-mineral-va-23117/5224785"},
+{"id":"lk-olde-forest","name":"398 Olde Forest Rd, Bluestone, Clarksville (Kerr Lake)","region":"lk","water":"166 ft shoreline, dock permit claimed","type":"waterfront","price":200000,"priceWas":null,"acres":1.34,"score":70,"drive":"1h30","hoa":"Verify","firstSeen":"2026-08-01","status":"active","highlights":["If dock permit holds: the Kerr benchmark — permitted-dock lakefront at exactly $200k"],"flags":["At budget ceiling","Verify Corps dock permit in writing"],"signals":"List-page data — pull MLS detail","url":"https://www.homes.com/property/398-olde-forest-rd-clarksville-va/3g9emmg04dkgs/"},
+{"id":"nn-horse-rd","name":"Horse Rd, Hayes (Severn River)","region":"nn","water":"Severn River, ~3 ft MLW","type":"waterfront","price":160000,"priceWas":220000,"acres":1.12,"score":68,"drive":"1h00","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["-27% over 3 years — very negotiable","Soil work done; engineered septic design available","Closest true riverfront to Richmond in the set"],"flags":["~3 ft MLW — shallow","Engineered (not conventional) septic"],"signals":"~3 yr DOM, 2 cuts","url":"https://www.landsearch.com/properties/horse-rd-hayes-va-23072/3159280"},
+{"id":"es-seaview","name":"Lot 26 Seaview St, Accomac","region":"es","water":"Creek-front, PRIVATE DOCK in place","type":"waterfront","price":170000,"priceWas":null,"acres":4.13,"score":68,"drive":"2h50","hoa":"$1,400/yr (gated)","firstSeen":"2026-08-01","status":"active","highlights":["Private dock already built; 4.1 ac","Wallops rocket-launch views"],"flags":["$1,400/yr HOA carry during hold","At the far edge of your drive radius"],"signals":"Fresh (listed 7/13)","url":"https://www.landsearch.com/properties/seaview-st-accomac-va-23301/5407800"},
+{"id":"nn-rockfish","name":"126 Rockfish Rd, Heathsville","region":"nn","water":"Creek off Great Wicomico — existing pier","type":"waterfront","price":59900,"priceWas":78900,"acres":3.24,"score":66,"drive":"1h35","hoa":"$150/yr","firstSeen":"2026-08-01","status":"active","highlights":["Existing pier ($21.9k build cost); certified for 3-BR","3.2 ac at $18.5k/ac; commons w/ boat ramp"],"flags":["Depth 'buyer to verify' — almost certainly shallow","22 mo on market"],"signals":"$19k in cuts","url":"https://www.landsearch.com/properties/126-rockfish-rd-heathsville-va-22473/3927522"},
+{"id":"nn-horn-harbor","name":"Horn Harbor Ave, New Point, Mathews","region":"nn","water":"Horn Harbor → Bay, 188 ft frontage","type":"waterfront","price":142000,"priceWas":null,"acres":2.0,"score":62,"drive":"1h25","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["188 ft of frontage on a bay-access harbor","2 ac at $71k/ac"],"flags":["Engineered septic indicated by prelim soils","No recorded survey; waterfront via deeded ROW","Low-lying New Point — flood insurance"],"signals":"Active on LandWatch","url":"https://www.landwatch.com/mathews-county-virginia-undeveloped-land-for-sale/pid/423672441"},
+{"id":"es-west-dr","name":"4172 West Dr, Cape Charles (Kiptopeke)","region":"es","water":"Bayside near Kiptopeke State Park","type":"waterfront","price":48000,"priceWas":65000,"acres":0.7,"score":62,"drive":"2h15","hoa":"None mentioned","firstSeen":"2026-08-01","status":"active","highlights":["Septic already installed; taxes $50/yr","$48k entry by the state park"],"flags":["Heavy listing churn + cuts, catch undisclosed — pull flood/wetlands maps FIRST"],"signals":"Relisted multiple times","url":"https://www.landsearch.com/properties/4172-west-dr-cape-charles-va-23310/4770546"},
+{"id":"es-charlestowne","name":"Lot 79 Charlestowne Dr, Marina Village East, BAY CREEK","region":"es","water":"Pond-front, water views (not tidal)","type":"access","price":89500,"priceWas":null,"acres":0.211,"score":64,"drive":"2h10","hoa":"$2,076/yr","firstSeen":"2026-08-01","status":"active","highlights":["Cheapest entry into Bay Creek found anywhere","Core Bay Creek lots start ~$292k"],"flags":["Pond, not tidal water","HOA carry ~$2.1k/yr + club fees during hold"],"signals":"17 DOM","url":"https://www.landsearch.com/properties/charlestowne-dr-cape-charles-va-23310/5409922"},
+{"id":"lk-sandie-point","name":"15 Sandie Point Dr, Clarksville (Kerr Lake)","region":"lk","water":"Cove, Bluestone area — path to lake, community dock","type":"access","price":99000,"priceWas":145000,"acres":0.88,"score":64,"drive":"1h30","hoa":"~$13/mo","firstSeen":"2026-08-01","status":"active","highlights":["-$46k, below assessed value, 'motivated seller'","Electric on property, partially cleared"],"flags":["'Lakefront' = Corps-buffer adjacency, not ownable frontage","19+ mo DOM — negotiate hard"],"signals":"19 mo DOM, big cut","url":"https://www.homes.com/property/15-sandie-point-dr-clarksville-va/fhjq1sq8w5m54/"},
+{"id":"nn-paddock","name":"Lot 4 Paddock Dr, Edgewater, Lancaster","region":"nn","water":"Lancaster Creek → Rappahannock","type":"waterfront","price":79500,"priceWas":null,"acres":7.61,"score":63,"drive":"1h20","hoa":"$300/yr","firstSeen":"2026-08-01","status":"active","highlights":["Cheapest true creek-front $/acre found: $10.4k/ac, 7.6 ac (2 parcels)"],"flags":["~2 yrs on market, no perc data — assume marsh/shallow until proven"],"signals":"~2 yr DOM","url":"https://www.landsearch.com/properties/paddock-dr-lancaster-va-22503/3322255"},
+{"id":"nn-belmont","name":"Belmont Dr, Heritage Point, Lancaster","region":"nn","water":"Community beach + marina on Corrotoman","type":"access","price":19900,"priceWas":25000,"acres":2.04,"score":60,"drive":"1h20","hoa":"Verify","firstSeen":"2026-08-01","status":"active","highlights":["Cheapest boat-in-the-water play found: $19.9k / 2 ac","Community well hookup for fee"],"flags":["Water-ACCESS only","No perc info"],"signals":"~10 mo DOM, 20% cut","url":"https://www.landsearch.com/properties/20e-1-99-belmont-dr-lancaster-va-22503/4802265"},
+{"id":"es-burtons","name":"29691 Burtons Shore Rd, Locustville (home)","region":"es","water":"Not waterfront (near seaside landing)","type":"home","price":199000,"priceWas":298000,"acres":0.9,"score":58,"drive":"2h45","hoa":"None","firstSeen":"2026-08-01","status":"active","highlights":["2,624 sf circa-1825 farmhouse at $76/sf after $99k in cuts","124 DOM current listing"],"flags":["Not waterfront — fails your primary criterion","Historic-home systems/condition diligence"],"signals":"-$99k cumulative — motivated","url":"https://www.trulia.com/home/29691-burtons-shore-rd-locustville-va-23404-438450821"}
+]}
+</script>
+
+<script>
+  const state = JSON.parse(document.getElementById('state').textContent);
+  const L = state.listings;
+  let region = 'all', type = 'all', sort = 'score';
+
+  const regionNames = { nn: 'Northern Neck / Mid-Peninsula', es: 'Eastern Shore', lk: 'Lakes' };
+  const typeNames = { waterfront: 'True waterfront', access: 'Water access', home: 'Home' };
+
+  document.getElementById('rundate').textContent = new Date(state.runDate + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+  function money(n) { return '$' + n.toLocaleString('en-US'); }
+  function ppa(x) { return (x.acres && x.price) ? Math.round(x.price / x.acres) : null; }
+  function driveMin(d) { const m = d.match(/(\d+)h(\d+)/); return m ? (+m[1]) * 60 + (+m[2]) : 999; }
+
+  function renderTiles() {
+    const wf = L.filter(x => x.type === 'waterfront');
+    const cuts = L.filter(x => x.priceWas);
+    const biggest = cuts.reduce((a, b) => ((a.priceWas - a.price) / a.priceWas > (b.priceWas - b.price) / b.priceWas ? a : b));
+    const top = L.reduce((a, b) => a.score > b.score ? a : b);
+    const t = document.getElementById('tiles');
+    t.innerHTML = [
+      { v: L.length, l: 'candidates on watchlist', d: wf.length + ' true waterfront' },
+      { v: top.score, l: 'top score', d: top.name.split(',')[0] },
+      { v: cuts.length, l: 'with price cuts', d: 'biggest: -' + Math.round((biggest.priceWas - biggest.price) / biggest.priceWas * 100) + '% (' + biggest.name.split(',')[0] + ')' },
+      { v: money(Math.min(...wf.map(x => x.price))), l: 'cheapest true waterfront', d: 'Peaceful Ponds, Jamesville' }
+    ].map(x => '<div class="tile"><div class="v">' + x.v + '</div><div class="l">' + x.l + '</div><div class="d">' + x.d + '</div></div>').join('');
+  }
+
+  function card(x) {
+    const p = ppa(x);
+    const cut = x.priceWas ? '<span class="was">' + money(x.priceWas) + '</span> <span class="cut">-' + Math.round((x.priceWas - x.price) / x.priceWas * 100) + '%</span>' : '';
+    const flags = x.flags.length ? '<div class="flag"><span class="ic">&#9650;</span>' + x.flags.join(' &middot; ') + '</div>' : '';
+    return '<div class="card">' +
+      '<div class="scorebox"><div class="n">' + x.score + '</div><div class="meter"><i style="width:' + x.score + '%"></i></div><div class="t">score</div></div>' +
+      '<div><div class="toprow">' +
+        '<h3><i class="regiondot r-' + x.region + '"></i> <a href="' + x.url + '" target="_blank" rel="noopener">' + x.name + '</a></h3>' +
+        '<span class="price">' + money(x.price) + '</span> ' + cut +
+      '</div>' +
+      '<div class="meta"><b>' + typeNames[x.type] + '</b> &middot; ' + x.water + (x.acres ? ' &middot; ' + x.acres + ' ac' + (p ? ' (' + money(p) + '/ac)' : '') : '') + ' &middot; drive ~' + x.drive.replace('h', 'h ') + 'm &middot; HOA: ' + x.hoa + '</div>' +
+      '<div class="notes">' + x.highlights.join(' &middot; ') + '</div>' + flags +
+      '<div class="badges"><span class="badge new">New this run</span><span class="badge">' + x.signals + '</span></div>' +
+      '</div></div>';
+  }
+
+  function render() {
+    let rows = L.filter(x => (region === 'all' || x.region === region) && (type === 'all' || x.type === type));
+    rows.sort((a, b) => {
+      if (sort === 'score') return b.score - a.score;
+      if (sort === 'price') return a.price - b.price;
+      if (sort === 'ppa') return (ppa(a) || 9e9) - (ppa(b) || 9e9);
+      if (sort === 'drive') return driveMin(a.drive) - driveMin(b.drive);
+    });
+    document.getElementById('listHead').textContent = 'Scored watchlist — ' + rows.length + ' of ' + L.length + ' shown';
+    document.getElementById('list').innerHTML = rows.map(card).join('');
+  }
+
+  document.getElementById('regionFilters').addEventListener('click', e => {
+    if (e.target.tagName !== 'BUTTON') return;
+    region = e.target.dataset.r;
+    [...e.currentTarget.children].forEach(b => b.classList.toggle('on', b === e.target));
+    render();
+  });
+  document.getElementById('typeFilters').addEventListener('click', e => {
+    if (e.target.tagName !== 'BUTTON') return;
+    type = e.target.dataset.t;
+    [...e.currentTarget.children].forEach(b => b.classList.toggle('on', b === e.target));
+    render();
+  });
+  document.getElementById('sortSel').addEventListener('change', e => { sort = e.target.value; render(); });
+
+  function toggleTheme() {
+    const r = document.documentElement;
+    const cur = r.getAttribute('data-theme');
+    const osDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    r.setAttribute('data-theme', (cur ? cur === 'dark' : osDark) ? 'light' : 'dark');
+  }
+
+  renderTiles();
+  render();
+</script>
+</body>
+</html>
