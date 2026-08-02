@@ -94,15 +94,40 @@ Diagnose with `curl -sS "$HTTPS_PROXY/__agentproxy/status"`, which lists recent 
 denials by host. Never route around a policy denial. If sources are blocked, say so in
 `runNote` and in the summary, and do not present carried-forward figures as re-verified.
 
+## Scoring calibration
+
+Re-scoring the whole board against changed weights is the single most error-prone thing
+a run does. Run 6's first attempt marked *everything* down instead of reweighting — mean
+65 → 50, top score 82 → 71, nothing above 70 — and needed a corrective pass. Anchors:
+
+- **Score each category on its own scale and sum.** Do not form an overall impression and
+  back-fill the parts. That is what produces board-wide drift.
+- **A missing category is unearned, not a penalty.** A listing with no community amenities
+  scores 0 of 20 there and loses nothing elsewhere. Its ceiling is therefore 80, and an
+  excellent bare-land waterfront lot should still reach the low-to-mid 70s.
+- **Score and data must agree.** If a listing has no `amenities[]`, its total cannot exceed
+  `100 − amenityPoints`. `scripts/verify.js` enforces this.
+- **Facts unchanged ⇒ score barely moves.** A listing whose facts are the same as last run
+  should shift by roughly the reweighting delta, never 40 points. A large swing with no new
+  information is a bug, not a finding.
+- **Never recast an existing highlight as a flag** without genuinely new adverse
+  information, and never re-charge carried-forward diligence already priced into an
+  earlier score.
+- **Sanity-check the distribution before committing:** roughly 30–85, several listings
+  above 75, the best approaching 80+. If nothing clears 75, a category is being
+  systematically under-awarded.
+
 ## Verifying a change
 
-There is no test suite. Drive the page in headless Chromium before committing:
-
 ```
-NODE_PATH=/opt/node22/lib/node_modules node -e "…require('playwright')…"
+NODE_PATH=/opt/node22/lib/node_modules node scripts/verify.js
 ```
 
-Chromium lives at `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`. Worth covering:
-the committed data, a bumped run number, listings going pending/sold, **all** listings
-inactive, an empty listings array, and hostile scraped text containing markup and
-ampersands. At minimum, confirm the state block still parses and the page still renders.
+Checks the data invariants (unique ids, no literal `</script>`, rubric totals 100, the
+no-amenity score ceiling) and then drives the page in headless Chromium: the committed
+data, every tile action, the priority and amenity filters and sorts, a bumped run number,
+listings going pending/sold, **all** listings inactive, an empty listings array, absent
+`amenities`/`rubric`, and hostile scraped text containing markup and ampersands.
+
+Override `WF_INDEX` to check a different file and `WF_CHROME` if Chromium moves; it
+currently lives at `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`.
