@@ -1,8 +1,17 @@
 # waterfront-tracker
 
-A single-file dashboard tracking waterfront land and homes under $200k within ~3 hours of
-Glen Allen, VA, for a build in 2–4 years. Land is the default; homes only qualify at
-land value. Published at https://thgold-collab.github.io/waterfront-tracker/
+A single-file dashboard running **two parallel searches** for Ted, published at
+https://thgold-collab.github.io/waterfront-tracker/
+
+- **Land** — waterfront land and homes under $200k within ~3 hrs of Glen Allen, VA, for a
+  build in 2–4 years. Land is the default; homes only qualify at land value.
+- **Houses** — 3+ bed / 2+ bath houses from $350k to $700k up and down the Rappahannock
+  and around the Potomac, under a 2-hour drive where possible. Waterfront preferred,
+  near-water considered. Preferred towns: Urbanna, White Stone, Irvington, Kilmarnock,
+  Tappahannock, Montross.
+
+The two are independent: separate criteria, rubric, filters, sorts and preferred areas.
+A track switcher above the tiles picks one.
 
 Updated weekly by the `Waterfront deal scan v2` routine (Fridays ~7am ET), which commits
 straight to `main`.
@@ -14,14 +23,22 @@ external calls. All data lives in one place: the `<script id="state" type="appli
 block near the bottom. **That block is normally the only thing you edit.**
 
 ```
-{ schema, runDate, runNumber, runLabel, runNote, priorityAreas, priorityLabel,
-  rubric[], criteria, listings[] }
+{ schema: 2, runDate, runNumber, runLabel, runNote, activeTrack, tracks[], listings[] }
 ```
+
+Each track: `id`, `label`, `blurb`, `unit`, `listLabel`, `chips[]`, `criteria{}`,
+`rubric[]`, `typeFilters[]`, `typeNames{}`, `sorts[]`, `priorityAreas[]`,
+`priorityLabel`, `footnote`, `emptyMsg`. Everything the header, controls and footer show
+comes from the active track — **there is no track-specific text left in the HTML.**
 
 Each listing: `id`, `name`, `region` (nn|es|lk), `water`, `type` (waterfront|access|home),
 `price`, `priceWas` (ORIGINAL list price), `acres`, `score`, `drive` ("1h20"), `hoa`,
 `firstSeen`, `firstSeenRun`, `status` (active|pending|sold|removed), `highlights[]`,
-`amenities[]` (optional), `flags[]`, `signals`, `url`.
+`amenities[]` (optional), `flags[]`, `signals`, `url`, and **`track`** (`land`|`house`;
+absent means `land`).
+
+House listings additionally carry `beds`, `baths`, `sqft`, `yearBuilt` and `dock` (a
+short string, or `true`). `dock` drives a badge, a summary tile and a filter.
 
 ## Invariants — each of these is a bug that was already fixed once
 
@@ -42,7 +59,9 @@ without reading this list first.
 - **No value may contain the literal `</script>`.** It terminates the state block and
   breaks the page. Everything else (`&`, `<`, quotes) is safe.
 - **Listing ids must be unique and stable.** The clickable tiles jump by id.
-- **The scoring rubric is data too.** The footer paragraph renders from `rubric[]`
+- **Every listing needs a valid `track`.** An id not in `tracks[]` renders nowhere.
+- **The scoring rubric is data too, per track.** The footer paragraph renders from the
+  active track's `rubric[]`
   (`{label, detail, pts}`). Reweighting means editing that array, never the HTML, and the
   points must still total 100. Scores on the board must reflect the current rubric — when
   the weights change, every listing gets re-scored, not just the new ones.
@@ -61,15 +80,24 @@ and MLW depth; lot elevation vs. BFE. Cape Charles sits ~3 ft with most develope
 5–10 ft, and Northampton County requires a sealed flood elevation certificate, with V-zone
 plans sealed by a Virginia-licensed architect or engineer.
 
-## Amenities — there are two buyers
+## Amenities — recorded, not scored
+
+**As of run 7 amenities earn no points.** Ted asked for them out of the scoring, so the
+Land rubric returned to its pre-run-5 weights (price 30 / buildability 25 / water access
+20 / hold-and-build fit 15 / deal signals 10). Keep populating `amenities[]` — it still
+drives the card line, the count badge, a filter chip and a sort, and the research is
+worth having — but do not award points for it, and do not reinstate the category without
+being asked. The history below is kept because it explains the shape of the data.
+
+## Amenities history — there were two buyers
 
 Ted optimises for land value, buildability and real boating water. His wife rates the
 lifestyle of an amenity community (Bay Creek being the reference) very highly: pool and
 clubhouse, golf, beach and trails. Both count, and a lot strong on only one axis is
 weaker than its number suggests.
 
-As of run 5 amenities are worth **20 of 100**, funded mainly by dropping hold-and-build
-fit from 15 to 10. That category penalised HOA and club dues, so an amenity-rich
+Run 5 made amenities worth 20 of 100, funded mainly by dropping hold-and-build
+fit from 15 to 10. Run 7 removed that weighting again. That category penalised HOA and club dues, so an amenity-rich
 community was charged twice — once for the cost, with no credit for what it buys.
 
 Rank amenity quality: pool/clubhouse first, then golf, then beach and trails, then
@@ -105,8 +133,9 @@ a run does. Run 6's first attempt marked *everything* down instead of reweightin
 - **A missing category is unearned, not a penalty.** A listing with no community amenities
   scores 0 of 20 there and loses nothing elsewhere. Its ceiling is therefore 80, and an
   excellent bare-land waterfront lot should still reach the low-to-mid 70s.
-- **Score and data must agree.** If a listing has no `amenities[]`, its total cannot exceed
-  `100 − amenityPoints`. `scripts/verify.js` enforces this.
+- **Score and data must agree.** When a rubric has an amenities category, a listing with
+  no `amenities[]` cannot exceed `100 − amenityPoints`. `scripts/verify.js` enforces this
+  whenever the active track's rubric carries such a category.
 - **Facts unchanged ⇒ score barely moves.** A listing whose facts are the same as last run
   should shift by roughly the reweighting delta, never 40 points. A large swing with no new
   information is a bug, not a finding.
