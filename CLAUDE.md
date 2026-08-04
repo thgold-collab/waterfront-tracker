@@ -13,8 +13,8 @@ https://thgold-collab.github.io/waterfront-tracker/
 The two are independent: separate criteria, rubric, filters, sorts and preferred areas.
 A track switcher above the tiles picks one.
 
-Updated weekly by the `Waterfront deal scan v2` routine (Fridays ~7am ET), which commits
-straight to `main`.
+Updated weekly by the `Waterfront deal scan` routine (Fridays ~7am ET), which commits
+straight to `main`. Both tracks are refreshed in the same run.
 
 ## Architecture
 
@@ -66,14 +66,15 @@ without reading this list first.
   points must still total 100. Scores on the board must reflect the current rubric — when
   the weights change, every listing gets re-scored, not just the new ones.
 
-## Priority areas
+## Preferred areas
 
-`priorityAreas` (currently `["Cape Charles","Bay Creek"]`) is matched case-insensitively
-against each listing's `name` and `water`. Matches get a star badge, a left rule, a filter
+`priorityAreas` is **per track** — `["Cape Charles","Bay Creek"]` on Land, and the six
+preferred towns on Houses. It is matched case-insensitively against each listing's
+`name` and `water`. Matches get a star badge, a left rule, a filter
 chip and a "priority areas first" sort. New listings in those areas inherit the flag
 automatically — do not hand-tag them. `listing.priority === true` forces it on.
 
-These areas get deeper diligence than anywhere else. Open questions: Bay Creek POA
+The Land track's preferred areas get deeper diligence than anywhere else. Open questions: Bay Creek POA
 assessment vs. optional-or-mandatory club membership and the real annual carry; tidal
 frontage vs. resort amenity pond (Crystal Lake is a pond); Kings Creek frontage character
 and MLW depth; lot elevation vs. BFE. Cape Charles sits ~3 ft with most developed land at
@@ -96,9 +97,11 @@ lifestyle of an amenity community (Bay Creek being the reference) very highly: p
 clubhouse, golf, beach and trails. Both count, and a lot strong on only one axis is
 weaker than its number suggests.
 
-Run 5 made amenities worth 20 of 100, funded mainly by dropping hold-and-build
-fit from 15 to 10. Run 7 removed that weighting again. That category penalised HOA and club dues, so an amenity-rich
-community was charged twice — once for the cost, with no credit for what it buys.
+Run 5 made amenities worth 20 of 100, funded mainly by dropping hold-and-build fit from
+15 to 10 — that category penalised HOA and club dues, so an amenity-rich community was
+being charged twice, once for the cost with no credit for what it buys. Run 7 removed the
+weighting again, which restores that double-charge; if amenities ever come back, take the
+points from hold-and-build fit again rather than adding them on top.
 
 Rank amenity quality: pool/clubhouse first, then golf, then beach and trails, then
 everything else. **A marina, boat ramp or deeded slip is not an amenity here** — water
