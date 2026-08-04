@@ -99,8 +99,13 @@ async function open(browser, file, waitFor = '.card') {
   }
 
   console.log('\n=== tiles are interactive ===');
-  check('total tiles', await page.locator('.tile').count(), 4);
-  check('actionable tiles are buttons', await page.locator('button.tile').count(), 4);
+  // Baseline is 4 (all / top score / cuts / cheapest true waterfront); a "with a dock
+  // or slip" tile joins them whenever the active track has dock data (CLAUDE.md: dock
+  // drives a badge, a summary tile and a filter) — tile count isn't fixed per track.
+  const dockCount = L.filter(x => x.status === 'active' && !!x.dock).length;
+  const expectedTiles = 4 + (dockCount ? 1 : 0);
+  check('total tiles', await page.locator('.tile').count(), expectedTiles);
+  check('actionable tiles are buttons', await page.locator('button.tile').count(), expectedTiles);
   const labels = await page.locator('button.tile').evaluateAll(ns => ns.map(n => n.dataset.action + ':' + n.querySelector('.go').textContent.trim()));
   labels.forEach(l => console.log('     ' + l));
 
@@ -117,7 +122,9 @@ async function open(browser, file, waitFor = '.card') {
   check('toggles back off', await page.locator('.card').count(), N);
 
   console.log('\n=== tile: "cheapest true waterfront" jumps to listing ===');
-  const cheapTile = page.locator('button.tile').nth(3);
+  // Selected by label, not position: the dock tile (when present) sits between "top
+  // score" and "with price cuts", shifting this tile's index depending on the track.
+  const cheapTile = page.locator('button.tile').filter({ has: page.locator('.l', { hasText: 'cheapest true waterfront' }) });
   const cheapName = (await cheapTile.locator('.d').textContent()).trim();
   await page.click('#regionFilters button[data-r="lk"]');       // filter it out of view first
   check('pre-jump: cheapest not in list', await page.locator(`.card:has-text("${cheapName}")`).count(), 0);
@@ -136,7 +143,10 @@ async function open(browser, file, waitFor = '.card') {
   check('flashed card is the top scorer', (await page.locator('.card.flash h3 a').textContent()).startsWith(topName), true);
 
   console.log('\n=== tile: "show all" resets everything ===');
-  await page.click('#typeFilters button[data-t="home"]');
+  // Pick any non-"all" type filter from the active track rather than a hardcoded
+  // value ("home" only exists on the land track's typeFilters, not house's).
+  const someType = (track.typeFilters || []).map(t => t.v).find(v => v !== 'all');
+  await page.click(`#typeFilters button[data-t="${someType}"]`);
   await page.locator('button.tile[data-action="cuts"]').click();
   await page.locator('button.tile[data-action="all"]').click();
   check('all filters cleared', await page.locator('.card').count(), N);
@@ -166,16 +176,22 @@ async function open(browser, file, waitFor = '.card') {
   console.log('\n=== amenities ===');
   const amList = L.filter(x => (x.amenities || []).length);
   console.log(`     ${amList.length} listings carry amenities`);
-  check('amenity chip shows live count', (await page.locator('#amenityFilter button').textContent()).includes(`(${amList.length})`), true);
-  check('amenity lines rendered', await page.locator('.card .amen').count(), amList.length);
-  check('amenity badges rendered', await page.locator('.badge.amenity').count(), amList.length);
-  const amBtn = page.locator('#amenityFilter button');
-  await amBtn.click();
-  check('filters to amenity communities', await page.locator('.card').count(), amList.length);
-  check('listHead notes it', (await page.locator('#listHead').textContent()).includes('amenity communities only'), true);
-  check('pressed state set', await amBtn.getAttribute('aria-pressed'), 'true');
-  await amBtn.click();
-  check('toggles off', await page.locator('.card').count(), N);
+  if (amList.length) {
+    check('amenity chip shows live count', (await page.locator('#amenityFilter button').textContent()).includes(`(${amList.length})`), true);
+    check('amenity lines rendered', await page.locator('.card .amen').count(), amList.length);
+    check('amenity badges rendered', await page.locator('.badge.amenity').count(), amList.length);
+    const amBtn = page.locator('#amenityFilter button');
+    await amBtn.click();
+    check('filters to amenity communities', await page.locator('.card').count(), amList.length);
+    check('listHead notes it', (await page.locator('#listHead').textContent()).includes('amenity communities only'), true);
+    check('pressed state set', await amBtn.getAttribute('aria-pressed'), 'true');
+    await amBtn.click();
+    check('toggles off', await page.locator('.card').count(), N);
+  } else {
+    // No amenities on this track's active listings (e.g. the Houses track, which
+    // never carries amenities data) -- the chip should be absent, not empty.
+    check('no amenities on this track: chip hidden entirely', await page.locator('#amenityFilter button').count(), 0);
+  }
 
   console.log('\n=== rubric rendered from data ===');
   const rub = await page.locator('#rubric').textContent();
@@ -183,11 +199,13 @@ async function open(browser, file, waitFor = '.card') {
   check('every category present', track.rubric.every(r => rub.includes(r.label)), true);
   check('rubric totals 100', track.rubric.reduce((a, r) => a + r.pts, 0), 100);
 
-  console.log('\n=== sort: most amenities first ===');
-  await page.selectOption('#sortSel', 'amenities');
-  const best = amList.reduce((a, b) => b.amenities.length > a.amenities.length ? b : a);
-  check('first card is the most-amenitied listing', await page.locator('.card').first().getAttribute('data-id'), best.id);
-  await page.selectOption('#sortSel', 'score');
+  if (amList.length && (track.sorts || []).some(s => s.v === 'amenities')) {
+    console.log('\n=== sort: most amenities first ===');
+    await page.selectOption('#sortSel', 'amenities');
+    const best = amList.reduce((a, b) => b.amenities.length > a.amenities.length ? b : a);
+    check('first card is the most-amenitied listing', await page.locator('.card').first().getAttribute('data-id'), best.id);
+    await page.selectOption('#sortSel', 'score');
+  }
 
   console.log('\n=== degrades when the new fields are absent ===');
   const rNoAm = await open(browser, variant('r-noam.html', s2 => { s2.listings.forEach(x => { delete x.amenities; }); }));
@@ -211,10 +229,15 @@ async function open(browser, file, waitFor = '.card') {
   check('empty list: priority chip hidden rather than showing (0)', await rE.page.locator('#priorityFilter button').count(), 0);
   check('empty list: empty-state message shown', await rE.page.locator('.empty').count(), 1);
 
+  // Use the active track's own first priority area so this listing actually
+  // matches as priority regardless of which track is active ("Cape Charles" is
+  // land-only; it wouldn't match while the Houses track, with its own preferred
+  // towns, is active).
+  const priNeedle = (track.priorityAreas || [])[0] || 'Cape Charles';
   const fHostile = variant('r-hostile.html', s => {
     s.runNote = 'note <b>x</b> & "q"';
     s.listings = [{
-      track: s.activeTrack, id: 'x<y', name: 'Cape Charles <img src=x onerror=alert(1)> & "q" Rd', region: 'es',
+      track: s.activeTrack, id: 'x<y', name: priNeedle + ' <img src=x onerror=alert(1)> & "q" Rd', region: 'es',
       water: 'Creek <b>b</b> & wide', type: 'waterfront', price: 1e5, priceWas: 15e4, acres: 1,
       score: 50, drive: '1h00', hoa: 'A & B', firstSeen: '2026-08-01', firstSeenRun: 3,
       status: 'active', highlights: ['h <i>i</i> & m'], flags: ['f <u>u</u> & y'],
@@ -226,7 +249,7 @@ async function open(browser, file, waitFor = '.card') {
   check('hostile data does not throw', rH.errs.length, 0);
   rH.errs.forEach(e => console.log('     ' + e));
   check('no injected elements', await rH.page.locator('.card img, .card script').count(), 0);
-  check('name literal', await rH.page.locator('.card h3 a').textContent(), 'Cape Charles <img src=x onerror=alert(1)> & "q" Rd');
+  check('name literal', await rH.page.locator('.card h3 a').textContent(), priNeedle + ' <img src=x onerror=alert(1)> & "q" Rd');
   check('hostile listing matched as priority', await rH.page.locator('.card.priority').count(), 1);
   check('amenity text escaped', (await rH.page.locator('.card .amen').textContent()).includes('Pool <b>x</b> & spa'), true);
   check('no elements injected via amenities', await rH.page.locator('.card .amen *').count(), 1);
