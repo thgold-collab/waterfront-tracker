@@ -39,11 +39,14 @@ async function open(browser, file, waitFor = '.card') {
 (async () => {
   const browser = await chromium.launch({ executablePath: CHROME });
   const st = JSON.parse(fs.readFileSync(SRC, 'utf8').match(STATE_RE)[2]);
-  const N = st.listings.length;
-  const nCuts = st.listings.filter(x => x.priceWas).length;
-  const priAreas = st.priorityAreas.map(s => s.toLowerCase());
-  const priList = st.listings.filter(x => priAreas.some(p => ((x.name || '') + ' ' + (x.water || '')).toLowerCase().includes(p)));
-  console.log(`base: ${N} listings, run ${st.runNumber}, ${nCuts} with cuts, ${priList.length} in priority areas`);
+  const TRACKS = st.tracks || [{ id: 'land', rubric: st.rubric || [], priorityAreas: st.priorityAreas || [] }];
+  const track = TRACKS.find(t => t.id === st.activeTrack) || TRACKS[0];
+  const L = st.listings.filter(x => (x.track || 'land') === track.id);   // active track only
+  const N = L.length;
+  const nCuts = L.filter(x => x.priceWas).length;
+  const priAreas = (track.priorityAreas || []).map(s => s.toLowerCase());
+  const priList = L.filter(x => priAreas.some(p => ((x.name || '') + ' ' + (x.water || '')).toLowerCase().includes(p)));
+  console.log(`base: ${st.listings.length} listings across ${TRACKS.length} track(s); active "${track.id}" has ${N}, run ${st.runNumber}, ${nCuts} with cuts, ${priList.length} in priority areas`);
   priList.forEach(x => console.log(`      priority: ${x.name}`));
   console.log();
 
@@ -51,15 +54,19 @@ async function open(browser, file, waitFor = '.card') {
   const ids = st.listings.map(x => x.id);
   check('ids unique', ids.length, new Set(ids).size);
   check('no literal </script> in data', JSON.stringify(st).includes('</' + 'script>'), false);
-  check('rubric totals 100', st.rubric.reduce((a, r) => a + r.pts, 0), 100);
-  const amPts = (st.rubric.find(r => /amenit/i.test(r.label)) || {}).pts || 0;
+  TRACKS.forEach(t => check(`track "${t.id}" rubric totals 100`, (t.rubric || []).reduce((a, r) => a + r.pts, 0), 100));
+  const trackIds = new Set(TRACKS.map(t => t.id));
+  const orphan = st.listings.filter(x => !trackIds.has(x.track || 'land'));
+  check('every listing belongs to a declared track', orphan.length, 0);
+  const amPts = ((track.rubric || []).find(r => /amenit/i.test(r.label)) || {}).pts || 0;
   // A listing with no amenities[] forfeits that whole category, so its ceiling is
   // 100 - amenityPoints. Scoring above it means the score and the data disagree.
   const ceiling = 100 - amPts;
-  const overCeiling = st.listings.filter(x => !(x.amenities || []).length && x.score > ceiling);
+  const overCeiling = amPts ? L.filter(x => !(x.amenities || []).length && x.score > ceiling) : [];
   check(`no-amenity listings stay at or below the ${ceiling} ceiling`, overCeiling.length, 0);
   overCeiling.forEach(x => console.log(`     over by ${x.score - ceiling}: ${x.score} ${x.name}`));
   const badNew = st.listings.filter(x => x.firstSeenRun === st.runNumber && !x.firstSeen);
+  check('active track is a declared track', trackIds.has(track.id), true);
   check('listings new this run carry firstSeen', badNew.length, 0);
   console.log();
 
@@ -71,7 +78,25 @@ async function open(browser, file, waitFor = '.card') {
   check('subtitle shows run number from data', (await page.locator('header .sub').textContent()).includes('Run ' + st.runNumber), true);
   check('subtitle label from data', (await page.locator('header .sub').textContent()).includes(st.runLabel), true);
   check('run note rendered from data', (await page.locator('#runnote').textContent()).startsWith('Run ' + st.runNumber + ' note:'), true);
-  check('"New this run" badges match firstSeenRun', await page.locator('.badge.new').count(), st.listings.filter(x => x.firstSeenRun === st.runNumber).length);
+  check('"New this run" badges match firstSeenRun', await page.locator('.badge.new').count(), L.filter(x => x.firstSeenRun === st.runNumber).length);
+
+  if (TRACKS.length > 1) {
+    console.log('\n=== track switching ===');
+    const other = TRACKS.find(t => t.id !== track.id);
+    check('a button per track', await page.locator('#trackSwitch button').count(), TRACKS.length);
+    check('active track is pressed', await page.locator('#trackSwitch button[aria-pressed="true"]').count(), 1);
+    check('criteria chips come from the track', await page.locator('#criteria span').count(), (track.chips || []).length);
+    await page.click(`#trackSwitch button[data-track="${other.id}"]`);
+    const otherL = st.listings.filter(x => (x.track || 'land') === other.id);
+    check(`switching to "${other.id}" shows its listings`, await page.locator('.card').count(), otherL.length);
+    if (!otherL.length) check('empty track shows an empty-state message', await page.locator('.empty').count(), 1);
+    check('chips swapped to the new track', await page.locator('#criteria span').count(), (other.chips || []).length);
+    check('rubric swapped to the new track', (await page.locator('#rubric').textContent()).includes(other.rubric[0].label), true);
+    check('type filters swapped', await page.locator('#typeFilters button').count(), (other.typeFilters || []).length);
+    check('sorts swapped', await page.locator('#sortSel option').count(), (other.sorts || []).length);
+    await page.click(`#trackSwitch button[data-track="${track.id}"]`);
+    check('switching back restores the original track', await page.locator('.card').count(), N);
+  }
 
   console.log('\n=== tiles are interactive ===');
   check('total tiles', await page.locator('.tile').count(), 4);
@@ -139,7 +164,7 @@ async function open(browser, file, waitFor = '.card') {
   await page.screenshot({ path: path.join(TMP, 'tracker.png') });
 
   console.log('\n=== amenities ===');
-  const amList = st.listings.filter(x => (x.amenities || []).length);
+  const amList = L.filter(x => (x.amenities || []).length);
   console.log(`     ${amList.length} listings carry amenities`);
   check('amenity chip shows live count', (await page.locator('#amenityFilter button').textContent()).includes(`(${amList.length})`), true);
   check('amenity lines rendered', await page.locator('.card .amen').count(), amList.length);
@@ -155,9 +180,8 @@ async function open(browser, file, waitFor = '.card') {
   console.log('\n=== rubric rendered from data ===');
   const rub = await page.locator('#rubric').textContent();
   console.log('     ' + rub.trim());
-  check('every category present', st.rubric.every(r => rub.includes(r.label)), true);
-  check('amenities category weighted 20', /community amenities[^)]*\(20\)/.test(rub), true);
-  check('rubric totals 100', st.rubric.reduce((a, r) => a + r.pts, 0), 100);
+  check('every category present', track.rubric.every(r => rub.includes(r.label)), true);
+  check('rubric totals 100', track.rubric.reduce((a, r) => a + r.pts, 0), 100);
 
   console.log('\n=== sort: most amenities first ===');
   await page.selectOption('#sortSel', 'amenities');
@@ -170,9 +194,10 @@ async function open(browser, file, waitFor = '.card') {
   check('no amenities: no errors', rNoAm.errs.length, 0);
   check('no amenities: no lines', await rNoAm.page.locator('.card .amen').count(), 0);
   check('no amenities: chip hidden entirely', await rNoAm.page.locator('#amenityFilter button').count(), 0);
-  const rNoRub = await open(browser, variant('r-norub.html', s2 => { delete s2.rubric; }));
+  const rNoRub = await open(browser, variant('r-norub.html', s2 => { s2.tracks.forEach(t => { delete t.rubric; }); }));
   check('no rubric: no errors', rNoRub.errs.length, 0);
-  check('no rubric: paragraph removes itself', await rNoRub.page.locator('#rubric').count(), 0);
+  check('no rubric: paragraph hidden', await rNoRub.page.evaluate(() => getComputedStyle(document.getElementById('rubric')).display), 'none');
+  check('no rubric: paragraph renders no text', (await rNoRub.page.locator('#rubric').textContent()).trim(), '');
 
   console.log('\n=== regressions: guards + escaping still hold ===');
   const fAllSold = variant('r-allsold.html', s => { s.listings.forEach(x => { x.status = 'sold'; }); });
@@ -183,12 +208,13 @@ async function open(browser, file, waitFor = '.card') {
   const fEmpty = variant('r-empty.html', s => { s.listings = []; });
   const rE = await open(browser, fEmpty, '.tile');
   check('empty list does not throw', rE.errs.length, 0);
-  check('empty list: no priority button crash', await rE.page.locator('#priorityFilter button').count(), 1);
+  check('empty list: priority chip hidden rather than showing (0)', await rE.page.locator('#priorityFilter button').count(), 0);
+  check('empty list: empty-state message shown', await rE.page.locator('.empty').count(), 1);
 
   const fHostile = variant('r-hostile.html', s => {
     s.runNote = 'note <b>x</b> & "q"';
     s.listings = [{
-      id: 'x<y', name: 'Cape Charles <img src=x onerror=alert(1)> & "q" Rd', region: 'es',
+      track: s.activeTrack, id: 'x<y', name: 'Cape Charles <img src=x onerror=alert(1)> & "q" Rd', region: 'es',
       water: 'Creek <b>b</b> & wide', type: 'waterfront', price: 1e5, priceWas: 15e4, acres: 1,
       score: 50, drive: '1h00', hoa: 'A & B', firstSeen: '2026-08-01', firstSeenRun: 3,
       status: 'active', highlights: ['h <i>i</i> & m'], flags: ['f <u>u</u> & y'],
