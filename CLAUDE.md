@@ -114,6 +114,20 @@ materials state. Omit the field entirely for an unresearched community — that 
 different from having no amenities, and a keyword sweep is not good enough: it tags
 `nn-haven-beach-*` off a road name and `nn-buzzard-point` off a nearby *public* beach.
 
+## The binding constraint on the Houses track
+
+**MLW depth.** Dock & boating is 22 of 100 and depth is its core currency, but as of run 8
+only 2 of the 19 houses with a dock had any MLW figure at all, and both were shallow
+(2–4 ft). Everything else was listing language — "sailboat depth", "good boating depth",
+"dock-able" — which is not a measurement. That single gap is what holds the whole track
+under 75.
+
+So: never convert that language into a number, and treat resolving depth as the highest-
+leverage diligence step on this track. Sources worth trying beyond the listing: NOAA chart
+soundings, county GIS, VMRC/JPA dock-permit records, and the listing agent directly.
+Distinguish clearly between a private permitted pier, a shared community dock, "dock-able",
+and "room for a pier" — they are four different things and only the first earns full marks.
+
 ## Network access
 
 Listing sites are only reachable if the cloud environment's network access allows them.
@@ -145,9 +159,13 @@ a run does. Run 6's first attempt marked *everything* down instead of reweightin
 - **Never recast an existing highlight as a flag** without genuinely new adverse
   information, and never re-charge carried-forward diligence already priced into an
   earlier score.
-- **Sanity-check the distribution before committing:** roughly 30–85, several listings
-  above 75, the best approaching 80+. If nothing clears 75, a category is being
-  systematically under-awarded.
+- **Sanity-check the distribution before committing:** roughly 30–85 with real spread,
+  several listings above 75, the best approaching 80+. If nothing clears 75, suspect a
+  category is being systematically under-awarded — *unless* a category is genuinely capped
+  across the whole board by missing information, which is a real and different situation.
+  Run 8 topped out at 74 on the Houses track because not one house had a verified MLW
+  depth, and dock is worth 22; that was honest scoring, not drift. Say which case it is in
+  `runNote` rather than leaving the reader to guess.
 
 ## Verifying a change
 
