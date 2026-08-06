@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Two Sunday itineraries on Virginia's Middle Peninsula and Northern Neck, built from listings re-verified on 6 August 2026.">
-<title>Two Sundays — verified 6 August</title>
-</head>
-<body>
+<meta name="description" content="A one-day loop through six Northern Neck and Middlesex towns, with the two houses that survived verification.">
+<meta property="og:title" content="Sunday on the Northern Neck">
+<meta property="og:description" content="Six towns, two houses, and the Rappahannock crossed twice.">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}</style>
+<title>Sunday on the Northern Neck</title>
 <style>
   :root {
     color-scheme: light;
@@ -60,47 +61,9 @@
   .standfirst { font-size: 15.5px; color: var(--muted); margin: 0; }
   .standfirst b { color: var(--ink); font-weight: 600; }
 
-  .alert {
-    margin: 24px 0 0; padding: 16px 18px; border-radius: 3px;
-    background: var(--panel); border: 2px solid var(--magenta); font-size: 14.5px;
-  }
-  .alert h2 {
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
-    margin: 0 0 8px; color: var(--magenta);
-  }
-  .alert p { margin: 0 0 8px; }
-  .alert p:last-child { margin-bottom: 0; }
-
-  .chooser { display: flex; flex-direction: column; gap: 12px; margin: 26px 0 0; }
-  .pick {
-    display: block; text-decoration: none; color: inherit;
-    background: var(--panel); border: 1px solid var(--rule); border-radius: 3px;
-    padding: 15px 17px; border-left: 3px solid var(--magenta);
-  }
-  .pick:hover, .pick:focus-visible { border-color: var(--magenta); outline: none; }
-  .pick .tag {
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--magenta);
-  }
-  .pick .nm { font-family: Georgia, ui-serif, serif; font-size: 21px; margin: 3px 0 5px; }
-  .pick .ch { font-size: 14px; color: var(--muted); margin: 0; }
-  .pick .fx { font-size: 13px; margin: 8px 0 0; }
-
-  .banner { margin: 46px 0 0; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
-  .banner .tag {
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta);
-  }
-  .banner h2 {
-    font-family: Georgia, "Iowan Old Style", ui-serif, serif; font-weight: 400;
-    font-size: clamp(25px, 6.5vw, 31px); margin: 5px 0 0; letter-spacing: -.015em;
-  }
-  .banner p { margin: 8px 0 0; font-size: 14.5px; color: var(--muted); }
-
   .strip {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-    margin: 18px 0 4px; background: var(--rule);
+    margin: 24px 0 4px; background: var(--rule);
     border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
   }
   .strip div { background: var(--panel); padding: 11px 13px; }
@@ -110,7 +73,18 @@
     font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums;
   }
 
-  ol.route { list-style: none; margin: 26px 0 0; padding: 0; }
+  .loop {
+    margin: 22px 0 0; padding: 15px 17px; border-radius: 3px;
+    background: var(--shoal); border-left: 3px solid var(--magenta); font-size: 14.5px;
+  }
+  .loop h2 {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+    margin: 0 0 7px; color: var(--magenta);
+  }
+  .loop p { margin: 0; }
+
+  ol.route { list-style: none; margin: 32px 0 0; padding: 0; }
   ol.route > li {
     position: relative; padding: 0 0 26px 62px;
     border-left: 1px solid var(--hair); margin-left: 44px;
@@ -126,16 +100,24 @@
     border-radius: 50%; background: var(--paper); border: 1.5px solid var(--hair);
   }
   li.house .dot { background: var(--magenta); border-color: var(--magenta); }
-  li.star .dot { background: var(--ink); border-color: var(--ink); }
+  li.town .dot { background: var(--ink); border-color: var(--ink); }
+  li.quick .dot { width: 7px; height: 7px; left: -4px; top: 7px; background: var(--paper); border: 1.5px solid var(--ink); }
   li.drive .dot { width: 5px; height: 5px; left: -3px; top: 8px; border: 0; background: var(--hair); }
   .place {
     font-family: Georgia, "Iowan Old Style", ui-serif, serif;
     font-size: 20px; line-height: 1.2; margin: 0 0 3px; letter-spacing: -.01em;
   }
+  li.quick .place { font-size: 17px; }
   .where { font-size: 13px; color: var(--muted); margin: 0 0 9px; }
   .why { font-size: 14.5px; margin: 0; }
   .why + .why { margin-top: 8px; }
   li.drive .place { font-size: 14px; font-family: inherit; color: var(--muted); font-style: italic; }
+  .tagline {
+    display: inline-block; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 2px; background: var(--land); color: var(--ink);
+    margin-bottom: 6px;
+  }
 
   .listing { margin-top: 11px; background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
   .listing > header { display: flex; align-items: baseline; gap: 11px; padding: 12px 14px 10px; border-bottom: 1px solid var(--rule); }
@@ -170,7 +152,7 @@
   .plus { margin: 0 14px 12px; padding: 9px 11px; border-radius: 2px; background: var(--shoal); font-size: 13px; }
   .plus b { color: var(--good); }
 
-  .ask { margin: 30px 0 0; padding: 18px 19px; border: 1px solid var(--magenta); border-radius: 3px; background: var(--panel); }
+  .ask { margin: 34px 0 0; padding: 18px 19px; border: 1px solid var(--magenta); border-radius: 3px; background: var(--panel); }
   .ask h2 { font-family: Georgia, ui-serif, serif; font-size: 21px; font-weight: 400; margin: 0 0 4px; }
   .ask > p { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
   .ask ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
@@ -182,151 +164,59 @@
 
   h3.sub { font-family: Georgia, ui-serif, serif; font-weight: 400; font-size: 20px; margin: 34px 0 10px; }
   ul.notes { margin: 0; padding-left: 20px; font-size: 14.5px; display: flex; flex-direction: column; gap: 9px; }
-  table.out { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 4px; }
-  table.out th, table.out td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--rule); vertical-align: top; }
-  table.out th { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
-  table.out td.n { font-family: ui-monospace, "SF Mono", Menlo, monospace; white-space: nowrap; }
+  .side { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 14px 16px; font-size: 14px; }
+  .side + .side { margin-top: 10px; }
+  .side .h { font-weight: 600; margin-bottom: 4px; }
   footer { margin-top: 42px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
   footer a { color: var(--magenta); }
   @media print { body { background: #fff; } .ask input { -webkit-appearance: none; appearance: none; border: 1px solid #666; } }
 </style>
 
 <div class="wrap">
-  <div class="eyebrow">Route card &middot; every house re-checked 6 August</div>
-  <h1>Two Sundays</h1>
-  <p class="standfirst">Rebuilt from scratch after every listing on the board was re-verified against a property page or a county record. <b>Four houses survived that check</b> — two on each route. Everything here was confirmed still for sale on <b>6 August</b>.</p>
-
-  <div class="alert">
-    <h2>What the re-check changed</h2>
-    <p>Of 38 houses, <b>23 are still active. Two had already sold, two went under contract, and eleven could not be confirmed against a real listing page at all.</b></p>
-    <p>Both houses on the previous version of this card are gone: one had sold in May, one is a tear-down. Two more that looked good last week — Holly Trail in Gloucester and Pattersons View in Hayes — turned out to be off-market and a shared community pier respectively.</p>
-    <p><b>Not one house on the board has a confirmed water depth.</b> That is the single thing worth resolving, and it is a phone call.</p>
-  </div>
-
-  <div class="chooser">
-    <a class="pick" href="#a">
-      <div class="tag">Option A &middot; 4h30 driving</div>
-      <div class="nm">Mathews &amp; the Bay</div>
-      <p class="ch">The two best houses, an 1805 lighthouse across the marsh, and a beach full of drowned pine stumps.</p>
-      <p class="fx"><b>Best if</b> you want the strongest houses and wilder scenery. Includes the only covered boathouse on the board.</p>
-    </a>
-    <a class="pick" href="#b">
-      <div class="tag">Option B &middot; 4h15 driving</div>
-      <div class="nm">The Northern Neck</div>
-      <p class="ch">Indian Creek and Reason Creek, the prettiest village on the Neck, and the mouth of the Rappahannock.</p>
-      <p class="fx"><b>Best if</b> you want to judge towns you could live in. Closer, and the better of the two for walking.</p>
-    </a>
-  </div>
-
-  <!-- ============ OPTION A ============ -->
-  <div class="banner" id="a">
-    <div class="tag">Option A</div>
-    <h2>Mathews &amp; the Bay</h2>
-    <p>Out over the Coleman Bridge through Gloucester, down the length of Mathews to the Chesapeake, home the same way. Depart 8:30, back about 6:45.</p>
-  </div>
+  <div class="eyebrow">Route card &middot; houses re-checked 6 August</div>
+  <h1>Sunday on the Northern Neck</h1>
+  <p class="standfirst">Six towns, two houses, and the Rappahannock crossed twice. Out through Middlesex to <b>Urbanna</b>, over the Norris Bridge, up the Neck to Reedville, home down US&#8209;360. <b>About 5 hours driving</b> — a full day, but nothing doubles back on itself.</p>
 
   <div class="strip">
+    <div><div class="k">Towns</div><div class="v">6</div></div>
     <div><div class="k">Houses</div><div class="v">2</div></div>
-    <div><div class="k">Driving</div><div class="v">4h30</div></div>
-    <div><div class="k">Depths known</div><div class="v">0</div></div>
+    <div><div class="k">Driving</div><div class="v">5h00</div></div>
+  </div>
+
+  <div class="loop">
+    <h2>Why this way round</h2>
+    <p>Urbanna is on the <b>south</b> bank and the houses are on the <b>north</b>, so going out via Middlesex and home via US&#8209;360 turns what would be an out-and-back into a loop. You get Urbanna for free, cross the river twice, and pass through Warsaw and Tappahannock on the way home without a single detour.</p>
   </div>
 
   <ol class="route">
-    <li class="drive"><span class="clock">8:30</span><span class="dot"></span>
-      <p class="place">Depart Glen Allen &mdash; I&#8209;64 East, then US&#8209;17 North over the Coleman Bridge</p>
+    <li class="drive"><span class="clock">8:00</span><span class="dot"></span>
+      <p class="place">Depart Glen Allen &mdash; I&#8209;64 East, then US&#8209;33 East through West Point</p>
     </li>
 
-    <li class="house"><span class="clock">10:30</span><span class="dot"></span>
-      <p class="place">Mathews &mdash; Stutts Creek</p>
-      <p class="where">Mathews County &middot; 4.7 acres</p>
-      <p class="why">The better value of the two. Four bedrooms and nearly five acres on a creek, and the price has come down &mdash; the $599,900 figure floating around is stale.</p>
-      <div class="listing">
-        <header>
-          <div class="score">65<small>score</small></div>
-          <div class="addr"><div class="a">764 Lovers Ln</div><div class="p">$574,900 &middot; drive 1h55 &middot; built 1973</div></div>
-        </header>
-        <div class="spec"><span><b>4</b> bd</span><span><b>3</b> ba</span><span><b>1,890</b> sf</span><span><b>4.7</b> ac</span><span>Stutts Creek</span></div>
-        <div class="vfd">&#10003; still for sale 6 Aug &mdash; brokerage detail page</div>
-        <div class="depth">
-          <div class="sounding">&mdash;<em>ft MLW</em></div>
-          <div>Private pier, but described as suited to <b>fishing and kayaking</b> &mdash; not stated to take a larger boat. No depth figure. If you want a real boat here, this is the question.</div>
-        </div>
-        <div class="caution">Built 1973, so ask about deferred maintenance. The property has cycled through several MLS numbers, which usually means it has been listed and relisted &mdash; worth asking how long it has really been for sale.</div>
-      </div>
+    <li class="quick"><span class="clock">9:20</span><span class="dot"></span>
+      <span class="tagline">drive-by</span>
+      <p class="place">Saluda</p>
+      <p class="where">Middlesex County seat &middot; five minutes on US&#8209;33</p>
+      <p class="why">Barely a stop, but you pass the courthouse green and it tells you what the county administration side of life looks like. Worth slowing down for rather than parking.</p>
     </li>
 
-    <li class="star"><span class="clock">11:40</span><span class="dot"></span>
-      <p class="place">Mathews village &amp; lunch</p>
-      <p class="where">Mathews Grill &amp; Deli, 296 Main St &middot; open Sundays 8am&ndash;9pm</p>
-      <p class="why">A county-seat village around an intact courthouse green, and the only real high street for miles. Pizza, burgers, sandwiches &mdash; nothing precious, and open on a Sunday, which out here is the rarer quality. Mi Casa Azteca at 286 Main St is the alternative.</p>
+    <li class="town"><span class="clock">9:35</span><span class="dot"></span>
+      <p class="place">Urbanna</p>
+      <p class="where">Middlesex County &middot; a colonial tobacco port since the 1680s &middot; allow an hour</p>
+      <p class="why">One of Virginia's original official ports, and still small enough to walk end to end. Cross Street down to the harbour on Urbanna Creek, past the 1766 tobacco warehouse. Coffee if anything is open.</p>
+      <p class="why">This is the town on your list that most rewards being judged on foot rather than on a map. Whether you would happily spend a Saturday here is a question only the sidewalk answers &mdash; and it is a useful contrast with Irvington later, which is prettier but less of a working place.</p>
     </li>
 
-    <li class="house"><span class="clock">1:00</span><span class="dot"></span>
-      <p class="place">Susan &mdash; Horn Harbor</p>
-      <p class="where">Mathews County &middot; 2.5 acres, 400 ft of frontage</p>
-      <p class="why">The most interesting property left on the board. A private pier <b>and a covered boathouse with water and electric</b> &mdash; rarer than anything else in the band &mdash; on Horn Harbor, which this run confirmed opens to the Chesapeake.</p>
-      <div class="listing">
-        <header>
-          <div class="score">67<small>score</small></div>
-          <div class="addr"><div class="a">310 Brush Neck Rd &mdash; &ldquo;The Lighthouse&rdquo;</div><div class="p">$689,900 &middot; drive 2h05 &middot; built 1981</div></div>
-        </header>
-        <div class="spec"><span><b>3</b> bd</span><span><b>2</b> ba</span><span><b>1,800</b> sf</span><span><b>2.5</b> ac</span><span>covered boathouse</span></div>
-        <div class="vfd">&#10003; still for sale 6 Aug &mdash; detail page dated 29 July</div>
-        <div class="depth">
-          <div class="sounding">&mdash;<em>ft MLW</em></div>
-          <div>&ldquo;Deep water&rdquo; with no number behind it. A covered boathouse implies real depth &mdash; you do not roof a berth you cannot float a boat in &mdash; but <b>implication is not measurement.</b></div>
-        </div>
-        <div class="plus"><b>Recent work claimed:</b> new roof 2026, new water heater 2026, garage doors 2025, backup generator. For a 1981 house that matters.</div>
-        <div class="caution"><b>The price is still unresolved.</b> Four different figures now exist for what looks like the same house: $689,900 freshest, $697,900 from May, $635,000 in snippets, and a 2022 sale at $600,000. Ask them what it is.</div>
-      </div>
+    <li class="town"><span class="clock">10:50</span><span class="dot"></span>
+      <p class="place">The Norris Bridge</p>
+      <p class="where">VA&#8209;3 &middot; nearly two miles across</p>
+      <p class="why">The crossing is the event. You come up over the span and the Rappahannock opens out underneath you close to its widest &mdash; the best single look at the river you will get, and the moment that explains why people move out here. <b>White Stone</b> sits at the far end: a crossroads village, one look and you know it.</p>
     </li>
 
-    <li class="star"><span class="clock">2:15</span><span class="dot"></span>
-      <p class="place">New Point Comfort</p>
-      <p class="where">Nature Conservancy preserve &middot; dawn to dusk, free</p>
-      <p class="why">An accessible boardwalk out over the salt marsh to an observation deck, looking across at the <b>New Point Comfort lighthouse of 1805</b> &mdash; now stranded offshore on its own scrap of island because the point eroded away around it. 105 acres on the Atlantic Flyway, with nesting least terns in season.</p>
-      <p class="why">The most striking thing on either route.</p>
-    </li>
-
-    <li class="star"><span class="clock">3:15</span><span class="dot"></span>
-      <p class="place">Bethel Beach</p>
-      <p class="where">Natural Area Preserve &middot; Mathews County</p>
-      <p class="why">A wild Chesapeake beach where sand lies over peat, so the shore is studded with the stumps of a drowned loblolly pine forest. Piping plover and the threatened beach tiger beetle nest here. Nothing manicured about it, which is the appeal.</p>
-    </li>
-
-    <li class="star"><span class="clock">4:30</span><span class="dot"></span>
-      <p class="place">Yorktown &mdash; optional</p>
-      <p class="where">On the way home over the Coleman Bridge</p>
-      <p class="why">You cross the York anyway, so the riverwalk, the beach and the battlefield are right there. Waterfront tables if anyone wants a drink before the last hour. Cut it if the day has run long.</p>
-    </li>
-
-    <li class="drive"><span class="clock">~6:45</span><span class="dot"></span>
-      <p class="place">Home on I&#8209;64 West</p>
-    </li>
-  </ol>
-
-  <!-- ============ OPTION B ============ -->
-  <div class="banner" id="b">
-    <div class="tag">Option B</div>
-    <h2>The Northern Neck</h2>
-    <p>Up US&#8209;360 through Warsaw to Kilmarnock, out to the mouth of the river, north to Reedville, home the same way. Depart 8:30, back about 6:30.</p>
-  </div>
-
-  <div class="strip">
-    <div><div class="k">Houses</div><div class="v">2</div></div>
-    <div><div class="k">Driving</div><div class="v">4h15</div></div>
-    <div><div class="k">Depths known</div><div class="v">0</div></div>
-  </div>
-
-  <ol class="route">
-    <li class="drive"><span class="clock">8:30</span><span class="dot"></span>
-      <p class="place">Depart Glen Allen &mdash; US&#8209;360 East through Warsaw</p>
-    </li>
-
-    <li class="house"><span class="clock">10:15</span><span class="dot"></span>
+    <li class="house"><span class="clock">11:20</span><span class="dot"></span>
       <p class="place">Kilmarnock &mdash; Indian Creek</p>
       <p class="where">Lancaster County &middot; 149 ft of frontage</p>
-      <p class="why">The closest thing on either route to a conventional good house: 149 feet on Indian Creek, a dock about two years old, and a price that has come down hard. It also backs the Indian Creek Yacht &amp; Country Club fairway &mdash; and membership is described as <b>optional, not mandatory</b>, which is worth confirming but would mean the amenity without the compulsory bill.</p>
+      <p class="why">The most conventionally good house left on the board. 149 feet on Indian Creek, a dock about two years old, and a price that has come down hard. It backs the Indian Creek Yacht &amp; Country Club fairway, and membership is described as <b>optional rather than mandatory</b> &mdash; worth confirming, but it would mean the amenity without the compulsory bill.</p>
       <div class="listing">
         <header>
           <div class="score">64<small>score</small></div>
@@ -336,103 +226,113 @@
         <div class="vfd">&#10003; still for sale 6 Aug &mdash; MLS #120582, three sources agree</div>
         <div class="depth">
           <div class="sounding">&mdash;<em>ft MLW</em></div>
-          <div>A dock roughly two years old, confirmed this run after an earlier source said there was none at all. <b>No depth figure.</b> A new dock is a good sign; ask what it was built to take.</div>
+          <div>A dock roughly two years old, confirmed after an earlier source said there was none at all. <b>No depth figure.</b> A new dock is a good sign; ask what it was built to take.</div>
         </div>
-        <div class="caution">Kitchen and baths described as wanting cosmetic updates. The price drop from about $695,000 is pieced together from two snippets rather than one clean record &mdash; ask them directly what it listed at.</div>
+        <div class="caution">Kitchen and baths described as wanting cosmetic updates. The drop from about $695,000 is pieced together from two snippets rather than one clean record &mdash; ask them what it actually listed at.</div>
       </div>
+      <p class="why">Kilmarnock itself is the practical town of the group &mdash; the one with the shops you would genuinely need. Worth ten minutes on Main Street before you leave.</p>
     </li>
 
-    <li class="star"><span class="clock">11:15</span><span class="dot"></span>
-      <p class="place">Irvington</p>
+    <li class="town"><span class="clock">12:20</span><span class="dot"></span>
+      <p class="place">Irvington &mdash; and lunch</p>
       <p class="where">Lancaster County &middot; Carter's Creek &middot; ten minutes from Kilmarnock</p>
-      <p class="why">The prettiest village on the Neck. Walk the lanes and the Tides Inn grounds down to Carter's Creek. Lunch here &mdash; Trick Dog Cafe, The Office Bistro and Golden Eagle Grill are the names to try, and all of them want a phone call on a Sunday.</p>
+      <p class="why">The prettiest village on the Neck. Walk the lanes and the Tides Inn grounds down to Carter's Creek. If Urbanna is the working port, this is the postcard, and the contrast between the two is the most useful thing the day gives you.</p>
+      <p class="why">Lunch here: <b>Trick Dog Cafe</b>, <b>The Office Bistro</b> and <b>Golden Eagle Grill</b> are the names to try. Ring ahead &mdash; rural Sunday hours are unreliable and I could not confirm any of them.</p>
     </li>
 
-    <li class="star"><span class="clock">1:15</span><span class="dot"></span>
-      <p class="place">Windmill Point</p>
-      <p class="where">Westland Beach &amp; public fishing pier &middot; end of Windmill Point Rd</p>
-      <p class="why">The mouth of the river, where the Rappahannock gives out into the Chesapeake. A recently rebuilt county park with restored beach and a long accessible fishing pier &mdash; public, free, and about as much open water as Virginia offers in one view. You can see the Norris Bridge from here, which saves driving it.</p>
-    </li>
-
-    <li class="house"><span class="clock">2:45</span><span class="dot"></span>
+    <li class="house"><span class="clock">2:40</span><span class="dot"></span>
       <p class="place">Reedville &mdash; Reason Creek</p>
-      <p class="where">Northumberland County</p>
-      <p class="why">The best-maintained house of the four. A 1951 place, but roof, HVAC, windows and siding have all been replaced within four years &mdash; which is the opposite of the problem that killed the Saluda house. Private pier and lift, cross-checked across two sources.</p>
+      <p class="where">Northumberland County &middot; up VA&#8209;200 through Lively</p>
+      <p class="why">The house least likely to hand you a surprise. It is from 1951, but the roof, HVAC, windows and siding have all been replaced within four years &mdash; the exact opposite of the problem that killed the Saluda house. Private pier and a boat lift, cross-checked across two sources.</p>
       <div class="listing">
         <header>
           <div class="score">61<small>score</small></div>
           <div class="addr"><div class="a">2082 Fairport Rd</div><div class="p">$539,000 &middot; drive 2h00 &middot; built 1951</div></div>
         </header>
         <div class="spec"><span><b>3</b> bd</span><span><b>2</b> ba</span><span><b>2,088</b> sf</span><span>no HOA</span><span>Reason Creek</span></div>
-        <div class="vfd">&#10003; still for sale 6 Aug &mdash; price cut 5 Aug, one day before checking</div>
+        <div class="vfd">&#10003; still for sale 6 Aug &mdash; price cut 5 Aug, the day before checking</div>
         <div class="depth">
           <div class="sounding">&mdash;<em>ft MLW</em></div>
-          <div>Private pier <b>and a boat lift</b>, confirmed via a second source. Still no depth figure &mdash; but a lift is the strongest hint you get without a number.</div>
+          <div>Private pier <b>and a boat lift</b>, confirmed via a second source. Still no depth figure &mdash; but a lift is the strongest hint you get without a number, because nobody roofs or rigs a berth a boat cannot reach.</div>
         </div>
-        <div class="plus"><b>Roof, HVAC, windows and siding all replaced in the last four years</b>, and a fresh price cut from $549,900 the day before we checked. Of the four, this is the one least likely to hand you a surprise.</div>
+        <div class="plus"><b>Roof, HVAC, windows and siding all replaced in the last four years</b>, no HOA, and a fresh cut from $549,900. Of everything on the board this is the one with the fewest unknowns.</div>
       </div>
     </li>
 
-    <li class="star"><span class="clock">3:45</span><span class="dot"></span>
+    <li class="town"><span class="clock">3:40</span><span class="dot"></span>
       <p class="place">Reedville Main Street</p>
       <p class="where">Northumberland County &middot; the historic district</p>
-      <p class="why">Walk Main Street for the Victorian houses built on menhaden money &mdash; at the turn of the century this was said to be one of the wealthiest towns per head in the country, and the street still shows it. The Fishermen's Museum at 504 Main is worth a return trip but is <b>closed Sundays</b>, so this is a streetscape stop rather than a museum one.</p>
+      <p class="why">Walk Main Street for the Victorian houses built on menhaden money &mdash; at the turn of the last century this was said to be among the wealthiest towns per head in the country, and the street still shows it. The Fishermen's Museum at 504 Main is worth a return trip but is <b>closed Sundays</b>, so this is a streetscape walk rather than a museum visit.</p>
     </li>
 
-    <li class="drive"><span class="clock">~6:30</span><span class="dot"></span>
+    <li class="quick"><span class="clock">5:15</span><span class="dot"></span>
+      <span class="tagline">drive-by</span>
+      <p class="place">Warsaw</p>
+      <p class="where">Richmond County seat &middot; straight through on US&#8209;360</p>
+      <p class="why">No detour at all &mdash; the road goes through it. Another small county seat, and a useful third data point on what these towns are actually like when nobody is selling you anything.</p>
+    </li>
+
+    <li class="quick"><span class="clock">5:45</span><span class="dot"></span>
+      <span class="tagline">drive-by</span>
+      <p class="place">Tappahannock</p>
+      <p class="where">Essex County &middot; where US&#8209;360 crosses the Rappahannock</p>
+      <p class="why">Your second river crossing, forty miles upstream from the first &mdash; a good way to end, because the contrast between the Rappahannock here and at the Norris Bridge is the whole geography of the day in two views. The town dock is a two-minute detour if anyone wants to stretch.</p>
+    </li>
+
+    <li class="drive"><span class="clock">~6:45</span><span class="dot"></span>
       <p class="place">Home on US&#8209;360 West</p>
     </li>
   </ol>
 
-  <!-- ============ SHARED ============ -->
+  <h3 class="sub">Two detours, if the day is going well</h3>
+  <div class="side">
+    <div class="h">Windmill Point &mdash; 25 minutes each way from Irvington</div>
+    Westland Beach and a long public fishing pier at the mouth of the river, where the Rappahannock gives out into the Chesapeake. Free, recently rebuilt, and the most open water on the route. Add it after lunch if you are running ahead.
+  </div>
+  <div class="side">
+    <div class="h">Deltaville &mdash; 25 minutes each way from Urbanna</div>
+    Boat country: yards, brokers and Stingray Point. Worth it if you want to see where the boats actually live, but it is a 50-minute round trip in the morning and would put the rest of the day under pressure.
+  </div>
+
   <section class="ask">
-    <h2>Four questions, on the phone, before you drive</h2>
-    <p>The first two are the ones that would have saved the last wasted Sunday. The third is worth 22 of the 100 points and is unanswered on all four houses.</p>
+    <h2>Four questions, on the phone, before Sunday</h2>
+    <p>The first two are the ones that would have saved the last wasted trip. The third is worth 22 of the 100 points and is unanswered on both houses.</p>
     <ul id="checklist">
-      <li><input type="checkbox" id="q1"><label for="q1"><b>Is it still for sale, and when did it list?</b> All four were confirmed active on 6 August, but a fortnight is long enough. Ask anyway.</label></li>
-      <li><input type="checkbox" id="q2"><label for="q2"><b>What condition is the house in &mdash; has anyone lived in it recently?</b> "Modest" and "gut job" read identically in a listing summary. That is exactly how the Saluda house got onto a shortlist.</label></li>
-      <li><input type="checkbox" id="q3"><label for="q3"><b>What is the MLW depth at the end of the pier?</b> A number, not an adjective. Nobody has given one for any of these four. If they will not, that is itself the answer.</label></li>
+      <li><input type="checkbox" id="q1"><label for="q1"><b>Is it still for sale, and when did it list?</b> Both were confirmed active on 6 August, but ask anyway.</label></li>
+      <li><input type="checkbox" id="q2"><label for="q2"><b>What condition is it in &mdash; has anyone lived in it recently?</b> "Modest" and "gut job" read identically in a listing summary. That is exactly how a tear-down reached a shortlist.</label></li>
+      <li><input type="checkbox" id="q3"><label for="q3"><b>What is the MLW depth at the end of the pier?</b> A number, not an adjective. Neither house has one. If they will not give it, that is the answer.</label></li>
       <li><input type="checkbox" id="q4"><label for="q4"><b>Is the pier permitted, and does it convey?</b> VMRC or a Joint Permit Application, and in whose name.</label></li>
     </ul>
   </section>
 
-  <h3 class="sub">Ruled out, and why</h3>
-  <div style="overflow-x:auto">
-  <table class="out">
-    <tr><th>House</th><th>Score</th><th>Reason</th></tr>
-    <tr><td>349 Peach Tree Ln, White Stone</td><td class="n">66</td><td>Dock is a shared neighbourhood one; listing confirms the house is not on waterfront. Five price cuts to $459,950.</td></tr>
-    <tr><td>1120 Dillard St, Tappahannock</td><td class="n">63</td><td>Water is a small unnamed lake, not the Rappahannock.</td></tr>
-    <tr><td>270 River Road Cir, Saluda</td><td class="n">62</td><td><b>Tear-down.</b> At $579,500 it is priced above a livable 3/2 cottage on the same Piankatank stretch that sold for $530,000.</td></tr>
-    <tr><td>57 Swann Court, Reedville</td><td class="n">58</td><td>The only house with a stated depth (3&ndash;4 ft) &mdash; but confirmed at <b>1.5 baths</b>, so it misses your floor.</td></tr>
-    <tr><td>6207 Holly Trail, Gloucester</td><td class="n">71</td><td>Listed "not for sale" on homes.com with a dead MLS link. Off-market.</td></tr>
-    <tr><td>7161 Pattersons View Ln, Hayes</td><td class="n">62</td><td>The "dock" is a community fishing pier. Price data ranged $325k&ndash;$775k across sources.</td></tr>
-    <tr><td>103 Bayview Dr, Corrotoman</td><td class="n">70</td><td><b>Sold 18 May 2026.</b></td></tr>
-    <tr><td>11495 Tidewater Trl, Saluda</td><td class="n">31</td><td><b>Sold 24 April 2026</b> for $460,000.</td></tr>
-  </table>
-  </div>
-
   <h3 class="sub">Before you go</h3>
   <ul class="notes">
-    <li><b>All four houses are drive&#8209;bys</b> unless you call. Sunday showings out here need an appointment, and the call is also how you get the depth figures.</li>
-    <li><b>Phone the lunch stop.</b> Mathews Grill &amp; Deli lists Sunday hours; Irvington's places do not reliably. Two Urbanna restaurants have closed since their listings were written.</li>
+    <li><b>Both houses are drive&#8209;bys</b> unless you call. Sunday showings need an appointment, and the call is also how you get the depth figures &mdash; so it is worth making either way.</li>
+    <li><b>Ring the lunch stop.</b> None of Irvington's places could be confirmed for Sunday. Two Urbanna restaurants have closed since their listings were written, so do not count on eating there either &mdash; treat Urbanna as coffee-if-lucky and eat in Irvington.</li>
+    <li><b>Five hours of driving is the real cost</b> of adding Urbanna. If that is too much, cut Reedville: you lose the better-maintained house but save about ninety minutes, and Kilmarnock plus Irvington still answers the town question.</li>
     <li><b>Drive times are estimates</b> from the tracker, not independently measured.</li>
-    <li><b>Option A has the better houses; Option B has the better towns</b> and is half an hour shorter. If the point of the day is deciding whether you want to live out there at all, B answers that better.</li>
   </ul>
 
+  <h3 class="sub">If you want a second day</h3>
+  <div class="side">
+    <div class="h">Mathews &amp; the Bay &mdash; the better houses</div>
+    The two strongest properties on the board are down in Mathews and cannot join this loop: <b>764 Lovers Ln</b> ($574,900, 4bd, 4.7 acres on Stutts Creek) and <b>310 Brush Neck Rd</b> ($689,900, the only <b>covered boathouse</b> on the board, on Horn Harbor). That day also holds the 1805 New Point Comfort lighthouse and Bethel Beach. Both houses were confirmed active on 6 August.
+  </div>
+
   <footer>
-    Every house here was re-checked against a property-detail page or county record on 6 August 2026.
-    <a href="https://thgold-collab.github.io/waterfront-tracker/">Open the dashboard</a> for the full board, including the eleven listings that could not be verified.
+    Both houses re-checked against a property-detail page on 6 August 2026.
+    <a href="https://thgold-collab.github.io/waterfront-tracker/">Open the dashboard</a> for the full board, including the eleven listings that could not be verified and the eight ruled out.
   </footer>
 </div>
 
 <script>
   // Ticks survive a screen lock or an accidental reload mid-trip.
   document.querySelectorAll('#checklist input').forEach(function (b) {
-    try { if (localStorage.getItem('sun2-' + b.id) === '1') b.checked = true; } catch (e) {}
+    try { if (localStorage.getItem('nn-' + b.id) === '1') b.checked = true; } catch (e) {}
     b.parentElement.classList.toggle('done', b.checked);
     b.addEventListener('change', function () {
       b.parentElement.classList.toggle('done', b.checked);
-      try { localStorage.setItem('sun2-' + b.id, b.checked ? '1' : '0'); } catch (e) {}
+      try { localStorage.setItem('nn-' + b.id, b.checked ? '1' : '0'); } catch (e) {}
     });
   });
 </script>
