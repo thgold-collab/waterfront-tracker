@@ -65,6 +65,31 @@ async function open(browser, file, waitFor = '.card') {
   const overCeiling = amPts ? L.filter(x => !(x.amenities || []).length && x.score > ceiling) : [];
   check(`no-amenity listings stay at or below the ${ceiling} ceiling`, overCeiling.length, 0);
   overCeiling.forEach(x => console.log(`     over by ${x.score - ceiling}: ${x.score} ${x.name}`));
+  // --- status provenance (added after run 8 carried a house that had sold 11 weeks earlier) ---
+  const soldNoDate = st.listings.filter(x => x.status === 'sold' && !x.soldOn);
+  check('every sold listing records soldOn', soldNoDate.length, 0);
+  soldNoDate.forEach(x => console.log('     missing soldOn: ' + x.name));
+
+  const urls = st.listings.map(x => x.url).filter(Boolean);
+  const dupUrl = [...new Set(urls.filter((u, i) => urls.indexOf(u) !== i))];
+  check('no two listings share a source URL', dupUrl.length, 0);
+  dupUrl.forEach(u => console.log('     shared by ' + urls.filter(v => v === u).length + ': ' + u));
+
+  const badDate = st.listings.filter(x => x.statusAsOf &&
+    (isNaN(new Date(x.statusAsOf + 'T12:00:00')) || x.statusAsOf > st.runDate));
+  check('statusAsOf parses and is not in the future', badDate.length, 0);
+  badDate.forEach(x => console.log('     bad statusAsOf ' + x.statusAsOf + ': ' + x.name));
+
+  // Ratchet: anything this run touched must carry provenance. Older rows are grandfathered
+  // but counted out loud, so the backlog cannot quietly become permanent.
+  const touchedNoProv = st.listings.filter(x => x.firstSeenRun === st.runNumber && !x.statusAsOf);
+  check('listings touched this run carry statusAsOf', touchedNoProv.length, 0);
+  touchedNoProv.forEach(x => console.log('     no statusAsOf: ' + x.name));
+
+  const activeAll = st.listings.filter(x => x.status === 'active');
+  const unverified = activeAll.filter(x => !x.statusAsOf);
+  console.log(`     BACKLOG: ${unverified.length} of ${activeAll.length} active listings have never had their status verified`);
+
   const badNew = st.listings.filter(x => x.firstSeenRun === st.runNumber && !x.firstSeen);
   check('active track is a declared track', trackIds.has(track.id), true);
   check('listings new this run carry firstSeen', badNew.length, 0);
@@ -102,10 +127,16 @@ async function open(browser, file, waitFor = '.card') {
   // Baseline is 4 (all / top score / cuts / cheapest true waterfront); a "with a dock
   // or slip" tile joins them whenever the active track has dock data (CLAUDE.md: dock
   // drives a badge, a summary tile and a filter) — tile count isn't fixed per track.
-  const dockCount = L.filter(x => x.status === 'active' && !!x.dock).length;
-  const expectedTiles = 4 + (dockCount ? 1 : 0);
-  check('total tiles', await page.locator('.tile').count(), expectedTiles);
-  check('actionable tiles are buttons', await page.locator('button.tile').count(), expectedTiles);
+  const activeL = L.filter(x => x.status === 'active');
+  const dockCount = activeL.filter(x => !!x.dock).length;
+  const unverifiedCount = activeL.filter(x => !x.statusAsOf ||
+    Math.round((new Date(st.runDate + 'T12:00:00') - new Date(x.statusAsOf + 'T12:00:00')) / 86400000) > 14).length;
+  const wantTiles = [track.unit || 'candidates on watchlist', 'top score', 'with price cuts', 'cheapest true waterfront'];
+  if (dockCount) wantTiles.push('with a dock or slip');
+  if (unverifiedCount && unverifiedCount < activeL.length + 1) wantTiles.push('status unverified');
+  const gotTiles = (await page.locator('.tile .l').allTextContents()).map(t => t.trim());
+  check('tile inventory matches the data', JSON.stringify(gotTiles.slice().sort()), JSON.stringify(wantTiles.slice().sort()));
+  check('every tile is actionable', await page.locator('button.tile').count(), gotTiles.length);
   const labels = await page.locator('button.tile').evaluateAll(ns => ns.map(n => n.dataset.action + ':' + n.querySelector('.go').textContent.trim()));
   labels.forEach(l => console.log('     ' + l));
 
@@ -137,9 +168,10 @@ async function open(browser, file, waitFor = '.card') {
   check('region buttons re-synced to All', await page.locator('#regionFilters button.on').getAttribute('data-r'), 'all');
 
   console.log('\n=== tile: "top score" jumps ===');
-  await page.locator('button.tile').nth(1).click();
+  const topTile = page.locator('button.tile').filter({ has: page.locator('.l', { hasText: 'top score' }) });
+  const topName = (await topTile.locator('.d').textContent()).trim();
+  await topTile.click();
   await page.waitForTimeout(300);
-  const topName = (await page.locator('button.tile').nth(1).locator('.d').textContent()).trim();
   check('flashed card is the top scorer', (await page.locator('.card.flash h3 a').textContent()).startsWith(topName), true);
 
   console.log('\n=== tile: "show all" resets everything ===');
