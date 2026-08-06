@@ -346,7 +346,7 @@
 
   function renderAmenityFilter() {
     const el = document.getElementById('amenityFilter');
-    const n = trackListings().filter(x => x.status === 'active' && hasAmenities(x)).length;
+    const n = trackListings().filter(hasAmenities).length;
     if (!n) { el.innerHTML = ''; return; }
     el.innerHTML = '<button type="button" aria-pressed="' + amenityOnly + '"' + (amenityOnly ? ' class="on"' : '') +
       '>&#9752; Amenity communities (' + n + ')</button>';
