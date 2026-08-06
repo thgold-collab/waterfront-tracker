@@ -116,6 +116,36 @@ materials state. Omit the field entirely for an unresearched community — that 
 different from having no amenities, and a keyword sweep is not good enough: it tags
 `nn-haven-beach-*` off a road name and `nn-buzzard-point` off a nearby *public* beach.
 
+## Status provenance — how a sold house got recommended for a viewing
+
+Run 8 put 103 Bayview Dr on a shortlist for a Sunday drive. It had **sold on 5/18/2026**
+and had been carried as active for about eleven weeks. The same shortlist's other house,
+270 River Road Cir, turned out to be a **complete tear-down**. Neither was bad luck:
+
+- `statusAsOf`, `listedOn`, `soldOn` were populated on **0 of 38** houses. "Active" was a
+  claim with no date and no source, so a stale one looked exactly like a fresh one.
+- The Saluda `url` was a brokerage **category page**, not a property-detail page, so that
+  listing could never be re-verified and its condition could never be checked.
+- Condition was never researched. `yearBuilt` was empty on 27 of 38, and $307/sqft put it
+  at the **high** end of the board — the price gave no warning at all.
+
+So, non-negotiable now:
+
+- **Every listing carries `statusAsOf` and `statusSource`.** A status older than 14 days
+  renders an explicit unverified badge, is counted in its own summary tile, and can be
+  filtered. `scripts/verify.js` enforces this on anything the current run touched, and
+  prints the legacy backlog count so it cannot quietly persist.
+- **Verification hierarchy.** County transfer and assessment records are authoritative for
+  sold and for prior-sale price. An MLS-backed brokerage detail page beats an aggregator.
+  A search page, category page or index page is **not evidence** — if you cannot reach a
+  property-detail page, set `status: "unverified"` rather than leaving it active.
+- **`url` must be a property-detail page**, unique per listing. Two listings sharing a URL
+  fails the suite.
+- **Condition is researched, not assumed.** Record `yearBuilt`, and flag as-is / handyman /
+  investor / "bring your vision" language, absent interior photos, or a gut job. For this
+  brief a tear-down is close to disqualifying — say so in a flag rather than burying it in
+  a size comment.
+
 ## The binding constraint on the Houses track
 
 **MLW depth.** Dock & boating is 22 of 100 and depth is its core currency, but as of run 8
