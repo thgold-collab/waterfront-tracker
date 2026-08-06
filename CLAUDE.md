@@ -18,8 +18,10 @@ straight to `main`. Both tracks are refreshed in the same run.
 
 ## Architecture
 
-`index.html` is the whole thing — inline CSS and JS, no build step, no dependencies, no
-external calls. All data lives in one place: the `<script id="state" type="application/json">`
+`index.html` is the dashboard — inline CSS and JS, no build step, no dependencies, no
+external calls. `sunday.html` is a standalone trip itinerary served from the same Pages
+site; it is hand-written, has nothing to do with the weekly run, and **routines must leave
+it alone.** All data lives in one place: the `<script id="state" type="application/json">`
 block near the bottom. **That block is normally the only thing you edit.**
 
 ```

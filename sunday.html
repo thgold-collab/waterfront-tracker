@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Two Sunday itineraries on Virginia's Rappahannock and Chesapeake, with the waterfront houses worth stopping for.">
+<title>Two Sundays — Rappahannock or Mathews</title>
+</head>
+<body>
+<style>
+  :root {
+    color-scheme: light;
+    --paper:#f6f7f4; --panel:#fffffe; --land:#e7e1cf; --shoal:#c9dee4;
+    --ink:#16262b; --muted:#6e7b7e; --magenta:#a8285f;
+    --rule:#cdd6d4; --hair:#b9c4c2;
+    --good:#1d6b4f; --warn:#9a6a12; --bad:#a33a2a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --paper:#0e1518; --panel:#141d20; --land:#1f2822; --shoal:#17343b;
+      --ink:#e8edea; --muted:#90a0a3; --magenta:#f0669d;
+      --rule:#2a3639; --hair:#3a4a4d;
+      --good:#5fc39b; --warn:#d9a53f; --bad:#ef8974;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper:#0e1518; --panel:#141d20; --land:#1f2822; --shoal:#17343b;
+    --ink:#e8edea; --muted:#90a0a3; --magenta:#f0669d;
+    --rule:#2a3639; --hair:#3a4a4d;
+    --good:#5fc39b; --warn:#d9a53f; --bad:#ef8974;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --paper:#f6f7f4; --panel:#fffffe; --land:#e7e1cf; --shoal:#c9dee4;
+    --ink:#16262b; --muted:#6e7b7e; --magenta:#a8285f;
+    --rule:#cdd6d4; --hair:#b9c4c2;
+    --good:#1d6b4f; --warn:#9a6a12; --bad:#a33a2a;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 36rem; margin: 0 auto; padding: 28px 20px 64px; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+  .eyebrow {
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", ui-serif, serif;
+    font-size: clamp(30px, 8vw, 40px); line-height: 1.05; font-weight: 400;
+    margin: 8px 0 10px; letter-spacing: -.015em; text-wrap: balance;
+  }
+  .standfirst { font-size: 15.5px; color: var(--muted); margin: 0; }
+  .standfirst b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- the chooser ---------- */
+  .chooser { display: flex; flex-direction: column; gap: 12px; margin: 26px 0 0; }
+  .pick {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 3px;
+    padding: 15px 17px; border-left: 3px solid var(--magenta);
+  }
+  .pick:hover, .pick:focus-visible { border-color: var(--magenta); outline: none; }
+  .pick .tag {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--magenta);
+  }
+  .pick .nm { font-family: Georgia, ui-serif, serif; font-size: 21px; margin: 3px 0 5px; }
+  .pick .ch { font-size: 14px; color: var(--muted); margin: 0; }
+  .pick .fx { font-size: 13px; margin: 8px 0 0; }
+  .pick .fx b { font-weight: 600; }
+
+  /* ---------- option banner ---------- */
+  .banner {
+    margin: 46px 0 0; padding-bottom: 10px; border-bottom: 2px solid var(--ink);
+  }
+  .banner .tag {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--magenta);
+  }
+  .banner h2 {
+    font-family: Georgia, "Iowan Old Style", ui-serif, serif; font-weight: 400;
+    font-size: clamp(25px, 6.5vw, 31px); margin: 5px 0 0; letter-spacing: -.015em;
+  }
+  .banner p { margin: 8px 0 0; font-size: 14.5px; color: var(--muted); }
+
+  .strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    margin: 18px 0 4px; background: var(--rule);
+    border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
+  }
+  .strip div { background: var(--panel); padding: 11px 13px; }
+  .strip .k { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); min-height: 2.5em; }
+  .strip .v {
+    font-size: 21px; margin-top: 1px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- timeline ---------- */
+  ol.route { list-style: none; margin: 26px 0 0; padding: 0; }
+  ol.route > li {
+    position: relative; padding: 0 0 26px 62px;
+    border-left: 1px solid var(--hair); margin-left: 44px;
+  }
+  ol.route > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .clock {
+    position: absolute; left: -44px; top: -2px; width: 40px; text-align: right;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums;
+  }
+  .dot {
+    position: absolute; left: -5px; top: 5px; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--paper); border: 1.5px solid var(--hair);
+  }
+  li.house .dot { background: var(--magenta); border-color: var(--magenta); }
+  li.star .dot { background: var(--ink); border-color: var(--ink); }
+  li.drive .dot { width: 5px; height: 5px; left: -3px; top: 8px; border: 0; background: var(--hair); }
+  .place {
+    font-family: Georgia, "Iowan Old Style", ui-serif, serif;
+    font-size: 20px; line-height: 1.2; margin: 0 0 3px; letter-spacing: -.01em;
+  }
+  .where { font-size: 13px; color: var(--muted); margin: 0 0 9px; }
+  .why { font-size: 14.5px; margin: 0; }
+  .why + .why { margin-top: 8px; }
+  li.drive .place { font-size: 14px; font-family: inherit; color: var(--muted); font-style: italic; }
+
+  /* ---------- listing panel ---------- */
+  .listing { margin-top: 11px; background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  .listing > header { display: flex; align-items: baseline; gap: 11px; padding: 12px 14px 10px; border-bottom: 1px solid var(--rule); }
+  .score {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 27px; line-height: 1; color: var(--magenta); font-variant-numeric: tabular-nums;
+  }
+  .score small { display: block; font-size: 9px; letter-spacing: .1em; color: var(--muted); margin-top: 3px; text-transform: uppercase; }
+  .addr { flex: 1; }
+  .addr .a { font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+  .addr .p { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .spec {
+    display: flex; flex-wrap: wrap; gap: 3px 14px; padding: 10px 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px;
+    color: var(--muted); border-bottom: 1px solid var(--rule);
+  }
+  .spec b { color: var(--ink); font-weight: 500; }
+  .depth { padding: 11px 14px; font-size: 13.5px; display: flex; gap: 10px; align-items: flex-start; }
+  .sounding {
+    flex: none; min-width: 52px; text-align: center; padding: 4px 7px; border-radius: 2px;
+    background: var(--shoal); font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px; font-variant-numeric: tabular-nums; line-height: 1.25;
+  }
+  .sounding em { display: block; font-size: 9px; font-style: normal; letter-spacing: .07em; color: var(--muted); text-transform: uppercase; }
+  .verdict-good b { color: var(--good); }
+  .verdict-warn b { color: var(--warn); }
+  .caution { margin: 9px 14px 12px; padding: 9px 11px; border-radius: 2px; background: var(--land); font-size: 13px; }
+  .caution b { color: var(--bad); }
+
+  /* ---------- shared blocks ---------- */
+  .ask { margin: 30px 0 0; padding: 18px 19px; border: 1px solid var(--magenta); border-radius: 3px; background: var(--panel); }
+  .ask h2 { font-family: Georgia, ui-serif, serif; font-size: 21px; font-weight: 400; margin: 0 0 4px; }
+  .ask > p { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
+  .ask ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .ask li { display: flex; gap: 11px; font-size: 14.5px; align-items: flex-start; }
+  .ask input { flex: none; width: 19px; height: 19px; margin: 1px 0 0; accent-color: var(--magenta); }
+  .ask label { cursor: pointer; }
+  .ask input:focus-visible { outline: 2px solid var(--magenta); outline-offset: 2px; }
+  .ask li.done label { color: var(--muted); text-decoration: line-through; }
+
+  h3.sub { font-family: Georgia, ui-serif, serif; font-weight: 400; font-size: 20px; margin: 34px 0 10px; }
+  ul.notes { margin: 0; padding-left: 20px; font-size: 14.5px; display: flex; flex-direction: column; gap: 9px; }
+  .cut { margin: 18px 0 0; padding: 13px 15px; border-radius: 3px; background: var(--land); font-size: 13.5px; }
+  footer { margin-top: 42px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
+  footer a { color: var(--magenta); }
+  @media print { body { background: #fff; } .ask input { -webkit-appearance: none; appearance: none; border: 1px solid #666; } }
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">One free Sunday &middot; two ways to spend it</div>
+  <h1>Two Sundays</h1>
+  <p class="standfirst">Same budget, same brief, <b>completely different days.</b> One is colonial river towns and the widest water in Virginia. The other is the open Chesapeake — a lighthouse, two wild beaches, and the only house on the board with a covered boathouse.</p>
+
+  <div class="chooser">
+    <a class="pick" href="#a">
+      <div class="tag">Option A &middot; 4h driving</div>
+      <div class="nm">The Rappahannock</div>
+      <p class="ch">Two colonial ports, a two-mile bridge, and the mouth of the river where it meets the Bay.</p>
+      <p class="fx"><b>Best if</b> you want pretty towns you could picture living in, and a shorter day.</p>
+    </a>
+    <a class="pick" href="#b">
+      <div class="tag">Option B &middot; 4h45 driving</div>
+      <div class="nm">Gloucester &amp; Mathews</div>
+      <p class="ch">An 1805 lighthouse across the marsh, a peat beach full of pine stumps, and Yorktown on the way home.</p>
+      <p class="fx"><b>Best if</b> you want wilder scenery and the more interesting of the two houses.</p>
+    </a>
+  </div>
+
+  <!-- ==================== OPTION A ==================== -->
+  <div class="banner" id="a">
+    <div class="tag">Option A</div>
+    <h2>The Rappahannock</h2>
+    <p>Out through West Point to Middlesex, across the Norris Bridge, home down the Northern Neck. Depart 8:30, back about 6:00.</p>
+  </div>
+
+  <div class="strip">
+    <div><div class="k">Houses</div><div class="v">2</div></div>
+    <div><div class="k">Driving</div><div class="v">4h00</div></div>
+    <div><div class="k">Towns to walk</div><div class="v">2</div></div>
+  </div>
+
+  <ol class="route">
+    <li class="drive"><span class="clock">8:30</span><span class="dot"></span>
+      <p class="place">Depart Glen Allen &mdash; I&#8209;64 East, then US&#8209;33 East through West Point</p>
+    </li>
+
+    <li class="house"><span class="clock">10:00</span><span class="dot"></span>
+      <p class="place">Saluda</p>
+      <p class="where">Middlesex County &middot; Piankatank River</p>
+      <p class="why">The best thing on the board. A pier <em>and</em> a boat lift on the <b>open Piankatank</b> &mdash; not a creek, not a cove. The lift is the tell: nobody installs one where a boat cannot float.</p>
+      <div class="listing">
+        <header>
+          <div class="score">74<small>score</small></div>
+          <div class="addr"><div class="a">270 River Road Cir</div><div class="p">$599,500 &middot; drive 1h40</div></div>
+        </header>
+        <div class="spec"><span><b>4</b> bd</span><span><b>3</b> ba</span><span><b>1,950</b> sf</span><span>waterfront</span></div>
+        <div class="depth verdict-warn">
+          <div class="sounding">&mdash;<em>ft MLW</em></div>
+          <div>Pier with lift, confirmed across two sources. <b>No depth figure exists anywhere.</b></div>
+        </div>
+        <div class="caution">Modest for the money at 1,950 sf &mdash; the value is the lot and the pier. Judge it as river frontage with a structure on it.</div>
+      </div>
+    </li>
+
+    <li class="star"><span class="clock">10:50</span><span class="dot"></span>
+      <p class="place">Urbanna</p>
+      <p class="where">Middlesex County &middot; a colonial port since the 1680s</p>
+      <p class="why">One of Virginia's original tobacco ports, small enough to walk end to end in half an hour. Cross Street down to the harbour on Urbanna Creek. Whether you would happily spend a Saturday here is a question only the sidewalk answers.</p>
+    </li>
+
+    <li><span class="clock">11:45</span><span class="dot"></span>
+      <p class="place">Lunch &mdash; Virginia Street Cafe</p>
+      <p class="where">Urbanna &middot; walkable from the harbour</p>
+      <p class="why">Scratch cooking with a real menu either side of the seafood &mdash; sandwiches, salads, chicken, steak &mdash; and listed as serving lunch seven days a week, which not much out here does.</p>
+      <div class="caution"><b>Phone first.</b> Two Urbanna places show as closed as of mid&#8209;2026: Cross Street Coffee &amp; Cafe, and Portside Grill at 25 Cross St, which may have reopened as The Dockside at Port Urbanna. Marshall's Drug Store at 50 Cross St is the old lunch-counter fallback.</div>
+    </li>
+
+    <li class="star"><span class="clock">1:00</span><span class="dot"></span>
+      <p class="place">The Norris Bridge</p>
+      <p class="where">VA&#8209;3 &middot; nearly two miles across</p>
+      <p class="why">The crossing is the event. You come up over the span and the Rappahannock opens out underneath you at close to its widest &mdash; the single best look at the river all day, and the moment that explains why people move out here.</p>
+    </li>
+
+    <li class="star"><span class="clock">1:20</span><span class="dot"></span>
+      <p class="place">Windmill Point</p>
+      <p class="where">Westland Beach &amp; public fishing pier &middot; end of Windmill Point Rd</p>
+      <p class="why">The mouth of the river, where the Rappahannock gives out into the Chesapeake. A recently rebuilt county park with restored beach and a long accessible fishing pier &mdash; public, free, and about as much open water as Virginia offers in one view. An hour here is easy.</p>
+    </li>
+
+    <li class="house"><span class="clock">2:30</span><span class="dot"></span>
+      <p class="place">Corrotoman By The Bay</p>
+      <p class="where">Lancaster County &middot; Eastern Branch, Corrotoman River</p>
+      <p class="why">Private dock with a lift on an elevated 1.3&#8209;acre site, sold furnished. Also the one that answers the other half of the question &mdash; pool, clubhouse, nine&#8209;hole golf and tennis in the community.</p>
+      <div class="listing">
+        <header>
+          <div class="score">70<small>score</small></div>
+          <div class="addr"><div class="a">103 Bayview Dr</div><div class="p">$699,000 &middot; drive 2h05</div></div>
+        </header>
+        <div class="spec"><span><b>3</b> bd</span><span><b>3</b> ba</span><span><b>1,940</b> sf</span><span><b>1.3</b> ac</span><span>waterfront</span></div>
+        <div class="depth verdict-warn">
+          <div class="sounding">&mdash;<em>ft MLW</em></div>
+          <div>Private dock with lift. The listing says <b>&ldquo;sailboat depth&rdquo;</b> &mdash; sales language, not a measurement. If true, the best water on either trip.</div>
+        </div>
+        <div class="caution">Sold furnished usually means a motivated seller. Against that: $699k tops your budget for 1,940 sf, dues about <b>$248/mo</b> plus optional slip fees, and 2h05 is over your two-hour preference.</div>
+      </div>
+    </li>
+
+    <li class="star"><span class="clock">3:30</span><span class="dot"></span>
+      <p class="place">Irvington</p>
+      <p class="where">Lancaster County &middot; Carter's Creek</p>
+      <p class="why">The prettiest village on the Northern Neck and the right place to end. Walk the lanes and the Tides Inn grounds down to Carter's Creek. If Urbanna is the working port, this is the postcard &mdash; and the contrast is genuinely useful for deciding which kind of place you want.</p>
+    </li>
+
+    <li class="star"><span class="clock">4:30</span><span class="dot"></span>
+      <p class="place">Belle Isle State Park &mdash; optional</p>
+      <p class="where">Roughly on the way home, off VA&#8209;3</p>
+      <p class="why">892 acres of tidewater marsh peninsula with seven miles of Rappahannock shoreline, a boardwalk and a fishing pier. Worth it if nobody has had enough water yet; skip it without guilt.</p>
+    </li>
+
+    <li class="drive"><span class="clock">~6:00</span><span class="dot"></span>
+      <p class="place">Home via VA&#8209;3 West and US&#8209;360 West</p>
+    </li>
+  </ol>
+
+  <!-- ==================== OPTION B ==================== -->
+  <div class="banner" id="b">
+    <div class="tag">Option B</div>
+    <h2>Gloucester &amp; Mathews</h2>
+    <p>A one-way loop: out north through West Point, down the length of Mathews to the Bay, home south through Yorktown. Depart 8:30, back about 6:45.</p>
+  </div>
+
+  <div class="strip">
+    <div><div class="k">Houses</div><div class="v">2</div></div>
+    <div><div class="k">Driving</div><div class="v">4h45</div></div>
+    <div><div class="k">Wild beaches</div><div class="v">2</div></div>
+  </div>
+
+  <ol class="route">
+    <li class="drive"><span class="clock">8:30</span><span class="dot"></span>
+      <p class="place">Depart Glen Allen &mdash; I&#8209;64 East, then US&#8209;33 East through West Point</p>
+    </li>
+
+    <li class="house"><span class="clock">10:00</span><span class="dot"></span>
+      <p class="place">North Gloucester</p>
+      <p class="where">Gloucester County &middot; Piankatank River</p>
+      <p class="why">Start with the honest one. This is the <b>only house on the entire board with a stated water depth</b> &mdash; and it is shallow, which is exactly why it is useful. Everything else you look at gets measured against this.</p>
+      <div class="listing">
+        <header>
+          <div class="score">71<small>score</small></div>
+          <div class="addr"><div class="a">6207 Holly Trail</div><div class="p">$469,000 &middot; drive 1h35 &middot; built 1983</div></div>
+        </header>
+        <div class="spec"><span><b>3</b> bd</span><span><b>2</b> ba</span><span><b>1,200</b> sf</span><span>bulkheaded</span></div>
+        <div class="depth verdict-good">
+          <div class="sounding">2&ndash;4<em>ft MLW</em></div>
+          <div>Private dock on a bulkheaded shoreline with a <b>real stated figure</b>. Shallow enough to limit boat draft &mdash; but you will know what you are buying.</div>
+        </div>
+        <div class="caution">Small at 1,200 sf and built 1983 &mdash; likely wants updating. Cheapest of the four houses across both days by a wide margin.</div>
+      </div>
+    </li>
+
+    <li class="star"><span class="clock">11:30</span><span class="dot"></span>
+      <p class="place">Mathews village</p>
+      <p class="where">Mathews County &middot; the courthouse green</p>
+      <p class="why">A small county-seat village built around an intact courthouse green, and the only real high street for miles. Twenty minutes is enough to know whether the quiet appeals or unsettles.</p>
+    </li>
+
+    <li><span class="clock">12:00</span><span class="dot"></span>
+      <p class="place">Lunch &mdash; Mathews Grill &amp; Deli</p>
+      <p class="where">296 Main St &middot; open Sundays 8am&ndash;9pm</p>
+      <p class="why">Pizza, pasta, burgers, sandwiches &mdash; nothing precious, and open on a Sunday, which is the rarer quality out here. Mi Casa Azteca a few doors down at 286 Main St is the alternative.</p>
+    </li>
+
+    <li class="house"><span class="clock">1:15</span><span class="dot"></span>
+      <p class="place">Susan &mdash; &ldquo;The Lighthouse&rdquo;</p>
+      <p class="where">Mathews County &middot; Horn Harbor</p>
+      <p class="why">The most interesting property on the board, and the reason to pick this day. Private pier <b>plus a covered boathouse with water and electric</b> &mdash; rarer than anything on the Rappahannock side &mdash; on two and a half acres.</p>
+      <div class="listing">
+        <header>
+          <div class="score">67<small>score</small></div>
+          <div class="addr"><div class="a">310 Brush Neck Rd</div><div class="p">$697,900? &middot; drive 2h05</div></div>
+        </header>
+        <div class="spec"><span><b>3</b> bd</span><span><b>2</b> ba</span><span><b>2.5</b> ac</span><span>covered boathouse</span></div>
+        <div class="depth verdict-warn">
+          <div class="sounding">&mdash;<em>ft MLW</em></div>
+          <div>&ldquo;Deep water&rdquo; with no figure attached. A covered boathouse implies real depth, but implication is not measurement &mdash; ask.</div>
+        </div>
+        <div class="caution"><b>The price is genuinely unresolved:</b> $635,000, $697,900 and a 2022 sale at $600,000 all appear for what looks like the same house. Do not anchor on any of them before someone confirms it.</div>
+      </div>
+    </li>
+
+    <li class="star"><span class="clock">2:15</span><span class="dot"></span>
+      <p class="place">New Point Comfort</p>
+      <p class="where">Nature Conservancy preserve &middot; dawn to dusk, free</p>
+      <p class="why">An accessible boardwalk out over the salt marsh to an observation deck, looking across to the <b>New Point Comfort lighthouse of 1805</b> &mdash; now stranded offshore on its own scrap of island as the point eroded away around it. 105 acres on the Atlantic Flyway; nesting least terns in season.</p>
+      <p class="why">This is the single most striking thing on either day.</p>
+    </li>
+
+    <li class="star"><span class="clock">3:15</span><span class="dot"></span>
+      <p class="place">Bethel Beach</p>
+      <p class="where">Natural Area Preserve &middot; Mathews County</p>
+      <p class="why">A wild Chesapeake beach where the sand is laid over peat, so the shore is studded with the stumps of a drowned loblolly pine forest. Piping plover and the threatened northeastern beach tiger beetle nest here. Nothing manicured about it &mdash; which is the appeal.</p>
+    </li>
+
+    <li class="star"><span class="clock">4:30</span><span class="dot"></span>
+      <p class="place">Yorktown &mdash; optional</p>
+      <p class="where">On the way home over the Coleman Bridge</p>
+      <p class="why">You cross the York on the Coleman swing bridge anyway, so the riverwalk, the beach and the battlefield are right there. Shops and waterfront tables if anyone wants a drink before the last hour of driving. Cut it if the day has run long.</p>
+    </li>
+
+    <li class="drive"><span class="clock">~6:45</span><span class="dot"></span>
+      <p class="place">Home on I&#8209;64 West</p>
+    </li>
+  </ol>
+
+  <!-- ==================== SHARED ==================== -->
+  <section class="ask">
+    <h2>Ask at every dock, either day</h2>
+    <p>Dock and boating is 22 of the 100 points, and three of the four houses have no depth figure at all. These are the questions that move a score.</p>
+    <ul id="checklist">
+      <li><input type="checkbox" id="q1"><label for="q1"><b>What is the MLW depth at the end of the pier?</b> A number, not an adjective. If nobody will give one, that is itself the answer.</label></li>
+      <li><input type="checkbox" id="q2"><label for="q2"><b>Are the neighbours' boats floating right now?</b> At low tide, a hull sitting on the bottom two piers over tells you everything.</label></li>
+      <li><input type="checkbox" id="q3"><label for="q3"><b>What does the lift or boathouse actually hold?</b> The best proxy for depth you will get on the day.</label></li>
+      <li><input type="checkbox" id="q4"><label for="q4"><b>Is the pier permitted, and does it convey?</b> VMRC or a Joint Permit Application &mdash; and in whose name.</label></li>
+      <li><input type="checkbox" id="q5"><label for="q5"><b>Has the channel out ever silted in?</b> Depth at the pier is worthless if the way to open water has not been dredged.</label></li>
+      <li><input type="checkbox" id="q6"><label for="q6"><b>Flood zone, and is there an elevation certificate?</b> All of these sit low.</label></li>
+    </ul>
+  </section>
+
+  <h3 class="sub">One piece of timing, whichever you pick</h3>
+  <p class="why">Pull a tide table before you leave and try to land at least one dock near <b>low water</b>. At high tide every pier looks fine. Option A's afternoon stop at Corrotoman is the flexible one — do Irvington first if low water falls late. On Option B, Holly Trail already has a stated depth, so aim the tide at Brush Neck.</p>
+
+  <h3 class="sub">Before you go</h3>
+  <ul class="notes">
+    <li><b>Every house is a drive&#8209;by</b> unless you call ahead. Sunday showings out here need an appointment &mdash; and that call is also how you get the depth figures, so it is worth making either way.</li>
+    <li><b>Corrotoman By The Bay is a subdivision</b> with likely private roads. You may only see the neighbourhood and the water approach.</li>
+    <li><b>Phone the lunch stop.</b> Rural Sunday hours change without notice, and two Urbanna places have already closed since the listings were written.</li>
+    <li><b>Drive times are estimates</b> carried from the tracker, not independently measured.</li>
+  </ul>
+
+  <div class="cut"><b>Two houses came off both lists.</b> 1120 Dillard St in Tappahannock — its water is an unnamed small lake, not the Rappahannock, and the pier was a listing snippet only. 349 Peach Tree Ln in White Stone — Dymer Creek, and the "private dock" turned out to be a shared neighbourhood one, making it water access rather than waterfront.</div>
+
+  <footer>
+    Houses, scores and flags come from the Houses track of the waterfront tracker.
+    <a href="https://thgold-collab.github.io/waterfront-tracker/">Open the dashboard</a>.
+    Every depth reading here is what the listing actually says, not what it implies.
+  </footer>
+</div>
+
+<script>
+  // Ticks survive a screen lock or an accidental reload mid-trip.
+  document.querySelectorAll('#checklist input').forEach(function (b) {
+    try { if (localStorage.getItem('sun-' + b.id) === '1') b.checked = true; } catch (e) {}
+    b.parentElement.classList.toggle('done', b.checked);
+    b.addEventListener('change', function () {
+      b.parentElement.classList.toggle('done', b.checked);
+      try { localStorage.setItem('sun-' + b.id, b.checked ? '1' : '0'); } catch (e) {}
+    });
+  });
+</script>
+</body>
+</html>
