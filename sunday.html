@@ -61,6 +61,25 @@
   .standfirst { font-size: 15.5px; color: var(--muted); margin: 0; }
   .standfirst b { color: var(--ink); font-weight: 600; }
 
+  .alert {
+    margin: 24px 0 0; padding: 16px 18px; border-radius: 3px;
+    background: var(--panel); border: 2px solid var(--bad); font-size: 14.5px;
+  }
+  .alert h2 {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+    margin: 0 0 8px; color: var(--bad);
+  }
+  .alert p { margin: 0 0 8px; }
+  .alert p:last-child { margin-bottom: 0; }
+  .alert b { font-weight: 600; }
+  .dead {
+    margin-top: 11px; padding: 12px 14px; border-radius: 3px;
+    background: var(--land); font-size: 13.5px;
+  }
+  .dead .hd { font-weight: 600; margin-bottom: 3px; }
+  .dead .hd s { color: var(--muted); }
+
   /* ---------- the chooser ---------- */
   .chooser { display: flex; flex-direction: column; gap: 12px; margin: 26px 0 0; }
   .pick {
@@ -185,18 +204,24 @@
   <h1>Two Sundays</h1>
   <p class="standfirst">Same budget, same brief, <b>completely different days.</b> One is colonial river towns and the widest water in Virginia. The other is the open Chesapeake — a lighthouse, two wild beaches, and the only house on the board with a covered boathouse.</p>
 
+  <div class="alert">
+    <h2>Read this first &mdash; the houses have changed</h2>
+    <p><b>Both houses that were on Option A are out.</b> One had already sold in May; the other is a complete tear&#8209;down. Option A is now a scenery and area day with no house stops &mdash; still a good Sunday, just not a viewing trip.</p>
+    <p>Option B keeps its two houses, but <b>neither has had its listing status independently confirmed.</b> Ring the agent before driving two hours.</p>
+  </div>
+
   <div class="chooser">
     <a class="pick" href="#a">
       <div class="tag">Option A &middot; 4h driving</div>
       <div class="nm">The Rappahannock</div>
       <p class="ch">Two colonial ports, a two-mile bridge, and the mouth of the river where it meets the Bay.</p>
-      <p class="fx"><b>Best if</b> you want pretty towns you could picture living in, and a shorter day.</p>
+      <p class="fx"><b>Best if</b> you want to walk the towns and decide whether you like the area at all. <b>No houses to see</b> &mdash; both came off the list.</p>
     </a>
     <a class="pick" href="#b">
       <div class="tag">Option B &middot; 4h45 driving</div>
       <div class="nm">Gloucester &amp; Mathews</div>
       <p class="ch">An 1805 lighthouse across the marsh, a peat beach full of pine stumps, and Yorktown on the way home.</p>
-      <p class="fx"><b>Best if</b> you want wilder scenery and the more interesting of the two houses.</p>
+      <p class="fx"><b>Best if</b> you want wilder scenery, and it is the only option with houses still standing on it.</p>
     </a>
   </div>
 
@@ -204,11 +229,11 @@
   <div class="banner" id="a">
     <div class="tag">Option A</div>
     <h2>The Rappahannock</h2>
-    <p>Out through West Point to Middlesex, across the Norris Bridge, home down the Northern Neck. Depart 8:30, back about 6:00.</p>
+    <p>Out through West Point to Middlesex, across the Norris Bridge, home down the Northern Neck. Depart 8:30, back about 6:00. Now a look at the area rather than a viewing trip.</p>
   </div>
 
   <div class="strip">
-    <div><div class="k">Houses</div><div class="v">2</div></div>
+    <div><div class="k">Houses</div><div class="v">0</div></div>
     <div><div class="k">Driving</div><div class="v">4h00</div></div>
     <div><div class="k">Towns to walk</div><div class="v">2</div></div>
   </div>
@@ -218,21 +243,13 @@
       <p class="place">Depart Glen Allen &mdash; I&#8209;64 East, then US&#8209;33 East through West Point</p>
     </li>
 
-    <li class="house"><span class="clock">10:00</span><span class="dot"></span>
-      <p class="place">Saluda</p>
-      <p class="where">Middlesex County &middot; Piankatank River</p>
-      <p class="why">The best thing on the board. A pier <em>and</em> a boat lift on the <b>open Piankatank</b> &mdash; not a creek, not a cove. The lift is the tell: nobody installs one where a boat cannot float.</p>
-      <div class="listing">
-        <header>
-          <div class="score">74<small>score</small></div>
-          <div class="addr"><div class="a">270 River Road Cir</div><div class="p">$599,500 &middot; drive 1h40</div></div>
-        </header>
-        <div class="spec"><span><b>4</b> bd</span><span><b>3</b> ba</span><span><b>1,950</b> sf</span><span>waterfront</span></div>
-        <div class="depth verdict-warn">
-          <div class="sounding">&mdash;<em>ft MLW</em></div>
-          <div>Pier with lift, confirmed across two sources. <b>No depth figure exists anywhere.</b></div>
-        </div>
-        <div class="caution">Modest for the money at 1,950 sf &mdash; the value is the lot and the pier. Judge it as river frontage with a structure on it.</div>
+    <li class="star"><span class="clock">10:00</span><span class="dot"></span>
+      <p class="place">Saluda &amp; the Piankatank</p>
+      <p class="where">Middlesex County</p>
+      <p class="why">Worth the detour anyway to see the water rather than a house. The Piankatank is genuinely open river here, not a creek, and it is the stretch most of the good listings sit on &mdash; so it is the benchmark for everything you look at later.</p>
+      <div class="dead">
+        <div class="hd"><s>270 River Road Cir &mdash; $599,500</s> &mdash; withdrawn</div>
+        A <b>complete tear-down</b>. At $599,500 for 1,950 sqft that is $307/sqft, the top end of the whole board, so the price was entirely lot and pier. Our data never mentioned condition, which is a gap now fixed.
       </div>
     </li>
 
@@ -261,21 +278,13 @@
       <p class="why">The mouth of the river, where the Rappahannock gives out into the Chesapeake. A recently rebuilt county park with restored beach and a long accessible fishing pier &mdash; public, free, and about as much open water as Virginia offers in one view. An hour here is easy.</p>
     </li>
 
-    <li class="house"><span class="clock">2:30</span><span class="dot"></span>
+    <li class="star"><span class="clock">2:30</span><span class="dot"></span>
       <p class="place">Corrotoman By The Bay</p>
       <p class="where">Lancaster County &middot; Eastern Branch, Corrotoman River</p>
-      <p class="why">Private dock with a lift on an elevated 1.3&#8209;acre site, sold furnished. Also the one that answers the other half of the question &mdash; pool, clubhouse, nine&#8209;hole golf and tennis in the community.</p>
-      <div class="listing">
-        <header>
-          <div class="score">70<small>score</small></div>
-          <div class="addr"><div class="a">103 Bayview Dr</div><div class="p">$699,000 &middot; drive 2h05</div></div>
-        </header>
-        <div class="spec"><span><b>3</b> bd</span><span><b>3</b> ba</span><span><b>1,940</b> sf</span><span><b>1.3</b> ac</span><span>waterfront</span></div>
-        <div class="depth verdict-warn">
-          <div class="sounding">&mdash;<em>ft MLW</em></div>
-          <div>Private dock with lift. The listing says <b>&ldquo;sailboat depth&rdquo;</b> &mdash; sales language, not a measurement. If true, the best water on either trip.</div>
-        </div>
-        <div class="caution">Sold furnished usually means a motivated seller. Against that: $699k tops your budget for 1,940 sf, dues about <b>$248/mo</b> plus optional slip fees, and 2h05 is over your two-hour preference.</div>
+      <p class="why">Still worth driving through. This is the amenity community &mdash; pool, clubhouse, nine&#8209;hole golf, tennis, dues around $248 a month &mdash; and seeing whether that appeals is useful regardless of which house eventually comes up in it.</p>
+      <div class="dead">
+        <div class="hd"><s>103 Bayview Dr &mdash; $699,000</s> &mdash; sold 18 May 2026</div>
+        It had been <b>sold for eleven weeks</b> while our board still showed it as available. The source page was never updated and we recorded no date against the status, so nothing could catch it. Fixed: every listing now carries a verified-on date and flags itself when that date goes stale.
       </div>
     </li>
 
@@ -328,7 +337,7 @@
           <div class="sounding">2&ndash;4<em>ft MLW</em></div>
           <div>Private dock on a bulkheaded shoreline with a <b>real stated figure</b>. Shallow enough to limit boat draft &mdash; but you will know what you are buying.</div>
         </div>
-        <div class="caution">Small at 1,200 sf and built 1983 &mdash; likely wants updating. Cheapest of the four houses across both days by a wide margin.</div>
+        <div class="caution">Small at 1,200 sf and built 1983 &mdash; likely wants updating. <b>Status not independently confirmed</b> &mdash; call before you drive.</div>
       </div>
     </li>
 
@@ -358,7 +367,7 @@
           <div class="sounding">&mdash;<em>ft MLW</em></div>
           <div>&ldquo;Deep water&rdquo; with no figure attached. A covered boathouse implies real depth, but implication is not measurement &mdash; ask.</div>
         </div>
-        <div class="caution"><b>The price is genuinely unresolved:</b> $635,000, $697,900 and a 2022 sale at $600,000 all appear for what looks like the same house. Do not anchor on any of them before someone confirms it.</div>
+        <div class="caution"><b>The price is genuinely unresolved:</b> $635,000, $697,900 and a 2022 sale at $600,000 all appear for what looks like the same house &mdash; and that 2022 figure is a reminder that a number on a page is not proof it is for sale today. <b>Status not independently confirmed</b> &mdash; call first.</div>
       </div>
     </li>
 
@@ -389,8 +398,10 @@
   <!-- ==================== SHARED ==================== -->
   <section class="ask">
     <h2>Ask at every dock, either day</h2>
-    <p>Dock and boating is 22 of the 100 points, and three of the four houses have no depth figure at all. These are the questions that move a score.</p>
+    <p>The first two are new, and they are the ones that would have saved a wasted Sunday. Ask them on the phone, not on the driveway.</p>
     <ul id="checklist">
+      <li><input type="checkbox" id="q0"><label for="q0"><b>Is it still actually for sale, and when did it come to market?</b> Ask this first, on the phone, before you get in the car. One of these had been sold for eleven weeks.</label></li>
+      <li><input type="checkbox" id="q0b"><label for="q0b"><b>What condition is it in &mdash; has anyone lived in it recently?</b> "Modest" and "gut job" look identical in a listing summary.</label></li>
       <li><input type="checkbox" id="q1"><label for="q1"><b>What is the MLW depth at the end of the pier?</b> A number, not an adjective. If nobody will give one, that is itself the answer.</label></li>
       <li><input type="checkbox" id="q2"><label for="q2"><b>Are the neighbours' boats floating right now?</b> At low tide, a hull sitting on the bottom two piers over tells you everything.</label></li>
       <li><input type="checkbox" id="q3"><label for="q3"><b>What does the lift or boathouse actually hold?</b> The best proxy for depth you will get on the day.</label></li>
@@ -411,7 +422,7 @@
     <li><b>Drive times are estimates</b> carried from the tracker, not independently measured.</li>
   </ul>
 
-  <div class="cut"><b>Two houses came off both lists.</b> 1120 Dillard St in Tappahannock — its water is an unnamed small lake, not the Rappahannock, and the pier was a listing snippet only. 349 Peach Tree Ln in White Stone — Dymer Creek, and the "private dock" turned out to be a shared neighbourhood one, making it water access rather than waterfront.</div>
+  <div class="cut"><b>Two houses came off both lists.</b> 1120 Dillard St (Tappahannock) — its water is an unnamed small lake, not the Rappahannock. 349 Peach Tree Ln (White Stone) — the "private dock" is a shared neighbourhood one, making it water access rather than waterfront.</div>
 
   <footer>
     Houses, scores and flags come from the Houses track of the waterfront tracker.
