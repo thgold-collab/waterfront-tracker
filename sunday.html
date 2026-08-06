@@ -84,6 +84,28 @@
   }
   .loop p { margin: 0; }
 
+  .maps { display: flex; flex-direction: column; gap: 8px; margin: 20px 0 0; }
+  a.mapbtn {
+    display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 3px;
+    background: var(--magenta); color: var(--paper); text-decoration: none;
+    font-size: 15px; font-weight: 600; line-height: 1.3;
+  }
+  a.mapbtn .arrow { margin-left: auto; flex: none; font-size: 17px; opacity: .8; }
+  a.mapbtn small { display: block; font-weight: 400; font-size: 12.5px; opacity: .85; margin-top: 2px; }
+  a.mapbtn.alt {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--rule);
+    font-weight: 500; font-size: 14px; padding: 12px 15px;
+  }
+  a.mapbtn:focus-visible { outline: 2px solid var(--magenta); outline-offset: 2px; }
+
+  a.pin {
+    display: inline-block; margin-top: 8px; text-decoration: none; color: var(--magenta);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase;
+    border-bottom: 1px solid currentColor; padding-bottom: 1px;
+  }
+  .listing a.pin { margin: 0 14px 12px; }
+
   ol.route { list-style: none; margin: 32px 0 0; padding: 0; }
   ol.route > li {
     position: relative; padding: 0 0 26px 62px;
@@ -183,6 +205,17 @@
     <div><div class="k">Driving</div><div class="v">5h00</div></div>
   </div>
 
+  <div class="maps">
+    <a class="mapbtn" href="https://www.google.com/maps/dir/?api=1&amp;travelmode=driving&amp;origin=Glen+Allen,+VA&amp;destination=Glen+Allen,+VA&amp;waypoints=Urbanna,+VA%7C373+E+Fairway+Dr,+Kilmarnock,+VA+22482%7CIrvington,+VA%7C2082+Fairport+Rd,+Reedville,+VA+22539%7C504+Main+St,+Reedville,+VA+22539">
+      <span>Open the whole loop in Google Maps<small>Five stops pinned &middot; Saluda, White Stone, Warsaw and Tappahannock are on the way</small></span>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="mapbtn alt" href="https://www.google.com/maps/dir/?api=1&amp;travelmode=driving&amp;origin=Glen+Allen,+VA&amp;destination=Glen+Allen,+VA&amp;waypoints=Urbanna,+VA%7C373+E+Fairway+Dr,+Kilmarnock,+VA+22482%7CIrvington,+VA%7CTappahannock,+VA">
+      <span>Short version &mdash; skip Reedville<small>Urbanna, Kilmarnock and Irvington, home via Tappahannock. Saves about ninety minutes.</small></span>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
   <div class="loop">
     <h2>Why this way round</h2>
     <p>Urbanna is on the <b>south</b> bank and the houses are on the <b>north</b>, so going out via Middlesex and home via US&#8209;360 turns what would be an out-and-back into a loop. You get Urbanna for free, cross the river twice, and pass through Warsaw and Tappahannock on the way home without a single detour.</p>
@@ -205,6 +238,7 @@
       <p class="where">Middlesex County &middot; a colonial tobacco port since the 1680s &middot; allow an hour</p>
       <p class="why">One of Virginia's original official ports, and still small enough to walk end to end. Cross Street down to the harbour on Urbanna Creek, past the 1766 tobacco warehouse. Coffee if anything is open.</p>
       <p class="why">This is the town on your list that most rewards being judged on foot rather than on a map. Whether you would happily spend a Saturday here is a question only the sidewalk answers &mdash; and it is a useful contrast with Irvington later, which is prettier but less of a working place.</p>
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=Cross+Street,+Urbanna,+VA+23175">Cross Street &rarr;</a>
     </li>
 
     <li class="town"><span class="clock">10:50</span><span class="dot"></span>
@@ -215,7 +249,7 @@
 
     <li class="house"><span class="clock">11:20</span><span class="dot"></span>
       <p class="place">Kilmarnock &mdash; Indian Creek</p>
-      <p class="where">Lancaster County &middot; 149 ft of frontage</p>
+      <p class="where">Northumberland County &middot; Kilmarnock address &middot; 149 ft of frontage</p>
       <p class="why">The most conventionally good house left on the board. 149 feet on Indian Creek, a dock about two years old, and a price that has come down hard. It backs the Indian Creek Yacht &amp; Country Club fairway, and membership is described as <b>optional rather than mandatory</b> &mdash; worth confirming, but it would mean the amenity without the compulsory bill.</p>
       <div class="listing">
         <header>
@@ -229,6 +263,7 @@
           <div>A dock roughly two years old, confirmed after an earlier source said there was none at all. <b>No depth figure.</b> A new dock is a good sign; ask what it was built to take.</div>
         </div>
         <div class="caution">Kitchen and baths described as wanting cosmetic updates. The drop from about $695,000 is pieced together from two snippets rather than one clean record &mdash; ask them what it actually listed at.</div>
+        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=373+E+Fairway+Dr,+Kilmarnock,+VA+22482">Pin this house &rarr;</a>
       </div>
       <p class="why">Kilmarnock itself is the practical town of the group &mdash; the one with the shops you would genuinely need. Worth ten minutes on Main Street before you leave.</p>
     </li>
@@ -238,6 +273,7 @@
       <p class="where">Lancaster County &middot; Carter's Creek &middot; ten minutes from Kilmarnock</p>
       <p class="why">The prettiest village on the Neck. Walk the lanes and the Tides Inn grounds down to Carter's Creek. If Urbanna is the working port, this is the postcard, and the contrast between the two is the most useful thing the day gives you.</p>
       <p class="why">Lunch here: <b>Trick Dog Cafe</b>, <b>The Office Bistro</b> and <b>Golden Eagle Grill</b> are the names to try. Ring ahead &mdash; rural Sunday hours are unreliable and I could not confirm any of them.</p>
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=The+Tides+Inn,+Irvington,+VA+22480">Tides Inn grounds &rarr;</a>
     </li>
 
     <li class="house"><span class="clock">2:40</span><span class="dot"></span>
@@ -256,6 +292,7 @@
           <div>Private pier <b>and a boat lift</b>, confirmed via a second source. Still no depth figure &mdash; but a lift is the strongest hint you get without a number, because nobody roofs or rigs a berth a boat cannot reach.</div>
         </div>
         <div class="plus"><b>Roof, HVAC, windows and siding all replaced in the last four years</b>, no HOA, and a fresh cut from $549,900. Of everything on the board this is the one with the fewest unknowns.</div>
+        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=2082+Fairport+Rd,+Reedville,+VA+22539">Pin this house &rarr;</a>
       </div>
     </li>
 
@@ -263,6 +300,7 @@
       <p class="place">Reedville Main Street</p>
       <p class="where">Northumberland County &middot; the historic district</p>
       <p class="why">Walk Main Street for the Victorian houses built on menhaden money &mdash; at the turn of the last century this was said to be among the wealthiest towns per head in the country, and the street still shows it. The Fishermen's Museum at 504 Main is worth a return trip but is <b>closed Sundays</b>, so this is a streetscape walk rather than a museum visit.</p>
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=504+Main+St,+Reedville,+VA+22539">Park on Main &rarr;</a>
     </li>
 
     <li class="quick"><span class="clock">5:15</span><span class="dot"></span>
@@ -288,10 +326,12 @@
   <div class="side">
     <div class="h">Windmill Point &mdash; 25 minutes each way from Irvington</div>
     Westland Beach and a long public fishing pier at the mouth of the river, where the Rappahannock gives out into the Chesapeake. Free, recently rebuilt, and the most open water on the route. Add it after lunch if you are running ahead.
+    <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=Windmill+Point,+Lancaster+County,+VA">Windmill Point &rarr;</a>
   </div>
   <div class="side">
     <div class="h">Deltaville &mdash; 25 minutes each way from Urbanna</div>
     Boat country: yards, brokers and Stingray Point. Worth it if you want to see where the boats actually live, but it is a 50-minute round trip in the morning and would put the rest of the day under pressure.
+    <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=Deltaville,+VA+23043">Deltaville &rarr;</a>
   </div>
 
   <section class="ask">
@@ -310,13 +350,14 @@
     <li><b>Both houses are drive&#8209;bys</b> unless you call. Sunday showings need an appointment, and the call is also how you get the depth figures &mdash; so it is worth making either way.</li>
     <li><b>Ring the lunch stop.</b> None of Irvington's places could be confirmed for Sunday. Two Urbanna restaurants have closed since their listings were written, so do not count on eating there either &mdash; treat Urbanna as coffee-if-lucky and eat in Irvington.</li>
     <li><b>Five hours of driving is the real cost</b> of adding Urbanna. If that is too much, cut Reedville: you lose the better-maintained house but save about ninety minutes, and Kilmarnock plus Irvington still answers the town question.</li>
-    <li><b>Drive times are estimates</b> from the tracker, not independently measured.</li>
+    <li><b>Check the first pin before you set off.</b> Every address here was run through a geocoder: the Reedville house matches to the house number, and E Fairway Dr matches to the street but not the number, so glance at that one when Maps opens it. Drive times are estimates from the tracker, not independently measured.</li>
   </ul>
 
   <h3 class="sub">If you want a second day</h3>
   <div class="side">
     <div class="h">Mathews &amp; the Bay &mdash; the better houses</div>
     The two strongest properties on the board are down in Mathews and cannot join this loop: <b>764 Lovers Ln</b> ($574,900, 4bd, 4.7 acres on Stutts Creek) and <b>310 Brush Neck Rd</b> ($689,900, the only <b>covered boathouse</b> on the board, on Horn Harbor). That day also holds the 1805 New Point Comfort lighthouse and Bethel Beach. Both houses were confirmed active on 6 August.
+    <a class="pin" href="https://www.google.com/maps/dir/?api=1&amp;travelmode=driving&amp;origin=Glen+Allen,+VA&amp;destination=Glen+Allen,+VA&amp;waypoints=764+Lovers+Ln,+Mathews,+VA+23109%7C310+Brush+Neck+Rd,+Susan,+VA%7CNew+Point+Comfort+Lighthouse,+Mathews+County,+VA%7CBethel+Beach+Natural+Area+Preserve,+Mathews+County,+VA">The Mathews day in Google Maps &rarr;</a>
   </div>
 
   <footer>
