@@ -212,6 +212,26 @@
   .side .h { font-weight: 600; margin-bottom: 4px; }
   .cut { background: var(--land); border: 1px solid var(--rule); border-radius: 3px; padding: 13px 15px; font-size: 13.5px; margin-top: 10px; }
   .cut .h { font-weight: 600; margin-bottom: 4px; }
+
+  /* Internet is a hard requirement, so it gets a league table rather than a sentence. */
+  .league {
+    display: flex; flex-direction: column; gap: 1px; margin-top: 10px;
+    background: var(--rule); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
+  }
+  .league > div { background: var(--panel); padding: 9px 12px; display: flex; align-items: baseline; gap: 8px; font-size: 13.5px; }
+  .league .t { flex: 1; min-width: 0; }
+  .league .t em { font-style: normal; color: var(--muted); font-size: 12px; }
+  .league .n {
+    flex: none; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px; font-variant-numeric: tabular-nums; min-width: 3.6em; text-align: right;
+  }
+  .league .fib { color: var(--good); font-weight: 600; }
+  .league .cab { color: var(--muted); }
+  .league > div.hdr {
+    background: var(--land); font-size: 10px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); padding: 7px 12px;
+  }
+  .league > div.hdr .n { font-size: 10px; }
   footer { margin-top: 42px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
   footer a { color: var(--magenta); }
   @media print { body { background: #fff; } .ask input { -webkit-appearance: none; appearance: none; border: 1px solid #666; } }
@@ -401,6 +421,42 @@
     <b>310 Brush Neck Rd</b> (67, $689,900) has the only covered boathouse with water and electric anywhere on this search, on 400 ft of Horn Harbor frontage that opens to the Bay. <b>764 Lovers Ln</b> (65, $574,900) is four bedrooms on 4.7 acres with a private pier on Stutts Creek. They are the wrong side of the Piankatank to join this loop &mdash; a separate day, and on driving time an easier one at 4h20. Brush Neck's price is unresolved across four different figures, so that day should start with a phone call.
   </div>
 
+  <h3 class="sub">Internet, town by town</h3>
+  <div class="cut">
+    <div class="h">The counterintuitive bit: the fiber went to the countryside, not the towns</div>
+    The Northern Neck's regional fibre-to-the-home network was <b>declared complete in January 2025</b> &mdash; more than 10,000 locations across Lancaster, Northumberland, Richmond, Westmoreland and King George. But it was built for addresses "previously unable to access broadband", which means the rural ones. The town centres already had cable, so they were never in it.
+    <br><br>
+    So a town-boundary fibre percentage <b>understates</b> what a house down a creek road may have, and the three Reedville houses on this card sit exactly in the territory that project was built to serve. That is inference from the project's stated scope, not a check of these four addresses &mdash; which is why there is a link to do that below.
+  </div>
+  <div class="league">
+    <div class="hdr"><span class="t">Town</span><span class="n">fibre</span><span class="n">cable</span></div>
+    <div><span class="t">Warsaw <em>&middot; Richmond Co.</em></span><span class="n fib">54%</span><span class="n cab">3%</span></div>
+    <div><span class="t">Saluda <em>&middot; Middlesex</em></span><span class="n fib">25%</span><span class="n cab">25%</span></div>
+    <div><span class="t">Tappahannock <em>&middot; Essex</em></span><span class="n fib">~4%</span><span class="n cab">58%</span></div>
+    <div><span class="t">Reedville <em>&middot; Northumberland</em></span><span class="n fib">2.7%</span><span class="n cab">67%</span></div>
+    <div><span class="t">White Stone <em>&middot; Lancaster</em></span><span class="n fib">2.3%</span><span class="n cab">69%</span></div>
+    <div><span class="t">Kilmarnock <em>&middot; Lancaster</em></span><span class="n fib">1.7%</span><span class="n cab">73%</span></div>
+    <div><span class="t">Urbanna <em>&middot; Middlesex</em></span><span class="n fib">1.7%</span><span class="n cab">82%</span></div>
+    <div><span class="t">Irvington <em>&middot; Lancaster</em></span><span class="n fib">0.6%</span><span class="n cab">91%</span></div>
+    <div><span class="t">Mathews <em>&middot; Mathews Co.</em></span><span class="n fib">0.6%</span><span class="n cab">67%</span></div>
+    <div><span class="t">Montross <em>&middot; Westmoreland</em></span><span class="n fib">yes</span><span class="n cab">65%</span></div>
+  </div>
+  <div class="side" style="margin-top:10px">
+    <div class="h">What that actually means for you</div>
+    <b>Warsaw is the only town where fibre is the likely answer</b> rather than the lucky one, and it is the one town on this route you had no interest in. Everywhere else, the in-town answer is Breezeline cable: gigabit down, but cable upload is a fraction of that, and if "fast" includes video calls and sending files then <b>upload is the number that will annoy you</b>. Fibre is symmetrical; cable is not.
+    <br><br>
+    <b>Tappahannock is mid-build.</b> Essex County's own updates said areas south of town were live and the majority of the rest would be online by the end of May 2026, so it should be finished now &mdash; worth one call to confirm rather than assuming.
+    <br><br>
+    <b>Do not count on it arriving.</b> Virginia's remaining 133,000 unserved locations are funded under BEAD, but construction was slated to begin in autumn 2026. If an address has nothing today, "it's coming" is a multi-year answer. Buy the connection, not the promise.
+    <br><br>
+    <b>Backstops, in order:</b> Starlink reaches all of it. Verizon and T&#8209;Mobile 5G home internet run about $35&ndash;50 a month and are genuinely good where the signal is, but signal at the end of a creek is exactly what you cannot assume &mdash; check it on your own phone while you are standing there Saturday.
+    <a class="pin" href="https://broadbandmap.fcc.gov/">Check any address on the FCC map &rarr;</a>
+  </div>
+  <div class="cut">
+    <div class="h">Sources, and how much to trust them</div>
+    Percentages are BroadbandNow town-level figures pulled between February and July 2026; they derive from provider filings, which are known to overstate coverage, and for towns this small a single filing moves the number a lot. Treat them as odds, not facts. I could not reach the FCC's own broadband map, Essex County's status page or the providers' sites from where I checked &mdash; all three were blocked &mdash; so none of this is address-verified. <b>The only figure that matters is the one for the specific house</b>, and that takes two minutes per address.
+  </div>
+
   <section class="ask">
     <h2>What to settle from the kerb</h2>
     <p>None of this needs an appointment, which is the point of the day. Tick them off as you go.</p>
@@ -411,6 +467,8 @@
       <li><input type="checkbox" id="q4"><label for="q4"><b>Fairway Dr:</b> golf course behind the garden &mdash; amenity or intrusion?</label></li>
       <li><input type="checkbox" id="q5"><label for="q5"><b>Urbanna against Irvington:</b> working port or postcard &mdash; which would you actually spend Saturdays in?</label></li>
       <li><input type="checkbox" id="q6"><label for="q6"><b>Reedville against Kilmarnock:</b> two hours out versus one forty-five. Is the tip of the Neck worth the extra fifteen minutes each way, every time, forever?</label></li>
+      <li><input type="checkbox" id="q7"><label for="q7"><b>Bars on your own phone, at every house.</b> Free, takes five seconds, and it is the only reading of cell signal at the end of that creek you will ever get without standing there. It also decides whether 5G home internet is a real backstop.</label></li>
+      <li><input type="checkbox" id="q8"><label for="q8"><b>Run a speed test if you can see a neighbour's provider box.</b> Failing that, note whether the poles carry fibre drops &mdash; a new-looking cable spliced at every house is the All Points build, and it is the difference between symmetrical fibre and cable upload.</label></li>
     </ul>
   </section>
 
