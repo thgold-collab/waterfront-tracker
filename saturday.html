@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="A Northern Neck loop built backwards from a 4pm return: coffee in Urbanna, lunch on the water at White Stone, one verified house.">
+<meta property="og:title" content="Saturday on the Northern Neck">
+<meta property="og:description" content="A Northern Neck loop built backwards from a 4pm return: coffee in Urbanna, lunch on the water at White Stone, one verified house.">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}</style>
+<title>Saturday on the Northern Neck</title>
+<style>
+  :root {
+    color-scheme: light;
+    --paper:#f6f7f4; --panel:#fffffe; --land:#e7e1cf; --shoal:#c9dee4;
+    --ink:#16262b; --muted:#6e7b7e; --magenta:#a8285f;
+    --rule:#cdd6d4; --hair:#b9c4c2;
+    --good:#1d6b4f; --warn:#9a6a12; --bad:#a33a2a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --paper:#0e1518; --panel:#141d20; --land:#1f2822; --shoal:#17343b;
+      --ink:#e8edea; --muted:#90a0a3; --magenta:#f0669d;
+      --rule:#2a3639; --hair:#3a4a4d;
+      --good:#5fc39b; --warn:#d9a53f; --bad:#ef8974;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper:#0e1518; --panel:#141d20; --land:#1f2822; --shoal:#17343b;
+    --ink:#e8edea; --muted:#90a0a3; --magenta:#f0669d;
+    --rule:#2a3639; --hair:#3a4a4d;
+    --good:#5fc39b; --warn:#d9a53f; --bad:#ef8974;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --paper:#f6f7f4; --panel:#fffffe; --land:#e7e1cf; --shoal:#c9dee4;
+    --ink:#16262b; --muted:#6e7b7e; --magenta:#a8285f;
+    --rule:#cdd6d4; --hair:#b9c4c2;
+    --good:#1d6b4f; --warn:#9a6a12; --bad:#a33a2a;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 36rem; margin: 0 auto; padding: 28px 20px 64px; }
+
+  .eyebrow {
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", ui-serif, serif;
+    font-size: clamp(30px, 8vw, 40px); line-height: 1.05; font-weight: 400;
+    margin: 8px 0 10px; letter-spacing: -.015em; text-wrap: balance;
+  }
+  .standfirst { font-size: 15.5px; color: var(--muted); margin: 0; }
+  .standfirst b { color: var(--ink); font-weight: 600; }
+
+  .strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    margin: 24px 0 4px; background: var(--rule);
+    border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
+  }
+  .strip div { background: var(--panel); padding: 11px 13px; }
+  .strip .k { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); min-height: 2.5em; }
+  .strip .v {
+    font-size: 21px; margin-top: 1px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums;
+  }
+
+  .maps { display: flex; flex-direction: column; gap: 8px; margin: 20px 0 0; }
+  a.mapbtn {
+    display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 3px;
+    background: var(--magenta); color: var(--paper); text-decoration: none;
+    font-size: 15px; font-weight: 600; line-height: 1.3;
+  }
+  a.mapbtn .arrow { margin-left: auto; flex: none; font-size: 17px; opacity: .8; }
+  a.mapbtn small { display: block; font-weight: 400; font-size: 12.5px; opacity: .85; margin-top: 2px; }
+  a.mapbtn.alt {
+    background: var(--panel); color: var(--ink); border: 1px solid var(--rule);
+    font-weight: 500; font-size: 14px; padding: 12px 15px;
+  }
+  a.mapbtn:focus-visible { outline: 2px solid var(--magenta); outline-offset: 2px; }
+
+  a.pin {
+    display: inline-block; margin-top: 8px; text-decoration: none; color: var(--magenta);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase;
+    border-bottom: 1px solid currentColor; padding-bottom: 1px;
+  }
+  .listing a.pin { margin: 0 14px 12px; }
+
+  .loop {
+    margin: 22px 0 0; padding: 15px 17px; border-radius: 3px;
+    background: var(--shoal); border-left: 3px solid var(--magenta); font-size: 14.5px;
+  }
+  .loop h2 {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+    margin: 0 0 7px; color: var(--magenta);
+  }
+  .loop p { margin: 0; }
+  .loop p + p { margin-top: 9px; }
+
+  ol.route { list-style: none; margin: 32px 0 0; padding: 0; }
+  ol.route > li {
+    position: relative; padding: 0 0 26px 62px;
+    border-left: 1px solid var(--hair); margin-left: 44px;
+  }
+  ol.route > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .clock {
+    position: absolute; left: -44px; top: -2px; width: 40px; text-align: right;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums;
+  }
+  .dot {
+    position: absolute; left: -5px; top: 5px; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--paper); border: 1.5px solid var(--hair);
+  }
+  li.house .dot { background: var(--magenta); border-color: var(--magenta); }
+  li.town .dot { background: var(--ink); border-color: var(--ink); }
+  li.quick .dot { width: 7px; height: 7px; left: -4px; top: 7px; background: var(--paper); border: 1.5px solid var(--ink); }
+  li.drive .dot { width: 5px; height: 5px; left: -3px; top: 8px; border: 0; background: var(--hair); }
+  .place {
+    font-family: Georgia, "Iowan Old Style", ui-serif, serif;
+    font-size: 20px; line-height: 1.2; margin: 0 0 3px; letter-spacing: -.01em;
+  }
+  li.quick .place { font-size: 17px; }
+  .where { font-size: 13px; color: var(--muted); margin: 0 0 9px; }
+  .why { font-size: 14.5px; margin: 0; }
+  .why + .why { margin-top: 8px; }
+  li.drive .place { font-size: 14px; font-family: inherit; color: var(--muted); font-style: italic; }
+  .tagline {
+    display: inline-block; font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 2px; background: var(--land); color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  /* Opening hours are the whole reason this is a Saturday and not a Sunday, so they
+     get their own block -- and each one says where the hours came from. */
+  .hours {
+    margin: 11px 0 0; padding: 11px 13px; border-radius: 3px;
+    background: var(--panel); border: 1px solid var(--rule); font-size: 13.5px;
+  }
+  .hours .n { font-weight: 600; }
+  .hours .t {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px;
+    color: var(--good); margin-top: 2px;
+  }
+  .hours .src { color: var(--muted); font-size: 12px; margin-top: 5px; }
+  .hours .alt2 { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--rule); font-size: 13px; color: var(--muted); }
+
+  .listing { margin-top: 11px; background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  .listing > header { display: flex; align-items: baseline; gap: 11px; padding: 12px 14px 10px; border-bottom: 1px solid var(--rule); }
+  .score {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 27px; line-height: 1; color: var(--magenta); font-variant-numeric: tabular-nums;
+  }
+  .score small { display: block; font-size: 9px; letter-spacing: .1em; color: var(--muted); margin-top: 3px; text-transform: uppercase; }
+  .addr { flex: 1; }
+  .addr .a { font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+  .addr .p { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .spec {
+    display: flex; flex-wrap: wrap; gap: 3px 14px; padding: 10px 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px;
+    color: var(--muted); border-bottom: 1px solid var(--rule);
+  }
+  .spec b { color: var(--ink); font-weight: 500; }
+  .vfd {
+    padding: 8px 14px; font-size: 12px; border-bottom: 1px solid var(--rule);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; color: var(--good);
+  }
+  .depth { padding: 11px 14px; font-size: 13.5px; display: flex; gap: 10px; align-items: flex-start; }
+  .sounding {
+    flex: none; min-width: 52px; text-align: center; padding: 4px 7px; border-radius: 2px;
+    background: var(--shoal); font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px; font-variant-numeric: tabular-nums; line-height: 1.25;
+  }
+  .sounding em { display: block; font-size: 9px; font-style: normal; letter-spacing: .07em; color: var(--muted); text-transform: uppercase; }
+  .depth b { color: var(--warn); }
+  .caution { margin: 9px 14px 12px; padding: 9px 11px; border-radius: 2px; background: var(--land); font-size: 13px; }
+  .caution b { color: var(--bad); }
+
+  .ask { margin: 34px 0 0; padding: 18px 19px; border: 1px solid var(--magenta); border-radius: 3px; background: var(--panel); }
+  .ask h2 { font-family: Georgia, ui-serif, serif; font-size: 21px; font-weight: 400; margin: 0 0 4px; }
+  .ask > p { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
+  .ask ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .ask li { display: flex; gap: 11px; font-size: 14.5px; align-items: flex-start; }
+  .ask input { flex: none; width: 19px; height: 19px; margin: 1px 0 0; accent-color: var(--magenta); }
+  .ask label { cursor: pointer; }
+  .ask input:focus-visible { outline: 2px solid var(--magenta); outline-offset: 2px; }
+  .ask li.done label { color: var(--muted); text-decoration: line-through; }
+
+  h3.sub { font-family: Georgia, ui-serif, serif; font-weight: 400; font-size: 20px; margin: 34px 0 10px; }
+  ul.notes { margin: 0; padding-left: 20px; font-size: 14.5px; display: flex; flex-direction: column; gap: 9px; }
+  .side { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 14px 16px; font-size: 14px; }
+  .side + .side { margin-top: 10px; }
+  .side .h { font-weight: 600; margin-bottom: 4px; }
+  footer { margin-top: 42px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
+  footer a { color: var(--magenta); }
+  @media print { body { background: #fff; } .ask input { -webkit-appearance: none; appearance: none; border: 1px solid #666; } }
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">Route card &middot; Saturday &middot; house re-checked 6 August</div>
+  <h1>Saturday on the Northern Neck</h1>
+  <p class="standfirst">Five towns, one house, the Rappahannock crossed twice, and <b>home by a quarter to four</b>. Coffee in Urbanna at a place that opens at six, lunch on the water at White Stone, and the whole thing built backwards from your four o'clock.</p>
+
+  <div class="strip">
+    <div><div class="k">Towns</div><div class="v">5</div></div>
+    <div><div class="k">Driving</div><div class="v">4h17</div></div>
+    <div><div class="k">Home</div><div class="v">3:45</div></div>
+  </div>
+
+  <div class="maps">
+    <a class="mapbtn" href="https://www.google.com/maps/dir/?api=1&amp;travelmode=driving&amp;origin=Glen+Allen,+VA&amp;destination=Glen+Allen,+VA&amp;waypoints=The+Wooden+Pickle,+Urbanna,+VA%7C327+Old+Ferry+Rd,+White+Stone,+VA%7CIrvington,+VA%7C373+E+Fairway+Dr,+Kilmarnock,+VA+22482">
+      <span>Open Saturday in Google Maps<small>Coffee, lunch, Irvington and the house &middot; Saluda, Kilmarnock, Warsaw and Tappahannock are on the way</small></span>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+    <a class="mapbtn alt" href="https://www.google.com/maps/dir/?api=1&amp;travelmode=driving&amp;origin=Glen+Allen,+VA&amp;destination=Glen+Allen,+VA&amp;waypoints=504+Main+St,+Reedville,+VA+22539%7C2082+Fairport+Rd,+Reedville,+VA+22539">
+      <span>The other Saturday &mdash; Reedville<small>The museum is open 11&ndash;4 on Saturdays and the better-kept house is up there. It will not fit in this day. See below.</small></span>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
+  <div class="loop">
+    <h2>The one number that runs the day</h2>
+    <p><b>It is 1 hour 48 minutes home from Kilmarnock.</b> Everything else is negotiable; that is not. Leave Kilmarnock by two o'clock and you are home by a quarter to four with fifteen minutes in hand. Leave at half past two and you are late.</p>
+    <p>That single fact is why this is the shorter loop. Out on US&#8209;33 through Middlesex, over the Norris Bridge, back down US&#8209;360 &mdash; still a loop, still two river crossings, and Saluda, Kilmarnock, Warsaw and Tappahannock still come free because the road goes through all four.</p>
+  </div>
+
+  <ol class="route">
+    <li class="drive"><span class="clock">7:15</span><span class="dot"></span>
+      <p class="place">Depart Glen Allen &mdash; I&#8209;64 East, then US&#8209;33 East through West Point</p>
+    </li>
+
+    <li class="quick"><span class="clock">8:30</span><span class="dot"></span>
+      <span class="tagline">drive-by</span>
+      <p class="place">Saluda</p>
+      <p class="where">Middlesex County seat &middot; five minutes on US&#8209;33</p>
+      <p class="why">The road goes through it. You pass the courthouse green, which tells you what the administrative side of county life looks like, and you keep going &mdash; coffee is fifteen minutes further on.</p>
+    </li>
+
+    <li class="town"><span class="clock">8:40</span><span class="dot"></span>
+      <p class="place">Urbanna &mdash; and coffee</p>
+      <p class="where">Middlesex County &middot; a colonial tobacco port since the 1680s &middot; allow ninety minutes</p>
+      <p class="why">One of Virginia's original official ports, still small enough to walk end to end. Coffee first, then Cross Street down to the harbour on Urbanna Creek, past the 1766 tobacco warehouse.</p>
+      <div class="hours">
+        <div class="n">The Wooden Pickle &mdash; coffee, baked goods, sandwiches</div>
+        <div class="t">Saturday 6:00 am &ndash; 8:00 pm</div>
+        <div>Open from six, so it does not matter how early you leave. Note it is <b>closed Wednesdays and Thursdays</b> &mdash; Saturday is one of its good days, which is luck rather than planning. It appears to have taken over 51 Cross Street, the premises of the Cross Street Coffee &amp; Cafe that closed, though one listing still gives its address as 280 Virginia St. Both are the same two blocks; the map pin below searches by name so it will find it either way.</div>
+        <div class="src">Hours from a Yelp listing updated May 2026 and the cafe's own Facebook page, not from a call.</div>
+        <div class="alt2">If it has changed hands again: <b>Big Oak Cafe</b> (Sat 7:30 am &ndash; 1:30 pm) and <b>Virginia Street Cafe</b> (Sat 8 am &ndash; 8 pm) are both in town.</div>
+      </div>
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=The+Wooden+Pickle,+Urbanna,+VA+23175">The Wooden Pickle &rarr;</a>
+      <p class="why">This is the town on your list that most rewards being judged on foot rather than on a map. Whether you would happily spend a Saturday here is a question only the sidewalk answers &mdash; and it is the useful contrast with Irvington later, which is prettier but less of a working place.</p>
+    </li>
+
+    <li class="town"><span class="clock">10:35</span><span class="dot"></span>
+      <p class="place">The Norris Bridge &mdash; and White Stone</p>
+      <p class="where">VA&#8209;3 &middot; nearly two miles across</p>
+      <p class="why">The crossing is the event. You come up over the span and the Rappahannock opens out underneath you close to its widest &mdash; the best single look at the river you will get, and the moment that explains why people move out here. <b>White Stone</b> sits at the far end: a crossroads village, and twenty minutes is honestly the right amount of time for it.</p>
+      <p class="why">The timing here is deliberate. Lunch does not open until eleven, so the bridge and the village are what you do with the twenty-five minutes rather than sitting in a car park.</p>
+    </li>
+
+    <li class="town"><span class="clock">11:00</span><span class="dot"></span>
+      <p class="place">Lunch on the Rappahannock</p>
+      <p class="where">White Stone &middot; 327 Old Ferry Rd &middot; an hour</p>
+      <p class="why">Better than anything I could confirm in Irvington, and it is right where you come off the bridge rather than a detour. On the river, casual, and no oysters required.</p>
+      <div class="hours">
+        <div class="n">Willaby's on the Rappahannock</div>
+        <div class="t">Saturday 11:00 am &ndash; 3:00 pm &middot; (804) 435&#8209;0000</div>
+        <div>First come, first served &mdash; <b>they do not take reservations</b>, which is the argument for arriving as they open rather than at half past twelve. Arriving at eleven sharp is also what keeps the four o'clock honest.</div>
+        <div class="src">Hours from Yelp (April 2026) and Sirved; the restaurant's own site was not reachable from here. Worth one call.</div>
+        <div class="alt2">Backup, ten minutes on: <b>Golden Eagle Grill</b> at the golf club in Irvington, listed Wed&ndash;Mon 11 am &ndash; 3 pm, (804) 438&#8209;4460. <b>Trick Dog is not an option</b> &mdash; it is dinner only from 5 pm, and one source lists it as closed for good.</div>
+      </div>
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=327+Old+Ferry+Rd,+White+Stone,+VA">Willaby's &rarr;</a>
+    </li>
+
+    <li class="town"><span class="clock">12:15</span><span class="dot"></span>
+      <p class="place">Irvington</p>
+      <p class="where">Lancaster County &middot; Carter's Creek &middot; thirty-five minutes</p>
+      <p class="why">The prettiest village on the Neck, and eight minutes from lunch. Walk the lanes and the Tides Inn grounds down to Carter's Creek. If Urbanna is the working port, this is the postcard, and the contrast between the two is the most useful thing the day gives you.</p>
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=The+Tides+Inn,+Irvington,+VA+22480">Tides Inn grounds &rarr;</a>
+    </li>
+
+    <li class="house"><span class="clock">1:15</span><span class="dot"></span>
+      <p class="place">The house &mdash; Indian Creek</p>
+      <p class="where">Northumberland County &middot; Kilmarnock address &middot; 149 ft of frontage &middot; twenty-five minutes</p>
+      <p class="why">The best-scoring house left on the board and the only one that fits a four o'clock. 149 feet on Indian Creek, a dock about two years old, and a price that has come down hard. It backs the Indian Creek Yacht &amp; Country Club fairway, and membership is described as <b>optional rather than mandatory</b> &mdash; worth confirming, but it would mean the amenity without the compulsory bill.</p>
+      <div class="listing">
+        <header>
+          <div class="score">64<small>score</small></div>
+          <div class="addr"><div class="a">373 E Fairway Dr &middot; Indian Creek Estates</div><div class="p">$599,000 &middot; built 1970</div></div>
+        </header>
+        <div class="spec"><span><b>3</b> bd</span><span><b>2</b> ba</span><span><b>2,093</b> sf</span><span><b>149</b> ft frontage</span><span>Indian Creek</span></div>
+        <div class="vfd">&#10003; still for sale 6 Aug &mdash; MLS #120582, three sources agree</div>
+        <div class="depth">
+          <div class="sounding">&mdash;<em>ft MLW</em></div>
+          <div>A dock roughly two years old, confirmed after an earlier source said there was none at all. <b>No depth figure.</b> A new dock is a good sign; ask what it was built to take.</div>
+        </div>
+        <div class="caution">Kitchen and baths described as wanting cosmetic updates. The drop from about $695,000 is pieced together from two snippets rather than one clean record &mdash; ask them what it actually listed at.</div>
+        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=373+E+Fairway+Dr,+Kilmarnock,+VA+22482">Pin this house &rarr;</a>
+      </div>
+    </li>
+
+    <li class="quick"><span class="clock">1:55</span><span class="dot"></span>
+      <span class="tagline">drive-by</span>
+      <p class="place">Kilmarnock</p>
+      <p class="where">Main Street &middot; on the way to US&#8209;360 &middot; costs three minutes</p>
+      <p class="why">The practical town of the group &mdash; the one with the shops you would genuinely need, and the answer to "but where would we actually buy anything". Routing through it rather than around it costs three minutes, so take Main Street slowly and keep moving. <b>This is your two o'clock checkpoint.</b></p>
+    </li>
+
+    <li class="quick"><span class="clock">2:40</span><span class="dot"></span>
+      <span class="tagline">drive-by</span>
+      <p class="place">Warsaw</p>
+      <p class="where">Richmond County seat &middot; US&#8209;360 runs through it</p>
+      <p class="why">Another small county seat, and a useful third data point on what these towns are like when nobody is selling you anything. Seen through a windscreen at forty-five minutes from Kilmarnock.</p>
+    </li>
+
+    <li class="quick"><span class="clock">2:50</span><span class="dot"></span>
+      <span class="tagline">drive-by</span>
+      <p class="place">Tappahannock</p>
+      <p class="where">Essex County &middot; where US&#8209;360 crosses the Rappahannock</p>
+      <p class="why">Your second river crossing, forty miles upstream from the first &mdash; a good way to end, because the contrast between the Rappahannock here and at the Norris Bridge is the whole geography of the day in two views.</p>
+      <p class="why"><b>One of these two, not both.</b> Actually pulling into both town centres costs about fifteen minutes over staying on the road, which is precisely the slack in the day. Pick whichever you fancy when you get there, or keep driving and bank the quarter of an hour.</p>
+    </li>
+
+    <li class="drive"><span class="clock">~3:45</span><span class="dot"></span>
+      <p class="place">Home on US&#8209;360 West, with fifteen minutes spare</p>
+    </li>
+  </ol>
+
+  <h3 class="sub">What the four o'clock costs you</h3>
+  <div class="side">
+    <div class="h">Reedville &mdash; and the one thing Saturday would have given you</div>
+    The Reedville end of the Neck holds <b>2082 Fairport Rd</b> ($539,000, score 61): 1951, but roof, HVAC, windows and siding all replaced within four years, a private pier <b>and a boat lift</b>, no HOA, and a fresh cut from $549,900. Of everything on the board it has the fewest unknowns. Main Street up there is menhaden-money Victorians, and the Fishermen's Museum at 504 Main is <b>open 11&ndash;4 on Saturdays</b> &mdash; the exact thing that was shut when this was a Sunday plan.
+    <br><br>
+    And it does not fit. Reedville is 2 hours 4 minutes out and the museum does not open until eleven, so going there first means waiting an hour on the doorstep, and going there last means getting home at half past four. <b>The four o'clock is what rules it out, not the day of the week.</b>
+    <br><br>
+    On its own it is an easy Saturday: leave at eight, museum at eleven, the house at half past twelve, home by three. That is the button above.
+  </div>
+
+  <section class="ask">
+    <h2>Four questions, on the phone, before Saturday</h2>
+    <p>The first two are the ones that would have saved the last wasted trip. The third is worth 22 of the 100 points and is unanswered on every house on the board.</p>
+    <ul id="checklist">
+      <li><input type="checkbox" id="q1"><label for="q1"><b>Is it still for sale, and when did it list?</b> Confirmed active on 6 August, but ask anyway.</label></li>
+      <li><input type="checkbox" id="q2"><label for="q2"><b>What condition is it in &mdash; has anyone lived in it recently?</b> "Modest" and "gut job" read identically in a listing summary. That is exactly how a tear-down reached a shortlist.</label></li>
+      <li><input type="checkbox" id="q3"><label for="q3"><b>What is the MLW depth at the end of the dock?</b> A number, not an adjective. If they will not give it, that is the answer.</label></li>
+      <li><input type="checkbox" id="q4"><label for="q4"><b>Is the dock permitted, and does it convey?</b> VMRC or a Joint Permit Application, and in whose name.</label></li>
+      <li><input type="checkbox" id="q5"><label for="q5"><b>Ring Willaby's.</b> They do not take bookings, but confirm they are open Saturday 11&ndash;3 &mdash; the whole clock is built on an eleven o'clock lunch.</label></li>
+    </ul>
+  </section>
+
+  <h3 class="sub">Before you go</h3>
+  <ul class="notes">
+    <li><b>Leaving earlier buys morning, not margin.</b> The four o'clock is fixed by the drive home, so an earlier start lengthens Urbanna rather than adding anything at the far end. Leave at 6:45 and you get half an hour more on the water at Urbanna; the rest of the card stays where it is, because lunch cannot start before eleven.</li>
+    <li><b>The house is a drive&#8209;by</b> unless you call. Saturday showings need an appointment, and the call is also how you get the depth figure &mdash; so it is worth making either way.</li>
+    <li><b>Opening hours here are from listing aggregators, not from calls.</b> Two sites I wanted for the museum and the restaurant were blocked from where I checked. The Wooden Pickle, Willaby's and the museum all have phone numbers on this card; one call each before Saturday and the day is solid.</li>
+    <li><b>Drive times are real</b> &mdash; routed door to door, not estimated. They carry no allowance for traffic, roadworks or a slow left turn onto US&#8209;360, which is where the fifteen minutes of slack goes.</li>
+    <li><b>Check the first pin before you set off.</b> Every address was run through a geocoder. Willaby's and the Reedville house match exactly; E Fairway Dr matches to the street but not the house number, so glance at that one when Maps opens it.</li>
+  </ul>
+
+  <footer>
+    House re-checked against a property-detail page on 6 August 2026. Drive times routed 7 August.
+    <a href="https://thgold-collab.github.io/waterfront-tracker/">Open the dashboard</a> for the full board, including the eleven listings that could not be verified and the eight ruled out.
+  </footer>
+</div>
+
+<script>
+  // Ticks survive a screen lock or an accidental reload mid-trip.
+  document.querySelectorAll('#checklist input').forEach(function (b) {
+    try { if (localStorage.getItem('nn-' + b.id) === '1') b.checked = true; } catch (e) {}
+    b.parentElement.classList.toggle('done', b.checked);
+    b.addEventListener('change', function () {
+      b.parentElement.classList.toggle('done', b.checked);
+      try { localStorage.setItem('nn-' + b.id, b.checked ? '1' : '0'); } catch (e) {}
+    });
+  });
+</script>
+</body>
+</html>
