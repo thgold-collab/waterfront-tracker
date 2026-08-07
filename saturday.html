@@ -175,9 +175,16 @@
     padding: 8px 14px; font-size: 12px; border-bottom: 1px solid var(--rule);
     font-family: ui-monospace, "SF Mono", Menlo, monospace; color: var(--good);
   }
+  .depth { padding: 11px 14px; font-size: 13.5px; display: flex; gap: 10px; align-items: flex-start; border-bottom: 1px solid var(--rule); }
+  .sounding {
+    flex: none; min-width: 52px; text-align: center; padding: 4px 7px; border-radius: 2px;
+    background: var(--shoal); font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px; font-variant-numeric: tabular-nums; line-height: 1.25;
+  }
+  .sounding em { display: block; font-size: 9px; font-style: normal; letter-spacing: .07em; color: var(--muted); text-transform: uppercase; }
+  .depth b { color: var(--warn); }
 
-  /* The point of a drive-by is that it settles something a listing cannot. Each house
-     therefore leads with the question your own eyes answer from the kerb. */
+  /* A drive-by only earns its minutes if it settles something a listing cannot. */
   .q { padding: 12px 14px; font-size: 13.5px; background: var(--shoal); border-bottom: 1px solid var(--rule); }
   .q .lab {
     font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 9.5px;
@@ -186,6 +193,7 @@
   .q b { color: var(--ink); }
   .note { padding: 11px 14px; font-size: 13px; color: var(--muted); }
   .note b { color: var(--warn); }
+  .note.bad b { color: var(--bad); }
 
   .ask { margin: 34px 0 0; padding: 18px 19px; border: 1px solid var(--magenta); border-radius: 3px; background: var(--panel); }
   .ask h2 { font-family: Georgia, ui-serif, serif; font-size: 21px; font-weight: 400; margin: 0 0 4px; }
@@ -202,6 +210,8 @@
   .side { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 14px 16px; font-size: 14px; }
   .side + .side { margin-top: 10px; }
   .side .h { font-weight: 600; margin-bottom: 4px; }
+  .cut { background: var(--land); border: 1px solid var(--rule); border-radius: 3px; padding: 13px 15px; font-size: 13.5px; margin-top: 10px; }
+  .cut .h { font-weight: 600; margin-bottom: 4px; }
   footer { margin-top: 42px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
   footer a { color: var(--magenta); }
   @media print { body { background: #fff; } .ask input { -webkit-appearance: none; appearance: none; border: 1px solid #666; } }
@@ -210,84 +220,73 @@
 <div class="wrap">
   <div class="eyebrow">Route card &middot; Saturday &middot; houses re-checked 6 August</div>
   <h1>Saturday on the Northern Neck</h1>
-  <p class="standfirst">Seven towns, four houses from the kerb, both bridges over the Rappahannock, and <b>home by half three</b>. Five towns you get out and walk. Nothing booked, nothing timed &mdash; because you are carrying lunch, the day answers to nobody.</p>
+  <p class="standfirst">Six towns, four houses from the kerb, both bridges over the Rappahannock, and the whole length of the Neck to the Little Wicomico. <b>Out at half six, home by half three.</b> Every house on this card is genuinely on the water and three of them have a private dock and a lift.</p>
 
   <div class="strip">
-    <div><div class="k">Towns</div><div class="v">7</div></div>
+    <div><div class="k">Towns</div><div class="v">6</div></div>
     <div><div class="k">Houses</div><div class="v">4</div></div>
-    <div><div class="k">Driving</div><div class="v">4h35</div></div>
+    <div><div class="k">Driving</div><div class="v">5h35</div></div>
     <div><div class="k">Home</div><div class="v">3:30</div></div>
   </div>
 
   <div class="maps">
-    <a class="mapbtn" href="https://www.google.com/maps/dir/?api=1&amp;travelmode=driving&amp;origin=Glen+Allen,+VA&amp;destination=Glen+Allen,+VA&amp;waypoints=Saluda,+VA%7CThe+Wooden+Pickle,+Urbanna,+VA%7C349+Peach+Tree+Ln,+White+Stone,+VA%7CIrvington,+VA%7C373+E+Fairway+Dr,+Kilmarnock,+VA+22482%7CKilmarnock,+VA%7C128+Prince+St,+Tappahannock,+VA+22560%7C1120+Dillard+St,+Tappahannock,+VA+22560">
-      <span>Open the whole day in Google Maps<small>Eight stops pinned &middot; Warsaw and the Norris Bridge are on the way</small></span>
+    <a class="mapbtn" href="https://www.google.com/maps/dir/?api=1&amp;travelmode=driving&amp;origin=Glen+Allen,+VA&amp;destination=Glen+Allen,+VA&amp;waypoints=The+Wooden+Pickle,+Urbanna,+VA%7CIrvington,+VA%7C373+E+Fairway+Dr,+Kilmarnock,+VA+22482%7C2082+Fairport+Rd,+Reedville,+VA+22539%7C504+Main+St,+Reedville,+VA+22539%7C878+Forest+Green+Rd,+Reedville,+VA+22539%7C57+Swann+Ct,+Reedville,+VA+22539">
+      <span>Open the whole day in Google Maps<small>Seven stops pinned &middot; Saluda, White Stone and Kilmarnock are all on the way and need no pin</small></span>
       <span class="arrow" aria-hidden="true">&rarr;</span>
     </a>
   </div>
 
   <div class="loop">
-    <h2>Why the packed lunch changes everything</h2>
-    <p>The version of this day with a restaurant in it was pinned to an eleven o'clock opening, which pushed the start late and cost an hour in the middle. Carrying lunch removes the only fixed time in the day. Nothing here opens or closes; you can run twenty minutes over anywhere and take it back later.</p>
-    <p>So the day got <b>denser and shorter at once</b>: 4h35 of driving instead of 5h23, and it now takes in seven towns and four houses instead of five and one. Out on US&#8209;33 through Middlesex, over the Norris Bridge, down the Neck and home on US&#8209;360 across the river again at Tappahannock &mdash; where the last two houses happen to be, an hour and five minutes from your own front door.</p>
+    <h2>What changed, and what it costs</h2>
+    <p>Dropping the Tappahannock pair and the White Stone house took out everything that was only <em>near</em> water &mdash; a shared neighbourhood dock, a condo, and a "waterfront" that turned out to be a small unnamed lake. That was three of the four houses, so the day needed a new far end.</p>
+    <p>It is <b>Reedville</b>, at the very tip of the Neck on the Little Wicomico, and it is the only cluster left where the docks are real. Four houses there sit within fifteen minutes of each other, including <b>the only house on the whole board with a stated depth at the end of its pier</b>. The price is the drive: 5h35 instead of 4h35, and a two-hour run home from the tip. That is what buys the half-six start.</p>
   </div>
 
   <ol class="route">
-    <li class="drive"><span class="clock">7:00</span><span class="dot"></span>
+    <li class="drive"><span class="clock">6:30</span><span class="dot"></span>
       <p class="place">Depart Glen Allen &mdash; I&#8209;64 East, then US&#8209;33 East through West Point</p>
     </li>
 
-    <li class="quick"><span class="clock">8:15</span><span class="dot"></span>
+    <li class="quick"><span class="clock">7:45</span><span class="dot"></span>
       <span class="tagline">drive-by</span>
       <p class="place">Saluda</p>
       <p class="where">Middlesex County seat &middot; ten minutes</p>
-      <p class="why">The road goes through it. Courthouse green, a couple of blocks, and you have seen what the administrative side of county life looks like out here. Coffee is eight minutes further on, which is the only reason this is brief.</p>
+      <p class="why">The road goes through it. Courthouse green, a couple of blocks, and you have seen the administrative side of county life out here. Brief only because coffee is eight minutes further on.</p>
     </li>
 
-    <li class="town"><span class="clock">8:35</span><span class="dot"></span>
+    <li class="town"><span class="clock">8:05</span><span class="dot"></span>
       <span class="tagline walk">walk it</span>
       <p class="place">Urbanna &mdash; and coffee</p>
-      <p class="where">Middlesex County &middot; a colonial tobacco port since the 1680s &middot; an hour and five</p>
-      <p class="why">The longest walk of the day, and the right one to give the time to. One of Virginia's original official ports, still small enough to cover end to end on foot. Coffee first, then Cross Street down to the harbour on Urbanna Creek, past the 1766 tobacco warehouse.</p>
+      <p class="where">Middlesex County &middot; a colonial tobacco port since the 1680s &middot; fifty-five minutes</p>
+      <p class="why">The longest walk of the day and the right one to spend the time on. One of Virginia's original official ports, still small enough to cover end to end on foot. Coffee first, then Cross Street down to the harbour on Urbanna Creek, past the 1766 tobacco warehouse.</p>
       <div class="hours">
         <div class="n">The Wooden Pickle &mdash; coffee, baked goods, sandwiches</div>
         <div class="t">Saturday 6:00 am &ndash; 8:00 pm</div>
-        <div>Open from six, so it does not matter how early you leave. Note it is <b>closed Wednesdays and Thursdays</b> &mdash; Saturday is one of its good days, which is luck rather than planning. It appears to have taken over 51 Cross Street, the premises of the Cross Street Coffee &amp; Cafe that closed, though one listing still gives its address as 280 Virginia St. Both are the same two blocks; the pin searches by name so it will find it either way.</div>
+        <div>Open from six, which is what makes a half&#8209;six departure workable at all. Note it is <b>closed Wednesdays and Thursdays</b> &mdash; Saturday is one of its good days. It appears to have taken over 51 Cross Street, the premises of the Cross Street Coffee &amp; Cafe that closed, though one listing still gives its address as 280 Virginia St. Both are the same two blocks; the pin searches by name so it will find it either way.</div>
         <div class="src">Hours from a Yelp listing updated May 2026 and the cafe's own Facebook page, not from a call.</div>
         <div class="alt2">Backups in town: <b>Big Oak Cafe</b> (Sat 7:30 am &ndash; 1:30 pm) and <b>Virginia Street Cafe</b> (Sat 8 am &ndash; 8 pm).</div>
       </div>
       <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=The+Wooden+Pickle,+Urbanna,+VA+23175">The Wooden Pickle &rarr;</a>
-      <p class="why">This is the town on your list that most rewards being judged on foot rather than on a map. Whether you would happily spend a Saturday here is a question only the sidewalk answers &mdash; and it is the useful contrast with Irvington, ninety minutes from now.</p>
+      <p class="why">This is the town that most rewards being judged on foot rather than on a map. Whether you would happily spend a Saturday here is a question only the sidewalk answers &mdash; and it is the contrast with Irvington, ninety minutes from now.</p>
     </li>
 
-    <li class="house"><span class="clock">10:05</span><span class="dot"></span>
-      <span class="tagline walk">walk it</span>
-      <p class="place">White Stone &mdash; over the bridge</p>
-      <p class="where">Lancaster County &middot; twenty-five minutes, village and house together</p>
-      <p class="why">The crossing comes first and the crossing is the event: up over the Norris Bridge, nearly two miles, and the Rappahannock opens out underneath you close to its widest. White Stone at the far end is a crossroads village and twenty minutes is honestly its right measure &mdash; then the cheapest house of the day is three minutes away.</p>
-      <div class="listing">
-        <header>
-          <div class="score">66<small>score</small></div>
-          <div class="addr"><div class="a">349 Peach Tree Ln &middot; Dymer Shores Estates</div><div class="p">$459,950 &middot; 3bd/3ba &middot; 1,893 sf &middot; built 1977</div></div>
-        </header>
-        <div class="spec"><span>Dymer Creek</span><span>drive <b>1h40</b></span><span>shared dock</span><span>renovation claimed</span></div>
-        <div class="vfd">&#10003; still for sale 6 Aug &mdash; MLS #2608738, full price history on file</div>
-        <div class="q"><span class="lab">what the kerb settles</span><b>How far is it from the water, and what is that dock?</b> The listing says outright the house is <b>not on the waterfront</b>, and that access is "exclusive only to this neighborhood via the private dock" &mdash; which means a shared community dock, not your own pier. Two minutes here tells you whether "near the water" reads as near enough. It is the only non-waterfront house on the day.</div>
-        <div class="note"><b>The most motivated seller on the board:</b> $524,950 in April, then 499,950, 479,950, a relist at 469,950, and $459,950 on 3 August. Twelve per cent off in under four months.</div>
-        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=349+Peach+Tree+Ln,+White+Stone,+VA+22578">Pin this house &rarr;</a>
-      </div>
+    <li class="quick"><span class="clock">9:25</span><span class="dot"></span>
+      <span class="tagline">stretch your legs</span>
+      <p class="place">The Norris Bridge &mdash; and White Stone</p>
+      <p class="where">VA&#8209;3 &middot; nearly two miles across &middot; fifteen minutes</p>
+      <p class="why">The crossing is the event: up over the span and the Rappahannock opens out underneath you close to its widest, which is the moment that explains why people move out here. White Stone at the far end is a crossroads village &mdash; worth the fifteen minutes now that its house has come off the card, but not more.</p>
     </li>
 
-    <li class="town"><span class="clock">10:35</span><span class="dot"></span>
+    <li class="town"><span class="clock">9:45</span><span class="dot"></span>
       <span class="tagline walk">walk it</span>
       <p class="place">Irvington</p>
-      <p class="where">Lancaster County &middot; Carter's Creek &middot; thirty-five minutes</p>
-      <p class="why">Four minutes from White Stone and the prettiest village on the Neck. Walk the lanes and the Tides Inn grounds down to Carter's Creek. If Urbanna is the working port, this is the postcard, and holding the two of them in your head an hour apart is the most useful thing the day gives you.</p>
+      <p class="where">Lancaster County &middot; Carter's Creek &middot; thirty minutes</p>
+      <p class="why">Four minutes on from White Stone and the prettiest village on the Neck. Walk the lanes and the Tides Inn grounds down to Carter's Creek. If Urbanna is the working port, this is the postcard, and holding the two in your head ninety minutes apart is the most useful thing the day gives you.</p>
       <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=The+Tides+Inn,+Irvington,+VA+22480">Tides Inn grounds &rarr;</a>
     </li>
 
-    <li class="house"><span class="clock">11:30</span><span class="dot"></span>
-      <p class="place">Indian Creek &mdash; the best-scoring house on the route</p>
+    <li class="house"><span class="clock">10:35</span><span class="dot"></span>
+      <p class="place">Indian Creek &mdash; house one</p>
       <p class="where">Northumberland County &middot; Kilmarnock address &middot; fifteen minutes</p>
       <p class="why">149 feet on Indian Creek, a dock about two years old, and a price that has come down hard. It backs the Indian Creek Yacht &amp; Country Club fairway, and membership is described as <b>optional rather than mandatory</b> &mdash; which would mean the amenity without the compulsory bill.</p>
       <div class="listing">
@@ -297,101 +296,136 @@
         </header>
         <div class="spec"><span>Indian Creek</span><span>drive <b>1h45</b></span><span><b>149</b> ft frontage</span><span>dock ~2 yrs old</span></div>
         <div class="vfd">&#10003; still for sale 6 Aug &mdash; MLS #120582, three sources agree</div>
-        <div class="q"><span class="lab">what the kerb settles</span><b>Does the fairway read as an amenity or as someone else's golf course in your garden?</b> That is pure taste and no listing can answer it. While you are there: eye the creek at the end of the dock, because <b>nobody has given a depth figure</b> and the dock's age is the only clue you have.</div>
+        <div class="depth">
+          <div class="sounding">&mdash;<em>ft MLW</em></div>
+          <div>A dock roughly two years old, confirmed after an earlier source said there was none. <b>No depth figure.</b> The dock's age is the only clue you have.</div>
+        </div>
+        <div class="q"><span class="lab">what the kerb settles</span><b>Does the fairway read as an amenity or as somebody else's golf course in your garden?</b> Pure taste, and no listing can answer it. Also eye the creek at the end of the dock while you are there.</div>
         <div class="note">Kitchen and baths described as wanting cosmetic updates. The drop from about $695,000 is pieced from two snippets rather than one clean record.</div>
         <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=373+E+Fairway+Dr,+Kilmarnock,+VA+22482">Pin this house &rarr;</a>
       </div>
     </li>
 
-    <li class="town"><span class="clock">12:00</span><span class="dot"></span>
+    <li class="town"><span class="clock">11:05</span><span class="dot"></span>
       <span class="tagline walk">walk it</span>
-      <p class="place">Kilmarnock &mdash; and lunch out of the boot</p>
-      <p class="where">Main Street &middot; thirty minutes</p>
-      <p class="why">The practical town of the group and the answer to "but where would we actually buy anything". Main Street on foot for twenty minutes settles it. This is also where lunch lands on the clock &mdash; though if you would rather eat somewhere prettier, the town dock at Tappahannock is on the river at about half past one and worth holding out for. I have not verified a picnic table anywhere on this route, so plan on a bench or the car either way.</p>
+      <p class="place">Kilmarnock</p>
+      <p class="where">Main Street &middot; fifteen minutes</p>
+      <p class="why">The practical town of the group and the answer to "but where would we actually buy anything". Fifteen minutes on Main Street settles it, and it is on the road north anyway. Then it is half an hour up the Neck to the tip.</p>
     </li>
 
-    <li class="quick"><span class="clock">1:15</span><span class="dot"></span>
-      <span class="tagline">drive-by</span>
-      <p class="place">Warsaw</p>
-      <p class="where">Richmond County seat &middot; US&#8209;360 runs through it &middot; ten minutes</p>
-      <p class="why">Forty-five minutes up from Kilmarnock and the road goes straight through. A third small county seat, and the useful thing about it is that nobody out here is selling it to you.</p>
-    </li>
-
-    <li class="house"><span class="clock">1:35</span><span class="dot"></span>
-      <span class="tagline walk">walk it</span>
-      <p class="place">Tappahannock &mdash; two houses and the river</p>
-      <p class="where">Essex County &middot; where US&#8209;360 crosses the Rappahannock &middot; fifty minutes</p>
-      <p class="why">The surprise of the exercise. Tappahannock is the closest town on your whole list &mdash; <b>an hour and five minutes from home</b> &mdash; and it holds two waterfront houses in the low four hundreds. It is also your second crossing of the Rappahannock, forty miles upstream from the first, which is the geography of the day in two views.</p>
+    <li class="house"><span class="clock">11:50</span><span class="dot"></span>
+      <p class="place">Reason Creek &mdash; house two</p>
+      <p class="where">Northumberland County &middot; near Reedville &middot; twelve minutes</p>
+      <p class="why">The house on the board with the fewest unknowns. 1951, but roof, HVAC, windows and siding all replaced within four years &mdash; the exact opposite of the problem that killed the Saluda house. Private pier <b>and a boat lift</b>, cross-checked across two sources, and no HOA.</p>
       <div class="listing">
         <header>
           <div class="score">61<small>score</small></div>
-          <div class="addr"><div class="a">128 Prince St, Unit 110</div><div class="p">$424,000 &middot; 3bd/2ba &middot; 1,690 sf &middot; built 1976</div></div>
+          <div class="addr"><div class="a">2082 Fairport Rd</div><div class="p">$539,000 &middot; 3bd/2ba &middot; 2,088 sf &middot; built 1951</div></div>
         </header>
-        <div class="spec"><span>Rappahannock River</span><span>drive <b>1h15</b></span><span>community pier</span><span>HOA ~$1,125/yr</span></div>
-        <div class="vfd">&#10003; still for sale 6 Aug &mdash; brokerage detail page</div>
-        <div class="q"><span class="lab">what the kerb settles</span><b>It is a condo. Does that work for you at all?</b> Directly on the Rappahannock for $424k with a shared pier and slip &mdash; genuinely good water for the money, and a completely different proposition from a house on a lot. Ninety seconds from the street decides it, which is why it is worth the stop rather than a phone call.</div>
-        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=128+Prince+St,+Tappahannock,+VA+22560">Pin this one &rarr;</a>
+        <div class="spec"><span>Reason Creek</span><span>drive <b>2h00</b></span><span>no HOA</span><span>pier + lift</span></div>
+        <div class="vfd">&#10003; still for sale 6 Aug &mdash; price cut 5 Aug, the day before checking</div>
+        <div class="depth">
+          <div class="sounding">&mdash;<em>ft MLW</em></div>
+          <div>Private pier <b>and a boat lift</b>, confirmed via a second source. No depth figure &mdash; but a lift is the strongest hint you get without a number, because nobody rigs a berth a boat cannot reach.</div>
+        </div>
+        <div class="q"><span class="lab">what the kerb settles</span><b>Does 1951 show?</b> The paperwork says roof, HVAC, windows and siding are all four years old or newer, which is the sort of claim a look from the road either supports or quietly undermines. Fresh cut from $549,900 on 5 August.</div>
+        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=2082+Fairport+Rd,+Reedville,+VA+22539">Pin this house &rarr;</a>
+      </div>
+    </li>
+
+    <li class="town"><span class="clock">12:10</span><span class="dot"></span>
+      <span class="tagline walk">walk it</span>
+      <p class="place">Reedville &mdash; and lunch out of the boot</p>
+      <p class="where">Main Street historic district &middot; thirty minutes</p>
+      <p class="why">The furthest point of the day and the best place on it to eat what you brought. Walk Main Street for the Victorians built on menhaden money &mdash; at the turn of the last century this was said to be among the wealthiest towns per head in the country, and the street still shows it, with the water at the end of it.</p>
+      <p class="why">The Fishermen's Museum at 504 Main is open Saturdays 11&ndash;4, so it is available if you change your mind. Budgeting for it would cost you the four o'clock, so it is not in the clock above.</p>
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=504+Main+St,+Reedville,+VA+22539">Park on Main &rarr;</a>
+    </li>
+
+    <li class="house"><span class="clock">12:55</span><span class="dot"></span>
+      <p class="place">The Little Wicomico &mdash; houses three and four</p>
+      <p class="where">Northumberland County &middot; seven minutes apart &middot; half an hour for the pair</p>
+      <p class="why">Two very different propositions within sight of each other at the tip of the Neck, and between them they hold the two sharpest questions on the board.</p>
+      <div class="listing">
+        <header>
+          <div class="score">65<small>score</small></div>
+          <div class="addr"><div class="a">878 Forest Green Rd</div><div class="p">$649,000 &middot; 3bd/3.5ba &middot; 2,103 sf &middot; built 2023</div></div>
+        </header>
+        <div class="spec"><span>Little Wicomico River</span><span>drive <b>2h00</b></span><span>new build</span><span>no dock</span></div>
+        <div class="vfd">&#10003; still for sale 6 Aug &mdash; MLS #2526953, corroborated across four sources</div>
+        <div class="q"><span class="lab">what the kerb settles</span><b>A 2023 new build directly on the river with no pier &mdash; why not?</b> Nobody builds a waterfront house that new and leaves the water unused by accident, so either a pier is coming, or something about the shoreline stops one. You can often see which from the road. This is the newest house on the whole board.</div>
+        <div class="note"><b>Price genuinely unresolved:</b> most sources say $649,000, Bragg &amp; Company's own page says $619,000. It has also cycled through three MLS numbers, and one snippet suggests a long time on market, which would be odd for new construction.</div>
+        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=878+Forest+Green+Rd,+Reedville,+VA+22539">Pin this house &rarr;</a>
       </div>
       <div class="listing">
         <header>
-          <div class="score">63<small>score</small></div>
-          <div class="addr"><div class="a">1120 Dillard St</div><div class="p">$424,900 &middot; 3bd/2ba &middot; 2,384 sf &middot; built 1991</div></div>
+          <div class="score">58<small>score</small></div>
+          <div class="addr"><div class="a">57 Swann Court &middot; Sherwood Forest Shores</div><div class="p">$539,500 &middot; 3bd/<b>1.5</b>ba &middot; 2,286 sf &middot; built 1978</div></div>
         </header>
-        <div class="spec"><span>small unnamed lake</span><span>drive <b>1h15</b></span><span>pier claimed</span><span>largest sf of the day</span></div>
-        <div class="vfd">&#10003; still for sale 6 Aug &mdash; MLS #CVR-2607873</div>
-        <div class="q"><span class="lab">what the kerb settles</span><b>Is that "waterfront" actually anything?</b> The water here is <b>a small unnamed lake, not the Rappahannock</b>, and this is the single most drive-by-answerable question on the whole board. Five minutes and a look over the fence and you either keep it or strike it. 2,384 square feet for $425k is the most house per pound on the day if the water holds up.</div>
-        <div class="note"><b>The board had the wrong address for this one</b> until last week &mdash; the Zillow record on file pointed at an unrelated off-market property on a different street number. The pin below is the corrected one, so give it a glance when Maps opens it.</div>
-        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=1120+Dillard+St,+Tappahannock,+VA+22560">Pin this one &rarr;</a>
+        <div class="spec"><span>Cod Creek</span><span>drive <b>2h00</b></span><span>dock + lift</span><span>new roof 2025</span></div>
+        <div class="vfd">&#10003; still for sale 6 Aug &mdash; brokerage MLS page</div>
+        <div class="depth">
+          <div class="sounding">3&ndash;4<em>ft MLW</em></div>
+          <div><b>The only stated depth on the entire board.</b> Every other house gives you adjectives; this one gives a number, and the number is shallow &mdash; enough to cap what you could keep there.</div>
+        </div>
+        <div class="q"><span class="lab">what the kerb settles</span><b>Go and look at what 3&ndash;4 feet actually means.</b> This is the single most useful five minutes of the day, and it has nothing to do with buying this house. Depth is worth 22 of the 100 points and you have never seen a verified figure on this search. Stand at that dock and you will know how to read "good boating depth" on every other listing for the rest of it.</div>
+        <div class="note bad"><b>It misses your bed and bath gate:</b> 1.5 baths, not 2 &mdash; one full and one half, confirmed from the brokerage MLS page rather than the aggregators, which had it wrong. On paper it is disqualified. It is on the card as calibration, not as a candidate.</div>
+        <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=57+Swann+Ct,+Reedville,+VA+22539">Pin this house &rarr;</a>
       </div>
     </li>
 
     <li class="drive"><span class="clock">~3:30</span><span class="dot"></span>
-      <p class="place">Home on US&#8209;360 West, with half an hour spare</p>
+      <p class="place">Home on US&#8209;360 West through Warsaw and Tappahannock &mdash; two hours, and the second river crossing</p>
     </li>
   </ol>
 
-  <h3 class="sub">Three more, if you are running ahead</h3>
+  <h3 class="sub">Two more, if you are running ahead</h3>
   <div class="side">
-    <div class="h">277 Pine Reach Dr, Kilmarnock &mdash; 55 &middot; $599,000</div>
-    Three acres of Indian Creek frontage, minutes from the Fairway Drive house, so it costs almost nothing to add while you are already out there. The oddity is the reason to look: <b>no pier or dock is mentioned anywhere despite direct creek frontage</b>, and it has cycled through three MLS numbers. Standing on the road may tell you why.
+    <div class="h">2755 Sunnybank Rd, Reedville &mdash; 56 &middot; $699,900 &middot; adds about half an hour</div>
+    Private pier with a lift on the Little Wicomico, four bedrooms all ensuite after a renovation. Worth a look for one reason: it <b>sold for $304,000 in April 2024</b> and is asking $699,900 now. New Pella windows and flooring explain part of a 130 per cent jump in two years; standing outside is how you judge whether they explain all of it.
+    <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=2755+Sunnybank+Rd,+Reedville,+VA+22539">Pin it &rarr;</a>
+  </div>
+  <div class="side">
+    <div class="h">277 Pine Reach Dr, Kilmarnock &mdash; 55 &middot; $599,000 &middot; adds ten minutes</div>
+    Three acres of Indian Creek frontage, minutes from the Fairway Drive house. Same oddity as the new build at the tip: <b>no pier mentioned despite direct creek frontage</b>, and three MLS numbers behind it. Two houses on one creek with the same missing thing is either a coincidence or a fact about the creek.
     <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=277+Pine+Reach+Dr,+Kilmarnock,+VA+22482">Pin it &rarr;</a>
   </div>
-  <div class="side">
-    <div class="h">270 River Road Cir, Saluda &mdash; the tear-down, for calibration</div>
-    The one you found was a gut job. It is still listed, now at $579,500, and it is near Saluda at the start of the day. Worth two minutes precisely <b>because</b> you know what it is: it shows you what this market charges for pure lot and pier with the house written off, which is the yardstick every other price on the card gets measured against. It has a pier with a boat lift on the open Piankatank.
-    <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=270+River+Road+Cir,+Saluda,+VA+23149">Pin it &rarr;</a>
+
+  <h3 class="sub">Struck off, and why</h3>
+  <div class="cut">
+    <div class="h">The three you ruled out were all the same problem</div>
+    <b>349 Peach Tree Ln, White Stone</b> (66) &mdash; the listing itself said the house is not on the waterfront and the dock is shared by the neighbourhood. <b>128 Prince St, Tappahannock</b> (61) &mdash; a condo with a community pier. <b>1120 Dillard St, Tappahannock</b> (63) &mdash; "waterfront" on a small unnamed lake, not the river. All three scored well on price and none of them was your own water. They are still on the dashboard if you want them back.
   </div>
-  <div class="side">
-    <div class="h">Deltaville &mdash; 25 minutes each way from Urbanna</div>
-    Boat country: yards, brokers, Stingray Point, and two more houses on the board (353 Jackson Creek Rd at 54, 117 Sturgeon Creek Rd at 53 &mdash; both shared-dock rather than private). A fifty-minute round trip you would have to take out of Urbanna, so only if coffee goes quickly and you want to see where the boats actually live.
-    <a class="pin" href="https://www.google.com/maps/search/?api=1&amp;query=Deltaville,+VA+23043">Pin it &rarr;</a>
+  <div class="cut">
+    <div class="h">Also not here: Mathews, which holds the two best houses on the board</div>
+    <b>310 Brush Neck Rd</b> (67, $689,900) has the only covered boathouse with water and electric anywhere on this search, on 400 ft of Horn Harbor frontage that opens to the Bay. <b>764 Lovers Ln</b> (65, $574,900) is four bedrooms on 4.7 acres with a private pier on Stutts Creek. They are the wrong side of the Piankatank to join this loop &mdash; a separate day, and on driving time an easier one at 4h20. Brush Neck's price is unresolved across four different figures, so that day should start with a phone call.
   </div>
 
   <section class="ask">
     <h2>What to settle from the kerb</h2>
-    <p>None of this needs an appointment, which is the point. Tick them off as you go.</p>
+    <p>None of this needs an appointment, which is the point of the day. Tick them off as you go.</p>
     <ul id="checklist">
-      <li><input type="checkbox" id="q1"><label for="q1"><b>Peach Tree:</b> how far to the water on foot, and what does the shared dock look like?</label></li>
-      <li><input type="checkbox" id="q2"><label for="q2"><b>Fairway Dr:</b> fairway behind the garden &mdash; asset or intrusion? And how does the creek look at the dock?</label></li>
-      <li><input type="checkbox" id="q3"><label for="q3"><b>Dillard St:</b> is the lake real water or a pond with a name?</label></li>
-      <li><input type="checkbox" id="q4"><label for="q4"><b>Prince St:</b> could you live in a condo if it came with that river?</label></li>
-      <li><input type="checkbox" id="q5"><label for="q5"><b>Urbanna against Irvington:</b> working port or postcard &mdash; which one would you actually spend Saturdays in?</label></li>
-      <li><input type="checkbox" id="q6"><label for="q6"><b>The one thing a kerb cannot give you:</b> MLW depth. Not one house on the board has a number. Worth 22 of 100, and it takes a phone call, not a visit.</label></li>
+      <li><input type="checkbox" id="q1"><label for="q1"><b>Swann Court, 3&ndash;4 ft:</b> look at it properly. It is the only real depth figure you have ever had on this search, and it teaches you to read every other listing.</label></li>
+      <li><input type="checkbox" id="q2"><label for="q2"><b>Forest Green:</b> a 2023 build on the river with no pier &mdash; can you see why?</label></li>
+      <li><input type="checkbox" id="q3"><label for="q3"><b>Fairport Rd:</b> does 1951 show, given roof, HVAC, windows and siding are all under four years old?</label></li>
+      <li><input type="checkbox" id="q4"><label for="q4"><b>Fairway Dr:</b> golf course behind the garden &mdash; amenity or intrusion?</label></li>
+      <li><input type="checkbox" id="q5"><label for="q5"><b>Urbanna against Irvington:</b> working port or postcard &mdash; which would you actually spend Saturdays in?</label></li>
+      <li><input type="checkbox" id="q6"><label for="q6"><b>Reedville against Kilmarnock:</b> two hours out versus one forty-five. Is the tip of the Neck worth the extra fifteen minutes each way, every time, forever?</label></li>
     </ul>
   </section>
 
   <h3 class="sub">Before you go</h3>
   <ul class="notes">
-    <li><b>Leaving earlier just lengthens the front of the day.</b> Nothing on this card opens or closes except coffee, and that is open from six. Leave at 6:30 and you get an extra half hour in Urbanna, or Deltaville, or both Kilmarnock houses at a walk instead of a glance.</li>
-    <li><b>Every house here is a drive-by, and that is deliberate.</b> Saturday showings need an appointment; the questions on this card do not. If one of them survives the kerb, that is when you ring.</li>
-    <li><b>What you are giving up:</b> the Reedville end. Two houses up there (878 Forest Green, 65, new-build 2023 on the Little Wicomico; 2082 Fairport Rd, 61, boat lift and everything replaced) plus the Fishermen's Museum, open Saturdays 11&ndash;4. It is a 2h04 run each way and adding it costs the four o'clock. It makes an easy Saturday on its own.</li>
-    <li><b>Drive times are routed door to door</b>, not estimated &mdash; 4h35 over 181 miles. No allowance for traffic or a slow left onto US&#8209;360, which is where the half hour of slack goes.</li>
-    <li><b>Two pins are street-level, not house-level.</b> Peach Tree Ln and Pine Reach Dr did not resolve to a house number in the geocoder I checked against; everything else did. Glance at those two when Maps opens them.</li>
+    <li><b>Half six is not padding.</b> Reedville is a two-hour run home from the tip, so the late end of the day is fixed and the only place to find time is the morning. Coffee opens at six, which is the one thing that makes the early start pleasant rather than grim.</li>
+    <li><b>Every house here is a drive-by, deliberately.</b> Saturday showings need an appointment; the questions on this card do not. If one survives the kerb, that is when you ring.</li>
+    <li><b>The four houses cluster oddly.</b> One at 1h45 and three at 2h00, all in the last third of the day. If the morning overruns, the thing to cut is Kilmarnock's fifteen minutes, not a house &mdash; you will be back in Kilmarnock.</li>
+    <li><b>Drive times are routed door to door</b>, not estimated &mdash; 5h35 over 208 miles. No allowance for traffic, which is where the half hour of slack goes.</li>
+    <li><b>Three pins are street-level, not house-level.</b> Forest Green Rd, Swann Ct and Pine Reach Dr resolved to the street but not the number in the geocoder I checked against; Fairport Rd and 504 Main St matched exactly. Glance at those three when Maps opens them.</li>
   </ul>
 
   <footer>
     All four houses re-checked against a property-detail page on 6 August 2026; drive times routed 7 August.
-    <a href="https://thgold-collab.github.io/waterfront-tracker/">Open the dashboard</a> for the full board &mdash; 23 active houses, plus the eleven that could not be verified and the ones ruled out.
+    <a href="https://thgold-collab.github.io/waterfront-tracker/">Open the dashboard</a> for the full board &mdash; 23 active houses, plus the eleven that could not be verified.
   </footer>
 </div>
 
