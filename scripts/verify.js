@@ -44,6 +44,16 @@ async function open(browser, file, waitFor = '.card') {
   const L = st.listings.filter(x => (x.track || 'land') === track.id);   // active track only
   const N = L.length;
   const nCuts = L.filter(x => x.priceWas).length;
+  const dmin = d => { const m = String(d).match(/(\d+)h(\d+)/); return m ? (+m[1]) * 60 + (+m[2]) : 999; };
+  const bandOf = t => ((t.criteria || {}).driveBandMins || null);
+  const inBandOf = (t, x) => { const b = bandOf(t); if (!b) return true; const m = dmin(x.drive); return m !== 999 && m >= b[0] && m <= b[1]; };
+  const nBand = L.filter(x => inBandOf(track, x)).length;
+  // The drive band can start switched on, so "every card renders" is not the opening
+  // state. Tests that need the full set clear it first.
+  const clearBand = async page => {
+    const b = page.locator('#nearFilter button');
+    if (await b.count() && (await b.getAttribute('aria-pressed')) === 'true') await b.click();
+  };
   const priAreas = (track.priorityAreas || []).map(s => s.toLowerCase());
   const priList = L.filter(x => priAreas.some(p => ((x.name || '') + ' ' + (x.water || '')).toLowerCase().includes(p)));
   console.log(`base: ${st.listings.length} listings across ${TRACKS.length} track(s); active "${track.id}" has ${N}, run ${st.runNumber}, ${nCuts} with cuts, ${priList.length} in priority areas`);
@@ -55,6 +65,13 @@ async function open(browser, file, waitFor = '.card') {
   check('ids unique', ids.length, new Set(ids).size);
   check('no literal </script> in data', JSON.stringify(st).includes('</' + 'script>'), false);
   TRACKS.forEach(t => check(`track "${t.id}" rubric totals 100`, (t.rubric || []).reduce((a, r) => a + r.pts, 0), 100));
+  TRACKS.forEach(t => { const b = (t.criteria || {}).driveBandMins; if (b) {
+    check(`track "${t.id}" drive band is [lo, hi] with lo < hi`, Array.isArray(b) && b.length === 2 && b[0] < b[1], true);
+    check(`track "${t.id}" has listings inside its band`, st.listings.filter(x => (x.track || 'land') === t.id && inBandOf(t, x)).length > 0, true);
+  } });
+  const badDrive = st.listings.filter(x => x.drive && !/^\d+h\d\d$/.test(x.drive));
+  check('every drive time parses as NhMM', badDrive.length, 0);
+  badDrive.forEach(x => console.log('     ' + x.id + ': ' + x.drive));
   const trackIds = new Set(TRACKS.map(t => t.id));
   const orphan = st.listings.filter(x => !trackIds.has(x.track || 'land'));
   check('every listing belongs to a declared track', orphan.length, 0);
@@ -99,6 +116,13 @@ async function open(browser, file, waitFor = '.card') {
   console.log('=== render + run metadata ===');
   check('console/page errors', errs.length, 0);
   errs.forEach(e => console.log('     ' + e));
+  if (bandOf(track) && (track.criteria || {}).driveBandDefault) {
+    const b = bandOf(track);
+    check('drive band starts switched on', await page.locator('#nearFilter button').getAttribute('aria-pressed'), 'true');
+    check(`opening view is the ${b[0]}-${b[1]} min band`, await page.locator('.card').count(), nBand);
+    check('listHead says the band is applied', (await page.locator('#listHead').textContent()).includes(`${b[0]}-${b[1]} min drive only`), true);
+    await clearBand(page);
+  }
   check('cards', await page.locator('.card').count(), N);
   check('subtitle shows run number from data', (await page.locator('header .sub').textContent()).includes('Run ' + st.runNumber), true);
   check('subtitle label from data', (await page.locator('header .sub').textContent()).includes(st.runLabel), true);
@@ -120,6 +144,7 @@ async function open(browser, file, waitFor = '.card') {
     check('type filters swapped', await page.locator('#typeFilters button').count(), (other.typeFilters || []).length);
     check('sorts swapped', await page.locator('#sortSel option').count(), (other.sorts || []).length);
     await page.click(`#trackSwitch button[data-track="${track.id}"]`);
+    await clearBand(page);
     check('switching back restores the original track', await page.locator('.card').count(), N);
   }
 
@@ -183,6 +208,25 @@ async function open(browser, file, waitFor = '.card') {
   await page.locator('button.tile[data-action="all"]').click();
   check('all filters cleared', await page.locator('.card').count(), N);
   check('type buttons re-synced', await page.locator('#typeFilters button.on').getAttribute('data-t'), 'all');
+
+  if (bandOf(track)) {
+    const b = bandOf(track);
+    console.log(`\n=== drive band filter (${b[0]}-${b[1]} min) ===`);
+    const btn = page.locator('#nearFilter button');
+    check('chip shows the live in-band count', (await btn.textContent()).includes('(' + nBand + ')'), true);
+    await btn.click();
+    check('filters to in-band listings', await page.locator('.card').count(), nBand);
+    check('pressed state set', await btn.getAttribute('aria-pressed'), 'true');
+    const shown = await page.locator('.card .drive, .card').evaluateAll(ns => ns.length);
+    check('something is still shown', shown > 0, true);
+    await btn.click();
+    check('toggles back off', await page.locator('.card').count(), N);
+    // "Show all" must beat a default-on filter or there is no way back to the full board
+    await btn.click();
+    await page.locator('button.tile[data-action="all"]').click();
+    check('"Show all" clears the band filter too', await page.locator('.card').count(), N);
+    check('band chip unpressed after Show all', await btn.getAttribute('aria-pressed'), 'false');
+  }
 
   console.log('\n=== priority areas (Cape Charles / Bay Creek) ===');
   check('priority badges on cards', await page.locator('.badge.priority').count(), priList.length);
