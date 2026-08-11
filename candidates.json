@@ -1,0 +1,334 @@
+{
+ "generated": "2026-08-11",
+ "run": 12,
+ "source": "Hardesty Homes city indexes for Tappahannock, Warsaw, Urbanna, Kilmarnock, Irvington, West Point, Saluda, Deltaville",
+ "gate": "$350k-$700k, 3+ bed, 2+ bath, ACTIVE on a property-detail page",
+ "warning": "Core facts are verified from detail pages. WATER STATUS IS NOT. Do not admit any of these to index.html as waterfront/access without researching the water body, and do not carry over any keyword guess.",
+ "count": 18,
+ "candidates": [
+  {
+   "address": "635 Rivergate Terrace, West Point, VA 23181",
+   "town": "West Point",
+   "price": 364990,
+   "beds": 4,
+   "baths": 2,
+   "mls": "CVR-2615071",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2615071/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "7969 Pennsylvania Avenue, West Point, VA 23181",
+   "town": "West Point",
+   "price": 379000,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2618546",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2618546/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "7957 Pennsylvania Avenue, West Point, VA 23181",
+   "town": "West Point",
+   "price": 379000,
+   "beds": 3,
+   "baths": 3,
+   "mls": "CVR-2618547",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2618547/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "290 Colorado Avenue, Urbanna, VA 23175",
+   "town": "Urbanna",
+   "price": 384900,
+   "beds": 4,
+   "baths": 3,
+   "mls": "CVR-2611134",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2611134/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "307 Main Street, West Point, VA 23181",
+   "town": "West Point",
+   "price": 389000,
+   "beds": 4,
+   "baths": 2,
+   "mls": "CVR-2619553",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2619553/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "73 Stoneham Street, Saluda, VA 23149",
+   "town": "Saluda",
+   "price": 389000,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2612335",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2612335/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "850 Old St. Johns Road, Irvington, VA 22482",
+   "town": "Irvington",
+   "price": 394950,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2615399",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2615399/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "34 Oakland Street, Kilmarnock, VA 22482",
+   "town": "Kilmarnock",
+   "price": 399000,
+   "beds": 4,
+   "baths": 2,
+   "mls": "CVR-2615596",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2615596/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "216 Millstone Way, Warsaw, VA 22572",
+   "town": "Warsaw",
+   "price": 399999,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2607528",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2607528/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "115 E Sunrise Drive, Warsaw, VA 22572",
+   "town": "Warsaw",
+   "price": 414900,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2614899",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2614899/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "209 Broadway, Irvington, VA 22480",
+   "town": "Irvington",
+   "price": 475000,
+   "beds": 3,
+   "baths": 3,
+   "mls": "CVR-2616692",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2616692/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "285 Michaels Lane, West Point, VA 23110",
+   "town": "West Point",
+   "price": 498000,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2620703",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2620703/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "57 Hobbs Hole Lane, Tappahannock, VA 22560",
+   "town": "Tappahannock",
+   "price": 545111,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2617843",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2617843/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "8300 Virginia Avenue, West Point, VA 23181",
+   "town": "West Point",
+   "price": 549900,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2619785",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2619785/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "114 Logan Way, Tappahannock, VA 22560",
+   "town": "Tappahannock",
+   "price": 562864,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2602951",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2602951/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "1028 Timberneck Road, Deltaville, VA 23043",
+   "town": "Deltaville",
+   "price": 570000,
+   "beds": 4,
+   "baths": 4,
+   "mls": "CVR-2611576",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2611576/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "901 Oak Lane, Kilmarnock, VA 22482",
+   "town": "Kilmarnock",
+   "price": 575000,
+   "beds": 5,
+   "baths": 3,
+   "mls": "CVR-2619237",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2619237/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  },
+  {
+   "address": "844 Monarch Shores Road, Kilmarnock, VA 22482",
+   "town": "Kilmarnock",
+   "price": 615000,
+   "beds": 3,
+   "baths": 2,
+   "mls": "CVR-2601309",
+   "url": "https://www.hardestyhomesllc.com/property/CVR-2601309/",
+   "statusAsOf": "2026-08-11",
+   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
+   "needs": [
+    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
+    "dock / pier / MLW depth",
+    "HOA and community amenities",
+    "condition beyond year built",
+    "routed drive time from Glen Allen"
+   ]
+  }
+ ]
+}
