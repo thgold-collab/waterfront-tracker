@@ -194,16 +194,39 @@ which case it is in `runNote` rather than inflating scores to look healthier.
    Distinguish a private permitted pier, a shared community dock, "dock-able" and "room for
    a pier" — four different things, and only the first earns full marks.
 
-## Network access
+## Network access — measured at run 12, and not what this file used to say
 
-Listing sites are only reachable if the cloud environment's network access allows them.
-Under **Trusted** (the default) every listing source is blocked and fetches fail with a
-403 at the egress gateway — this is the environment's own policy, not the sites blocking
-scrapers. Run 2 misattributed it to LandSearch; don't repeat that.
+**Most listing sites are blocked by the sites themselves, not by our network.** Run 12
+tested this properly: `$HTTPS_PROXY/__agentproxy/status` reported `recentRelayFailures: []`
+— zero policy denials — while the sites returned their own walls. Earlier runs (and run
+12's own first pass) called this an egress-policy block and were wrong. Run 2 made the
+mirror-image mistake, blaming LandSearch for a policy denial. **Check which it is before
+claiming either.**
 
-Diagnose with `curl -sS "$HTTPS_PROXY/__agentproxy/status"`, which lists recent policy
-denials by host. Never route around a policy denial. If sources are blocked, say so in
-`runNote` and in the summary, and do not present carried-forward figures as re-verified.
+**`curl` and `WebFetch` do not have the same reach.** WebFetch returned `EGRESS_BLOCKED`
+for hosts that `curl` fetches fine — the JLARC broadband report is a 6.2 MB PDF over curl
+and "blocked" over WebFetch. If WebFetch refuses, retry with curl before recording a
+source as unreachable.
+
+Measured at run 12 (re-test; these move):
+
+| Source | State |
+|---|---|
+| Zillow, Trulia | **403, PerimeterX captcha** — the site's wall |
+| LandWatch, Homes.com | **403 Akamai "Access Denied"** — the site's wall |
+| LandSearch | **403 Cloudflare challenge** — the site's wall |
+| Long & Foster, Hometown Realty | 403 |
+| Realtor.com | 429, **and its robots.txt forbids scraping in terms** — do not use |
+| **Redfin** | **200.** robots.txt `User-agent: *` **disallows `/stingray/`** (their API) — public city and property pages only |
+| **Hardesty Homes** (Tappahannock) | **200**, has `/listings/city/<Town>/` indexes |
+| **Mason Realty** (Urbanna) | 200 — but category-page based; find the detail page |
+| **Blue Heron Realty** (Cape Charles) | 200, `/homes-for-sale-search/` |
+| Chesapeake Bay Properties, Coldwell Banker | 200; CB property-detail pages re-verify fine |
+| WebSearch | Always works, and has produced real MLS numbers and prices all along |
+
+Respect robots.txt and site terms — that is a separate question from whether a fetch
+succeeds. Never route around a *policy* denial. If sources really are unreachable, say so
+in `runNote` and in the summary, and do not present carried-forward figures as re-verified.
 
 ## Scoring calibration
 
