@@ -4,63 +4,8 @@
  "source": "Hardesty Homes city indexes for Tappahannock, Warsaw, Urbanna, Kilmarnock, Irvington, West Point, Saluda, Deltaville",
  "gate": "$350k-$700k, 3+ bed, 2+ bath, ACTIVE on a property-detail page",
  "warning": "Core facts are verified from detail pages. WATER STATUS IS NOT. Do not admit any of these to index.html as waterfront/access without researching the water body, and do not carry over any keyword guess.",
- "count": 18,
+ "count": 12,
  "candidates": [
-  {
-   "address": "635 Rivergate Terrace, West Point, VA 23181",
-   "town": "West Point",
-   "price": 364990,
-   "beds": 4,
-   "baths": 2,
-   "mls": "CVR-2615071",
-   "url": "https://www.hardestyhomesllc.com/property/CVR-2615071/",
-   "statusAsOf": "2026-08-11",
-   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
-   "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ],
-   "note": "Cheapest of the eighteen, and West Point routes at 57 minutes — the closest town on the whole search."
-  },
-  {
-   "address": "7969 Pennsylvania Avenue, West Point, VA 23181",
-   "town": "West Point",
-   "price": 379000,
-   "beds": 3,
-   "baths": 2,
-   "mls": "CVR-2618546",
-   "url": "https://www.hardestyhomesllc.com/property/CVR-2618546/",
-   "statusAsOf": "2026-08-11",
-   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
-   "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ]
-  },
-  {
-   "address": "7957 Pennsylvania Avenue, West Point, VA 23181",
-   "town": "West Point",
-   "price": 379000,
-   "beds": 3,
-   "baths": 3,
-   "mls": "CVR-2618547",
-   "url": "https://www.hardestyhomesllc.com/property/CVR-2618547/",
-   "statusAsOf": "2026-08-11",
-   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
-   "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ]
-  },
   {
    "address": "290 Colorado Avenue, Urbanna, VA 23175",
    "town": "Urbanna",
@@ -82,24 +27,6 @@
    "dom": 83,
    "note": "Urbanna is golf-cart friendly per the listing copy — the same quality Ted values at Bay Creek, an hour and a half closer.",
    "priceConflict": "Hardesty/CVR shows $384,900; other sources show $394,900-$410,500. Unresolved."
-  },
-  {
-   "address": "307 Main Street, West Point, VA 23181",
-   "town": "West Point",
-   "price": 389000,
-   "beds": 4,
-   "baths": 2,
-   "mls": "CVR-2619553",
-   "url": "https://www.hardestyhomesllc.com/property/CVR-2619553/",
-   "statusAsOf": "2026-08-11",
-   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
-   "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ]
   },
   {
    "address": "73 Stoneham Street, Saluda, VA 23149",
@@ -220,24 +147,6 @@
    "dom": 53
   },
   {
-   "address": "285 Michaels Lane, West Point, VA 23110",
-   "town": "West Point",
-   "price": 498000,
-   "beds": 3,
-   "baths": 2,
-   "mls": "CVR-2620703",
-   "url": "https://www.hardestyhomesllc.com/property/CVR-2620703/",
-   "statusAsOf": "2026-08-11",
-   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
-   "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ]
-  },
-  {
    "address": "57 Hobbs Hole Lane, Tappahannock, VA 22560",
    "town": "Tappahannock",
    "price": 545111,
@@ -245,24 +154,6 @@
    "baths": 2,
    "mls": "CVR-2617843",
    "url": "https://www.hardestyhomesllc.com/property/CVR-2617843/",
-   "statusAsOf": "2026-08-11",
-   "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
-   "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ]
-  },
-  {
-   "address": "8300 Virginia Avenue, West Point, VA 23181",
-   "town": "West Point",
-   "price": 549900,
-   "beds": 3,
-   "baths": 2,
-   "mls": "CVR-2619785",
-   "url": "https://www.hardestyhomesllc.com/property/CVR-2619785/",
    "statusAsOf": "2026-08-11",
    "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
    "needs": [
@@ -352,5 +243,19 @@
    "priceConflict": "Hardesty/CVR shows $615,000; other sources range $600,000-$700,000, and it carries two MLS numbers (2601309 and 118816) — consistent with the long DOM and a relist. Verify before relying on the price."
   }
  ],
- "enriched": "2026-08-11: water status researched for the two headliners only; the other sixteen remain core-facts-only."
+ "enriched": "2026-08-11: water status researched for the two headliners only; the other sixteen remain core-facts-only.",
+ "excluded": [
+  {
+   "area": "West Point",
+   "reason": "Ruled out 2026-08-11: the kraft pulp mill at the Mattaponi/Pamunkey confluence carries an odour across the town. Town-wide, so not solvable by picking a street.",
+   "removedCandidates": [
+    "635 Rivergate Terrace, West Point, VA 23181",
+    "7969 Pennsylvania Avenue, West Point, VA 23181",
+    "7957 Pennsylvania Avenue, West Point, VA 23181",
+    "307 Main Street, West Point, VA 23181",
+    "285 Michaels Lane, West Point, VA 23110",
+    "8300 Virginia Avenue, West Point, VA 23181"
+   ]
+  }
+ ]
 }

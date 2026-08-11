@@ -3,10 +3,21 @@
 A single-file dashboard running **two parallel searches** for Ted, published at
 https://thgold-collab.github.io/waterfront-tracker/
 
-- **Houses** *(the live search as of run 12)* — 3+ bed / 2+ bath, $350k–$700k, **60–90
-  minutes** from Glen Allen and centred on Tappahannock, **plus Bay Creek at Cape Charles**
-  regardless of drive. Amenities and town life score as highly as water. **Reedville is
-  excluded** — Ted went and found there was nothing to do there.
+- **Houses** *(the live search)* — 3+ bed / 2+ bath, $350k–$700k, **60–90 minutes** from
+  Glen Allen and centred on Tappahannock, **plus Bay Creek at Cape Charles** regardless of
+  drive. Amenities and town life score as highly as water.
+
+  **Two towns are excluded outright. Do not re-add them, and do not surface listings in
+  them.** Both are in `criteria.excludedAreas` with reasons:
+  - **Reedville** — nothing to do there. Ted drove it and said so.
+  - **West Point** — the kraft pulp mill at the Mattaponi/Pamunkey confluence carries an
+    odour over the town. Town-wide, so no street avoids it. This one hurt: West Point
+    routes at **57 minutes**, the closest water on the whole search, and it held six of
+    the eighteen candidates found at run 13.
+
+  The lesson generalises. A town can be disqualified by something no listing field
+  records — smell, nothing open, a mill. **When a town is ruled out, write down why**, or
+  the next sweep finds the same houses and re-proposes them.
 - **Land** *(parked)* — waterfront land under $200k within ~3 hrs, for a build in 2–4
   years. Ted said "I want houses not lots" at run 12; the track, its run-8 rubric and its
   scores are all left untouched, not deleted. Do not re-score it without being asked.
