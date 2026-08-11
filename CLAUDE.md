@@ -228,6 +228,27 @@ Respect robots.txt and site terms — that is a separate question from whether a
 succeeds. Never route around a *policy* denial. If sources really are unreachable, say so
 in `runNote` and in the summary, and do not present carried-forward figures as re-verified.
 
+### There is no MLS API to reach for — checked at run 13
+
+The standard exists (RESO Web API, REST/OData, OAuth 2.0, and NAR requires REALTOR-owned
+MLSs to offer it) but it is credentialed, per-MLS, and gated on a licensed participant.
+**This search area needs at least two licences**, which the board's own MLS ids show:
+
+- **`CVR-…`** — Central Virginia Regional MLS. Tappahannock, Warsaw, West Point, and all
+  18 of run 13's candidates. Licensed through **Trestle**; the Data License Agreement is
+  signed by the technology provider **and** a broker **and** the agents on it.
+- **`VANV…`, `VALV…`** — Bright MLS (VA + county code) — the Northern Neck.
+- Bare numeric ids — a third, smaller association.
+
+The Bright ↔ CVR data share (May 2025) **excludes IDX and API feeds**, so it does not
+collapse the two into one. Reckon on ~$50–500/mo per MLS plus setup, and a sponsoring
+broker either way. Do not spend a run trying to obtain this.
+
+And it would not fix the actual bottleneck. What holds this board back is MLW depth,
+condition and community dues — MLW is essentially never a public MLS field. An agent's
+saved search with instant alerts is the better instrument: it *is* the MLS, it is free,
+and it covers both systems if the agent holds both.
+
 ## Scoring calibration
 
 Re-scoring the whole board against changed weights is the single most error-prone thing
