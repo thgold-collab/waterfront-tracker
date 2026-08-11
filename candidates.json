@@ -22,7 +22,8 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "note": "Cheapest of the eighteen, and West Point routes at 57 minutes — the closest town on the whole search."
   },
   {
    "address": "7969 Pennsylvania Avenue, West Point, VA 23181",
@@ -71,12 +72,16 @@
    "statusAsOf": "2026-08-11",
    "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
    "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ]
+    "is the lot itself on water, or just in a waterfront town?",
+    "resolve the price",
+    "1951 condition"
+   ],
+   "water": "NOT ESTABLISHED — the listing calls Urbanna a \"waterfront community\" with golf-cart-friendly streets, which describes the town, not the lot. Reads as an in-town house.",
+   "sqft": 2652,
+   "yearBuilt": 1951,
+   "dom": 83,
+   "note": "Urbanna is golf-cart friendly per the listing copy — the same quality Ted values at Bay Creek, an hour and a half closer.",
+   "priceConflict": "Hardesty/CVR shows $384,900; other sources show $394,900-$410,500. Unresolved."
   },
   {
    "address": "307 Main Street, West Point, VA 23181",
@@ -130,7 +135,11 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "sqft": 1717,
+   "yearBuilt": 2024,
+   "dom": 66,
+   "note": "Built 2024 — the newest thing found in either favourite town."
   },
   {
    "address": "34 Oakland Street, Kilmarnock, VA 22482",
@@ -184,7 +193,10 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "sqft": 1589,
+   "yearBuilt": 2025,
+   "dom": 68
   },
   {
    "address": "209 Broadway, Irvington, VA 22480",
@@ -202,7 +214,10 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "sqft": 1728,
+   "yearBuilt": 2005,
+   "dom": 53
   },
   {
    "address": "285 Michaels Lane, West Point, VA 23110",
@@ -323,12 +338,19 @@
    "statusAsOf": "2026-08-11",
    "statusSource": "Hardesty Homes (Bright MLS) property-detail page fetched 2026-08-11; header showed ACTIVE with this price, bed/bath and sqft",
    "needs": [
-    "waterfront status and water body — NOT researched; the listing description sits behind an account wall",
-    "dock / pier / MLW depth",
-    "HOA and community amenities",
-    "condition beyond year built",
-    "routed drive time from Glen Allen"
-   ]
+    "confirm price directly with the agent",
+    "confirm the ~4 ft MLW is at the dock head, not the channel",
+    "condition of a 1975 cottage"
+   ],
+   "water": "Barnes Creek, with Bay views",
+   "dock": "private dock, listing states ~4 ft MLW",
+   "mlwStated": true,
+   "sqft": 2404,
+   "yearBuilt": 1975,
+   "dom": 210,
+   "note": "Only the second house found anywhere on this search with a stated MLW figure. Waterside room with vaulted ceilings and post-and-beam, large deck, screened porch. 210 days on market.",
+   "priceConflict": "Hardesty/CVR shows $615,000; other sources range $600,000-$700,000, and it carries two MLS numbers (2601309 and 118816) — consistent with the long DOM and a relist. Verify before relying on the price."
   }
- ]
+ ],
+ "enriched": "2026-08-11: water status researched for the two headliners only; the other sixteen remain core-facts-only."
 }
