@@ -3,15 +3,20 @@
 A single-file dashboard running **two parallel searches** for Ted, published at
 https://thgold-collab.github.io/waterfront-tracker/
 
-- **Land** — waterfront land and homes under $200k within ~3 hrs of Glen Allen, VA, for a
-  build in 2–4 years. Land is the default; homes only qualify at land value.
-- **Houses** — 3+ bed / 2+ bath houses from $350k to $700k up and down the Rappahannock
-  and around the Potomac, under a 2-hour drive where possible. Waterfront preferred,
-  near-water considered. Preferred towns: Urbanna, White Stone, Irvington, Kilmarnock,
-  Tappahannock, Montross.
+- **Houses** *(the live search as of run 12)* — 3+ bed / 2+ bath, $350k–$700k, **60–90
+  minutes** from Glen Allen and centred on Tappahannock, **plus Bay Creek at Cape Charles**
+  regardless of drive. Amenities and town life score as highly as water. **Reedville is
+  excluded** — Ted went and found there was nothing to do there.
+- **Land** *(parked)* — waterfront land under $200k within ~3 hrs, for a build in 2–4
+  years. Ted said "I want houses not lots" at run 12; the track, its run-8 rubric and its
+  scores are all left untouched, not deleted. Do not re-score it without being asked.
 
 The two are independent: separate criteria, rubric, filters, sorts and preferred areas.
 A track switcher above the tiles picks one.
+
+**The brief moves.** It has changed materially at runs 5, 7, 8, 11 and 12. Read the state
+block for what is true now; treat this file's history sections as the reasoning behind
+past decisions, not as current instructions.
 
 Updated weekly by the `Waterfront deal scan` routine (Fridays ~7am ET), which commits
 straight to `main`. Both tracks are refreshed in the same run.
@@ -30,8 +35,14 @@ block near the bottom. **That block is normally the only thing you edit.**
 
 Each track: `id`, `label`, `blurb`, `unit`, `listLabel`, `chips[]`, `criteria{}`,
 `rubric[]`, `typeFilters[]`, `typeNames{}`, `sorts[]`, `priorityAreas[]`,
-`priorityLabel`, `footnote`, `emptyMsg`. Everything the header, controls and footer show
-comes from the active track — **there is no track-specific text left in the HTML.**
+`priorityLabel`, `footnote`, `emptyMsg`, and on Houses `townScores{}`. Everything the
+header, controls and footer show comes from the active track — **there is no
+track-specific text left in the HTML.**
+
+`criteria.driveBandMins` (e.g. `[60, 90]`) turns on a drive-band filter chip;
+`criteria.driveBandDefault` makes it start pressed, so the board opens focused;
+`criteria.bandExempt` lists areas searched deliberately from outside the ring (Bay Creek)
+so the band never hides them. "Show all" clears the band like any other filter.
 
 Each listing: `id`, `name`, `region` (nn|es|lk), `water`, `type` (waterfront|access|home),
 `price`, `priceWas` (ORIGINAL list price), `acres`, `score`, `drive` ("1h20"), `hoa`,
@@ -41,6 +52,11 @@ absent means `land`).
 
 House listings additionally carry `beds`, `baths`, `sqft`, `yearBuilt` and `dock` (a
 short string, or `true`). `dock` drives a badge, a summary tile and a filter.
+
+`driveSource` records how a drive time was obtained. Run 11 routed eleven addresses door
+to door and found the estimates wrong in both directions by up to half an hour, which
+matters now that a drive band filters the board. **Route new drive times; do not eyeball
+them.** Rows without `driveSource` are still estimates.
 
 ## Invariants — each of these is a bug that was already fixed once
 
@@ -83,14 +99,26 @@ and MLW depth; lot elevation vs. BFE. Cape Charles sits ~3 ft with most develope
 5–10 ft, and Northampton County requires a sealed flood elevation certificate, with V-zone
 plans sealed by a Virginia-licensed architect or engineer.
 
-## Amenities — recorded, not scored
+## Amenities — scored on Houses, not on Land
 
-**As of run 7 amenities earn no points.** Ted asked for them out of the scoring, so the
-Land rubric returned to its pre-run-5 weights (price 30 / buildability 25 / water access
-20 / hold-and-build fit 15 / deal signals 10). Keep populating `amenities[]` — it still
-drives the card line, the count badge, a filter chip and a sort, and the research is
-worth having — but do not award points for it, and do not reinstate the category without
-being asked. The history below is kept because it explains the shape of the data.
+**Run 12 split the two tracks on this.** On **Houses**, amenities are now scored, but not
+as their own category: waterfront quality and community amenities are one **`setting`**
+category worth 25, taken as **whichever axis the place leads on**. Ted's words were
+"amenities and town things to do high and water high if amenities are low", and that is
+compensatory, not additive — a bare waterfront house and an amenity community reach the
+same mark by different routes, and neither is docked for lacking the other. Do not turn
+this back into two categories that sum; that would penalise every listing for being one
+thing rather than both.
+
+On **Land**, amenities still earn no points (run 7, unchanged). The Land rubric stays at
+price 30 / buildability 25 / water access 20 / hold-and-build fit 15 / deal signals 10.
+Keep populating `amenities[]` there — it drives the card line, the count badge, a filter
+chip and a sort — but do not score it, and do not re-score that track without being asked.
+
+**A caution learned the hard way at run 12.** Halving Land's water access to 10 frees only
+10 points, so amenities at 20 cannot be funded from water alone; the arithmetic has to
+come to exactly 100 and a proposal that totals 110 is not a proposal. Check the sum before
+offering a rubric, not after.
 
 ## Amenities history — there were two buyers
 
@@ -146,19 +174,25 @@ So, non-negotiable now:
   brief a tear-down is close to disqualifying — say so in a flag rather than burying it in
   a size comment.
 
-## The binding constraint on the Houses track
+## What actually holds the Houses track down
 
-**MLW depth.** Dock & boating is 22 of 100 and depth is its core currency, but as of run 8
-only 2 of the 19 houses with a dock had any MLW figure at all, and both were shallow
-(2–4 ft). Everything else was listing language — "sailboat depth", "good boating depth",
-"dock-able" — which is not a measurement. That single gap is what holds the whole track
-under 75.
+Three things cap it at once, and every one is missing information rather than a judgement.
+Run 12's active board tops out at **70** with a mean of 58 for exactly these reasons — say
+which case it is in `runNote` rather than inflating scores to look healthier.
 
-So: never convert that language into a number, and treat resolving depth as the highest-
-leverage diligence step on this track. Sources worth trying beyond the listing: NOAA chart
-soundings, county GIS, VMRC/JPA dock-permit records, and the listing agent directly.
-Distinguish clearly between a private permitted pier, a shared community dock, "dock-able",
-and "room for a pier" — they are four different things and only the first earns full marks.
+1. **No listing sits in a good town.** `townScores` runs to 13 (Irvington, Urbanna) but the
+   board's best active town is Kilmarnock at 11. **There are zero active houses in Urbanna
+   or Irvington** — the two towns Ted named. That is a coverage gap: sweep them directly.
+2. **Almost no community amenities.** 3 of 23 active houses have any recorded, and the best
+   set is 15 of 20. Nothing on the board is Bay-Creek-grade, which is why Bay Creek houses
+   are now searched despite being outside the drive band.
+3. **MLW depth.** Dock & boating is 10 of 100 since run 12 (down from 22), but depth is
+   still its currency and **one house of 38 states a figure** — 57 Swann Court, at a
+   shallow 3–4 ft. Everything else is listing language: "sailboat depth", "good boating
+   depth", "dock-able". Never convert that language into a number. Sources worth trying:
+   NOAA chart soundings, county GIS, VMRC/JPA dock-permit records, the listing agent.
+   Distinguish a private permitted pier, a shared community dock, "dock-able" and "room for
+   a pier" — four different things, and only the first earns full marks.
 
 ## Network access
 
