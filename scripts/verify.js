@@ -41,7 +41,11 @@ async function open(browser, file, waitFor = '.card') {
   const st = JSON.parse(fs.readFileSync(SRC, 'utf8').match(STATE_RE)[2]);
   const TRACKS = st.tracks || [{ id: 'land', rubric: st.rubric || [], priorityAreas: st.priorityAreas || [] }];
   const track = TRACKS.find(t => t.id === st.activeTrack) || TRACKS[0];
-  const L = st.listings.filter(x => (x.track || 'land') === track.id);   // active track only
+  // Excluded towns are off the search entirely, so they are not part of any baseline.
+  const exOf = t => ((t.criteria || {}).excludedAreas || []).map(s => s.toLowerCase());
+  const isExcl = (t, x) => exOf(t).some(e => ((x.name || '') + ' ' + (x.water || '')).toLowerCase().includes(e));
+  const onTrack = t => st.listings.filter(x => (x.track || 'land') === t.id && !isExcl(t, x));
+  const L = onTrack(track);                                              // active track, exclusions applied
   const N = L.length;
   const nCuts = L.filter(x => x.priceWas).length;
   const dmin = d => { const m = String(d).match(/(\d+)h(\d+)/); return m ? (+m[1]) * 60 + (+m[2]) : 999; };
@@ -136,7 +140,7 @@ async function open(browser, file, waitFor = '.card') {
     check('active track is pressed', await page.locator('#trackSwitch button[aria-pressed="true"]').count(), 1);
     check('criteria chips come from the track', await page.locator('#criteria span').count(), (track.chips || []).length);
     await page.click(`#trackSwitch button[data-track="${other.id}"]`);
-    const otherL = st.listings.filter(x => (x.track || 'land') === other.id);
+    const otherL = onTrack(other);
     check(`switching to "${other.id}" shows its listings`, await page.locator('.card').count(), otherL.length);
     if (!otherL.length) check('empty track shows an empty-state message', await page.locator('.empty').count(), 1);
     check('chips swapped to the new track', await page.locator('#criteria span').count(), (other.chips || []).length);
@@ -146,6 +150,16 @@ async function open(browser, file, waitFor = '.card') {
     await page.click(`#trackSwitch button[data-track="${track.id}"]`);
     await clearBand(page);
     check('switching back restores the original track', await page.locator('.card').count(), N);
+  }
+
+  const nExcl = st.listings.filter(x => (x.track || 'land') === track.id && isExcl(track, x)).length;
+  if (nExcl) {
+    console.log('\n=== excluded towns are off the board ===');
+    check('excluded listings are not rendered', await page.locator('.card').evaluateAll(
+      (ns, ex) => ns.filter(n => ex.some(e => n.textContent.toLowerCase().includes(e))).length,
+      exOf(track)), 0);
+    check('listHead states how many are hidden', (await page.locator('#listHead').textContent()).includes(nExcl + ' hidden in excluded towns'), true);
+    console.log('     ' + nExcl + ' hidden: ' + exOf(track).join(', '));
   }
 
   console.log('\n=== tiles are interactive ===');
