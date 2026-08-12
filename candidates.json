@@ -26,7 +26,9 @@
    "yearBuilt": 1951,
    "dom": 83,
    "note": "Urbanna is golf-cart friendly per the listing copy — the same quality Ted values at Bay Creek, an hour and a half closer.",
-   "priceConflict": "Hardesty/CVR shows $384,900; other sources show $394,900-$410,500. Unresolved."
+   "priceConflict": "Hardesty/CVR shows $384,900; other sources show $394,900-$410,500. Unresolved.",
+   "zillow": "https://www.zillow.com/homedetails/290-Colorado-Ave-Urbanna-VA-23175/117841116_zpid/",
+   "zillowExact": true
   },
   {
    "address": "73 Stoneham Street, Saluda, VA 23149",
@@ -44,7 +46,9 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "zillow": "https://www.zillow.com/homes/73-Stoneham-Street-Saluda-VA-23149_rb/",
+   "zillowExact": false
   },
   {
    "address": "850 Old St. Johns Road, Irvington, VA 22482",
@@ -66,7 +70,9 @@
    "sqft": 1717,
    "yearBuilt": 2024,
    "dom": 66,
-   "note": "Built 2024 — the newest thing found in either favourite town."
+   "note": "Hardesty files this under Irvington but the zip is 22482, which is Kilmarnock — Irvington is 22480. Confirm which town it is actually in; it changes the town score.",
+   "zillow": "https://www.zillow.com/homes/850-Old-St-Johns-Road-Irvington-VA-22482_rb/",
+   "zillowExact": false
   },
   {
    "address": "34 Oakland Street, Kilmarnock, VA 22482",
@@ -84,7 +90,9 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "zillow": "https://www.zillow.com/homes/34-Oakland-Street-Kilmarnock-VA-22482_rb/",
+   "zillowExact": false
   },
   {
    "address": "216 Millstone Way, Warsaw, VA 22572",
@@ -102,7 +110,9 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "zillow": "https://www.zillow.com/homes/216-Millstone-Way-Warsaw-VA-22572_rb/",
+   "zillowExact": false
   },
   {
    "address": "115 E Sunrise Drive, Warsaw, VA 22572",
@@ -123,7 +133,9 @@
    ],
    "sqft": 1589,
    "yearBuilt": 2025,
-   "dom": 68
+   "dom": 68,
+   "zillow": "https://www.zillow.com/homes/115-E-Sunrise-Drive-Warsaw-VA-22572_rb/",
+   "zillowExact": false
   },
   {
    "address": "209 Broadway, Irvington, VA 22480",
@@ -144,7 +156,10 @@
    ],
    "sqft": 1728,
    "yearBuilt": 2005,
-   "dom": 53
+   "dom": 53,
+   "zillow": "https://www.zillow.com/homedetails/209-Broadway-Irvington-VA-22480/233291576_zpid/",
+   "zillowExact": true,
+   "priceConflict": "Hardesty/CVR shows $475,000; Zillow shows $485,000 (MLS #2616692). Unresolved."
   },
   {
    "address": "57 Hobbs Hole Lane, Tappahannock, VA 22560",
@@ -162,7 +177,9 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "zillow": "https://www.zillow.com/homes/57-Hobbs-Hole-Lane-Tappahannock-VA-22560_rb/",
+   "zillowExact": false
   },
   {
    "address": "114 Logan Way, Tappahannock, VA 22560",
@@ -180,7 +197,9 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "zillow": "https://www.zillow.com/homes/114-Logan-Way-Tappahannock-VA-22560_rb/",
+   "zillowExact": false
   },
   {
    "address": "1028 Timberneck Road, Deltaville, VA 23043",
@@ -198,7 +217,9 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "zillow": "https://www.zillow.com/homes/1028-Timberneck-Road-Deltaville-VA-23043_rb/",
+   "zillowExact": false
   },
   {
    "address": "901 Oak Lane, Kilmarnock, VA 22482",
@@ -216,7 +237,9 @@
     "HOA and community amenities",
     "condition beyond year built",
     "routed drive time from Glen Allen"
-   ]
+   ],
+   "zillow": "https://www.zillow.com/homes/901-Oak-Lane-Kilmarnock-VA-22482_rb/",
+   "zillowExact": false
   },
   {
    "address": "844 Monarch Shores Road, Kilmarnock, VA 22482",
@@ -240,7 +263,9 @@
    "yearBuilt": 1975,
    "dom": 210,
    "note": "Only the second house found anywhere on this search with a stated MLW figure. Waterside room with vaulted ceilings and post-and-beam, large deck, screened porch. 210 days on market.",
-   "priceConflict": "Hardesty/CVR shows $615,000; other sources range $600,000-$700,000, and it carries two MLS numbers (2601309 and 118816) — consistent with the long DOM and a relist. Verify before relying on the price."
+   "priceConflict": "Hardesty/CVR shows $615,000; other sources range $600,000-$700,000, and it carries two MLS numbers (2601309 and 118816) — consistent with the long DOM and a relist. Verify before relying on the price.",
+   "zillow": "https://www.zillow.com/homes/844-Monarch-Shores-Road-Kilmarnock-VA-22482_rb/",
+   "zillowExact": false
   }
  ],
  "enriched": "2026-08-11: water status researched for the two headliners only; the other sixteen remain core-facts-only.",
@@ -257,5 +282,6 @@
     "8300 Virginia Avenue, West Point, VA 23181"
    ]
   }
- ]
+ ],
+ "zillowNote": "Exact Zillow property pages are marked zillowExact. The rest use Zillow's address-search URL, which resolves the address rather than linking a known page id — if one misses, the MLS-backed url field is the verified fallback and returns 200."
 }
