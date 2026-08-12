@@ -64,6 +64,14 @@ absent means `land`).
 House listings additionally carry `beds`, `baths`, `sqft`, `yearBuilt` and `dock` (a
 short string, or `true`). `dock` drives a badge, a summary tile and a filter.
 
+**Always give Ted a Zillow link.** Standing request as of run 16: every listing shown to
+him in chat, on a trip card, or anywhere else carries a Zillow URL, alongside the
+MLS-backed `url` that the board verifies against. Zillow's bot wall blocks automated
+fetching, not his browser, so "I can't load it" is not a reason to omit the link. Use the
+exact `…/homedetails/<slug>/<zpid>_zpid/` page when a search turns one up; otherwise fall
+back to `https://www.zillow.com/homes/<Address-Town-VA-Zip>_rb/`, which resolves an
+address without needing a page id. Listings carry `zillow` and `zillowExact`.
+
 `driveSource` records how a drive time was obtained. Run 11 routed eleven addresses door
 to door and found the estimates wrong in both directions by up to half an hour, which
 matters now that a drive band filters the board. **Route new drive times; do not eyeball
