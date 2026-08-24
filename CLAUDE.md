@@ -3,9 +3,10 @@
 A single-file dashboard running **two parallel searches** for Ted, published at
 https://thgold-collab.github.io/waterfront-tracker/
 
-- **Houses** *(the live search)* — 3+ bed / 2+ bath, $350k–$700k, **60–90 minutes** from
-  Glen Allen and centred on Tappahannock, **plus Bay Creek at Cape Charles** regardless of
-  drive. Amenities and town life score as highly as water.
+- **Houses** *(the live search)* — 3+ bed / 2+ bath, $350k–$1M (raised from $700k after
+  run 16), **under 2 hours** from Glen Allen, up and down the Rappahannock and around the
+  Potomac, **plus Bay Creek at Cape Charles** regardless of drive. Amenities and town life
+  score as highly as water.
 
   **Two towns are excluded outright. Do not re-add them, and do not surface listings in
   them.** Both are in `criteria.excludedAreas` with reasons:
@@ -25,9 +26,10 @@ https://thgold-collab.github.io/waterfront-tracker/
 The two are independent: separate criteria, rubric, filters, sorts and preferred areas.
 A track switcher above the tiles picks one.
 
-**The brief moves.** It has changed materially at runs 5, 7, 8, 11 and 12. Read the state
-block for what is true now; treat this file's history sections as the reasoning behind
-past decisions, not as current instructions.
+**The brief moves.** It has changed materially at runs 5, 7, 8, 11, 12 and 15, and again
+after run 16 when Ted raised the Houses ceiling to $1M. Read the state block for what is
+true now; treat this file's history sections as the reasoning behind past decisions, not
+as current instructions.
 
 Updated weekly by the `Waterfront deal scan` routine (Fridays ~7am ET), which commits
 straight to `main`. Both tracks are refreshed in the same run.
