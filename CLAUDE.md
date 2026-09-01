@@ -8,6 +8,15 @@ https://thgold-collab.github.io/waterfront-tracker/
   Potomac, **plus Bay Creek at Cape Charles** regardless of drive. Amenities and town life
   score as highly as water.
 
+  **Water is required, except at Bay Creek.** Ted clarified this at run 17: everywhere
+  else on this search, a house needs real water frontage or access — "preferred" was too
+  soft a word for what he actually wants. At Bay Creek specifically, no water frontage is
+  needed at all; the private beach, golf-cart-community amenities and the resort setting
+  carry it on their own. This is the `setting` rubric category's compensatory design
+  working as intended (whichever axis is stronger), not a loophole — but it means a
+  non-Bay-Creek house with no water is a much harder pass than the old "preferred not
+  required" language implied.
+
   **Two towns are excluded outright. Do not re-add them, and do not surface listings in
   them.** Both are in `criteria.excludedAreas` with reasons:
   - **Reedville** — nothing to do there. Ted drove it and said so.
