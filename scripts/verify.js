@@ -292,7 +292,11 @@ async function open(browser, file, waitFor = '.card') {
   if (amList.length && (track.sorts || []).some(s => s.v === 'amenities')) {
     console.log('\n=== sort: most amenities first ===');
     await page.selectOption('#sortSel', 'amenities');
-    const best = amList.reduce((a, b) => b.amenities.length > a.amenities.length ? b : a);
+    // matches the app's own tie-break (index.html: amenity count desc, then score desc)
+    const best = amList.reduce((a, b) => {
+      const d = b.amenities.length - a.amenities.length;
+      return (d > 0 || (d === 0 && b.score > a.score)) ? b : a;
+    });
     check('first card is the most-amenitied listing', await page.locator('.card').first().getAttribute('data-id'), best.id);
     await page.selectOption('#sortSel', 'score');
   }
